@@ -8,4 +8,39 @@ public class User {
     private long creation;
     private List<String> to_follow;
 
+
+    public User(String username, long creation) {
+        this.username = username;
+        this.creation = creation;
+    }
+
+    public User(String username, long creation, List<String> to_follow) {
+        this.username = username;
+        this.creation = creation;
+        this.to_follow = to_follow;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public long getCreation() {
+        return creation;
+    }
+
+    public void setCreation(long creation) {
+        this.creation = creation;
+    }
+
+    public List<String> getTo_follow() {
+        return to_follow;
+    }
+
+    public void setTo_follow(List<String> to_follow) {
+        this.to_follow = to_follow;
+    }
 }

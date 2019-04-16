@@ -13,4 +13,5 @@ public class Post {
     private List<Double> location;
     private List<String> hashtags;
 
+
 }
