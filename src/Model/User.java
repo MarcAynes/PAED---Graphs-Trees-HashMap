@@ -1,7 +1,5 @@
 package Model;
 
-import com.sun.org.apache.xerces.internal.impl.dtd.models.DFAContentModel;
-
 import java.util.List;
 
 public class User {
