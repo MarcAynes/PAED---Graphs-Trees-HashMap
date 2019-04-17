@@ -30,7 +30,7 @@ public class Node {
 
     public void add(Node node){
 
-        if (node.getNumero() < numero) { //ex: numero actual 5 numero a inserir el 7
+        if (node.getNumero() > numero) { //ex: numero actual 5 numero a inserir el 7
                                         // 7 al fill dret
             if (filldret != null) {
 
