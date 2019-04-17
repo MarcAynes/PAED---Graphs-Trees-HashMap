@@ -1,12 +1,160 @@
 package RTree;
 
+import Model.Post;
+
 public class RTree {
     private int min;
     private int max;
-    private byte tipo; //Para saber si en el principio hay puntos o rectangulos
+    private byte tipo; //Para saber si en el principio hay puntos o rectangulos (0 rectangulo i 1 punto)
     private int altura;
     private Object [] raiz;
-    private int cantidad;
+    private int cantidad; //Cantidad en la raiz
+    private int cantidadTotal;
+
+    public void RTree (int min, int max) {
+        tipo = 1;
+        this.min = min;
+        this.max = max;
+        cantidad = 0;
+        altura = 0;
+        raiz = new Object[max];
+    }
+
+    public void insertarElemento (Post postAInsertar) {
+        if (tipo == 1) {
+            if (cantidad == max) {
+                splitPost (postAInsertar);
+            }
+            else {
+                raiz[cantidad] = postAInsertar;
+                cantidad++;
+            }
+        }
+        else {
+
+
+        }
+    }
+
+    public void splitPost (Post postAInsertar) {
+        Post [] auxiliar = new Post[max+1];
+        for (int i = 0; i < max; i++) {
+            auxiliar[i] = (Post) raiz[i];
+        }
+        auxiliar[max] = postAInsertar;
+
+        //Ahora hacemos el split, una vez hecho esto
+        int aux_1 = -1;
+        int aux_2 = -1;
+        double distanciaMax = -1;
+        double posibleDistMax = 0;
+        for (int j = 0; j <= max;j++) {
+            for (int w = j; w <= max; w++) {
+                posibleDistMax = calculoHaversine(auxiliar[j].getLocation()[1],auxiliar[j].getLocation()[0],auxiliar[w].getLocation()[1],auxiliar[w].getLocation()[0]);
+                if (posibleDistMax > distanciaMax) {
+                    aux_1 = j;
+                    aux_2 = w;
+                    distanciaMax = posibleDistMax;
+                }
+            }
+        }
+        tipo = 0;
+        raiz = new Object[max];
+        Rectangulo rectangulo_1 = new Rectangulo(max);
+        Rectangulo rectangulo_2 = new Rectangulo(max);
+
+        rectangulo_1.insertarPost(auxiliar[aux_1]);
+        rectangulo_2.insertarPost(auxiliar[aux_2]);
+
+
+        double calcularAux;
+        double calcularAux2;
+
+        /*Para los lectores retrasados del futuro:
+            Paso 1: Insertar segun incremento de area (basicamente lo que se hace es comparar cual de las dos areas incrementa menos
+                ,donde se incremente menos ahi irá el post). (*)
+            Paso 2: Si los dos incrementos de las areas son iguales, se mira cuál de las dos areas es menor en este momento y una vez hecho
+                esto, se inserta donde sea menor.(*)
+            Paso 3: En caso de que las dos areas sean iguales, se pasará a mirar la cantidad, donde haya menos post alli se insertará el
+                post.(*)
+
+            * Cabe destacar que en caso que donde se ponga en un rectangulo que ya esta lleno, se intentará la inserción en el otro.
+        */
+
+        for (int i = 0; i < auxiliar.length; i++) {
+            //Comprobamos que no sea ninguno de los dos polos introducidos ya
+            if ((auxiliar[i] != auxiliar[aux_1])  && (auxiliar[i] != auxiliar[aux_2])) {
+                calcularAux = rectangulo_1.calcularIncremento(auxiliar[i]);
+                calcularAux2 = rectangulo_2.calcularIncremento(auxiliar[i]);
+                //Paso 1
+                if ( calcularAux < calcularAux2) {
+                    boolean resultado = rectangulo_1.insertarPost(auxiliar[i]);
+                    if (!resultado) {
+                        rectangulo_2.insertarPost(auxiliar[i]);
+                    }
+                }
+                else if (calcularAux > calcularAux2) {
+                    boolean resultado = rectangulo_2.insertarPost(auxiliar[i]);
+                    if (!resultado) {
+                        rectangulo_1.insertarPost(auxiliar[i]);
+                    }
+                }
+                else {
+                    calcularAux = rectangulo_1.calculoAreaActual();
+                    calcularAux2 = rectangulo_2.calculoAreaActual();
+                    //Paso 2
+                    if ( calcularAux < calcularAux2) {
+                        boolean resultado = rectangulo_1.insertarPost(auxiliar[i]);
+                        if (!resultado) {
+                            rectangulo_2.insertarPost(auxiliar[i]);
+                        }
+                    }
+                    else if (calcularAux > calcularAux2) {
+                        boolean resultado = rectangulo_2.insertarPost(auxiliar[i]);
+                        if (!resultado) {
+                            rectangulo_1.insertarPost(auxiliar[i]);
+                        }
+                    }
+                    else {
+                        //Paso 3
+                        if (rectangulo_1.devolverCantidad() < rectangulo_2.devolverCantidad()) {
+                            boolean resultado = rectangulo_1.insertarPost(auxiliar[i]);
+                            if (!resultado) {
+                                rectangulo_2.insertarPost(auxiliar[i]);
+                            }
+                        }
+                        else {
+                            boolean resultado = rectangulo_2.insertarPost(auxiliar[i]);
+                            if (!resultado) {
+                                rectangulo_1.insertarPost(auxiliar[i]);
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+
+        raiz [0] = rectangulo_1;
+        raiz[1] = rectangulo_2;
+
+    }
+
+    public double calculoHaversine (double longitudRef, double latitudRef, double longitud_2, double latitud_2) {
+        double dlatitud = latitudRef-latitud_2;
+        double dlongitud = longitudRef-longitud_2;
+        return ((2 * 6371* Math.asin(Math.sqrt(Math.pow(Math.sin(Math.toRadians(dlatitud/2)),(double)2)+Math.cos(Math.toRadians(latitud_2))*Math.cos(Math.toRadians(latitudRef))*Math.pow(Math.sin(Math.toRadians(dlongitud/2)),2)))));
+    }
+
+
+
+
+
+
+
+
 }
+
 
 
