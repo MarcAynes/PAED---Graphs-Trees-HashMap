@@ -1,7 +1,6 @@
 package Model;
 
 import Graph.PosicionUser;
-import javafx.geometry.Pos;
 
 public class DynamicArrayUser {
     private PosicionUser[] valores;

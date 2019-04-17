@@ -4,6 +4,7 @@ public class Node {
 
     //altura d'aquest node sent 0 el node root i altura + 1 conforme anem baixant per cada fill
     private int altura;
+    private int profunditat;
     
     private int balanceFactor;
 
@@ -19,12 +20,10 @@ public class Node {
     private Node fillEsquerra;
 
     public Node(int numero){
-
         this.numero = numero;
     }
 
     public int getNumero(){
-
         return this.numero;
     }
 
@@ -38,7 +37,7 @@ public class Node {
             }else{
                 filldret = node;
                 filldret.setPare(this);
-                filldret.setAltura(this.altura+1);
+                filldret.setProfunditat(this.profunditat+1);
             }
         }else {
 
@@ -48,54 +47,84 @@ public class Node {
 
                 fillEsquerra = node;
                 fillEsquerra.setPare(this);
-                fillEsquerra.setAltura(this.altura+1);
+                fillEsquerra.setProfunditat(this.profunditat+1);
             }
         }
+
+        definirAltura();
     }
 
-    public void setAltura(int altura){
+    public void setProfunditat(int profunditat){
 
-        this.altura = altura;
+        this.profunditat = profunditat;
     }
 
     public void setPare(Node node){
-
         this.pare = node;
     }
 
-
-    /*
-        tipus = 1: PreOrdre
+    /*  tipus = 1: PreOrdre
                 2: InOrdre
                 3: PostOrdre
-
      */
     public void visualitza(int tipus){
-
         if  (tipus == 1){
-            System.out.println(numero);
+            printNode();
         }
 
         if (fillEsquerra != null){
-
             fillEsquerra.visualitza(tipus);
         }
 
-        if (tipus == 2){
-            System.out.println(numero);
+        if (tipus == 2) {
+            printNode();
         }
 
         if (filldret != null){
-
             filldret.visualitza(tipus);
         }
 
         if (tipus == 3){
+            printNode();
+        }
+    }
 
-            System.out.println(numero);
+    public void printNode() {
+        for (int i = 0; i < altura; i++){
+            System.out.print("--");
+        }
+        System.out.print(">");
+
+        if (pare == null) {
+            System.out.println("Root Node: " + numero + ", Altura: " + altura);
+        } else if (pare.numero < numero) {
+            System.out.println("Right Node: " + numero + ", Altura: " + altura);
+        } else if (pare.numero > numero){
+            System.out.println("Left Node: " + numero + ", Altura: " + altura);
+        }
+    }
+
+    //Mitjançant un PostOrder redefinim l'alçada de tots els nodes
+    public void definirAltura() {
+        if (fillEsquerra != null){
+            fillEsquerra.definirAltura();
+        }
+        if (filldret != null){
+            filldret.definirAltura();
+        }
+
+        if (filldret == null && fillEsquerra == null) {
+            altura = 0;
+        } else if (filldret == null) {
+            altura = fillEsquerra.altura + 1;
+        } else if (fillEsquerra == null) {
+            altura = filldret.altura + 1;
+        } else if (fillEsquerra.altura > filldret.altura) {
+            altura = fillEsquerra.altura + 1;
+        } else {
+            altura = filldret.altura + 1;
         }
 
     }
-
 
 }
