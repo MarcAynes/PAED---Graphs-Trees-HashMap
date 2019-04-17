@@ -81,11 +81,29 @@ public class Rectangulo {
     }
 
 
-    public void bajarArbol (int altura, Post postAInsertar) {
+    public void bajarArbol (int altura, Post postAInsertar, Object objectPadre) {
         //Aqui lo unico que hacemos es mirar si hemos llegado al final o no, si hemos llegado al final, significa
         //Que ya podemos insertar post, en caso contrario significara que tenemos que seguir escogiendo rectangulos
         if (altura  == 0) {
-            hijo.insertarPost(postAInsertar);
+            Rectangulo [] rectangulos = hijo.insertarPost(postAInsertar);
+            //Si hay split de puntos que genera rectangulos, entonces se devolveran los dois nuevos rectangulos(si no null)
+            if (rectangulos != null ) {
+                if (objectPadre instanceof Nodo) {
+                    if (((Nodo)objectPadre).getCantidad() == ((Nodo)objectPadre).getValores().length) {
+                        //TODO: INSERCION CHUNGA, PELIGRO NO APTO PARA CARDIACOS
+                    } else {
+                        ((Nodo)objectPadre).agregarRectangulos(rectangulos,this);
+                    }
+                }
+                else {
+                    if (((RTree)objectPadre).getCantidad() == ((RTree)objectPadre).getMax()) {
+                        //TODO: Insercion chunga, no apta para multimedias
+                    }
+                    else {
+                        ((RTree)objectPadre).agregarRectangulos(rectangulos,this);
+                    }
+                }
+            }
         }
         else {
             hijo.busquedaSiguienteRectangulo(altura,postAInsertar);
