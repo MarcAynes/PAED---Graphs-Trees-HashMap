@@ -1,6 +1,7 @@
 package RTree;
 
 import Model.Post;
+import Utiles.Haversine;
 
 public class RTree {
     private int min;
@@ -58,7 +59,7 @@ public class RTree {
                     //Es raro que tengan la misma area, asi que si tienen la misma aleatorio y ya
                 }
             }
-            //TODO: PASAR A TRATAR LA BAJADA POR EL ARBOL
+            ((Rectangulo)raiz[indice]).bajarArbol(altura-1,postAInsertar,this);
         }
         cantidadTotal++;
     }
@@ -78,7 +79,7 @@ public class RTree {
         //Se buscan los posts mas distantes
         for (int j = 0; j <= max;j++) {
             for (int w = j; w <= max; w++) {
-                posibleDistMax = calculoHaversine(auxiliar[j].getLocation()[1],auxiliar[j].getLocation()[0],auxiliar[w].getLocation()[1],auxiliar[w].getLocation()[0]);
+                posibleDistMax = Haversine.calculoHaversine(auxiliar[j].getLocation()[1],auxiliar[j].getLocation()[0],auxiliar[w].getLocation()[1],auxiliar[w].getLocation()[0]);
                 if (posibleDistMax > distanciaMax) {
                     aux_1 = j;
                     aux_2 = w;
@@ -162,27 +163,81 @@ public class RTree {
                 }
             }
         }
-
-
         raiz [0] = rectangulo_1;
         raiz[1] = rectangulo_2;
 
     }
 
-    //Calculo de distancias
-    public double calculoHaversine (double longitudRef, double latitudRef, double longitud_2, double latitud_2) {
-        double dlatitud = latitudRef-latitud_2;
-        double dlongitud = longitudRef-longitud_2;
-        return ((2 * 6371* Math.asin(Math.sqrt(Math.pow(Math.sin(Math.toRadians(dlatitud/2)),(double)2)+Math.cos(Math.toRadians(latitud_2))*Math.cos(Math.toRadians(latitudRef))*Math.pow(Math.sin(Math.toRadians(dlongitud/2)),2)))));
+    public void agregarRectangulos (Rectangulo [] rectangulos,Rectangulo rectanguloAEliminar) {
+        int j;
+        for (j = 0; j < max; j++) {
+            if (raiz[j] ==  rectanguloAEliminar) {
+                raiz[j] = null;
+                break;
+            }
+        }
+        raiz[j] = rectangulos[0];
+        raiz[cantidad] = rectangulos[1];
+        cantidad++;
     }
 
 
 
+    public int getCantidad() {
+        return cantidad;
+    }
 
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
 
+    public int getMin() {
+        return min;
+    }
 
+    public void setMin(int min) {
+        this.min = min;
+    }
 
+    public int getMax() {
+        return max;
+    }
 
+    public void setMax(int max) {
+        this.max = max;
+    }
+
+    public byte getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(byte tipo) {
+        this.tipo = tipo;
+    }
+
+    public int getAltura() {
+        return altura;
+    }
+
+    public void setAltura(int altura) {
+        this.altura = altura;
+    }
+
+    public Object[] getRaiz() {
+        return raiz;
+    }
+
+    public void setRaiz(Object[] raiz) {
+        this.raiz = raiz;
+    }
+
+    public int getCantidadTotal() {
+        return cantidadTotal;
+    }
+
+    public void setCantidadTotal(int cantidadTotal) {
+        this.cantidadTotal = cantidadTotal;
+    }
 }
 
 
