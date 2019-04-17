@@ -24,6 +24,8 @@ public class RTree {
         if (tipo == 1) {
             if (cantidad == max) {
                 splitPost (postAInsertar);
+                altura++;
+                cantidad = 2; //SIEMPRE!!!!!! (Se quedan dos rectangulos siempre)
             }
             else {
                 raiz[cantidad] = postAInsertar;
@@ -31,9 +33,34 @@ public class RTree {
             }
         }
         else {
-
-
+            double incrementoMinimo = Double.MAX_VALUE;
+            double areaMinima = Double.MAX_VALUE;
+            double areaCalculada = 0;
+            double incrementoCalculado = 0;
+            int indice =0;
+            for (int y = 0; y < cantidad;y++){
+                incrementoCalculado = ((Rectangulo) raiz[y]).calcularIncremento(postAInsertar);
+                if (incrementoCalculado == 0) {
+                    indice = y;
+                    break;
+                }
+                if (incrementoCalculado < incrementoMinimo ) {
+                    indice = y;
+                    incrementoMinimo = incrementoCalculado;
+                    areaMinima = ((Rectangulo) raiz[y]).calculoAreaActual();
+                }
+                else if (incrementoCalculado == incrementoMinimo) {
+                    areaCalculada = ((Rectangulo) raiz[y]).calculoAreaActual();
+                    if (areaCalculada < areaMinima) {
+                        indice = y;
+                        areaMinima = areaCalculada;
+                    }
+                    //Es raro que tengan la misma area, asi que si tienen la misma aleatorio y ya
+                }
+            }
+            //TODO: PASAR A TRATAR LA BAJADA POR EL ARBOL
         }
+        cantidadTotal++;
     }
 
     public void splitPost (Post postAInsertar) {
@@ -48,6 +75,7 @@ public class RTree {
         int aux_2 = -1;
         double distanciaMax = -1;
         double posibleDistMax = 0;
+        //Se buscan los posts mas distantes
         for (int j = 0; j <= max;j++) {
             for (int w = j; w <= max; w++) {
                 posibleDistMax = calculoHaversine(auxiliar[j].getLocation()[1],auxiliar[j].getLocation()[0],auxiliar[w].getLocation()[1],auxiliar[w].getLocation()[0]);
@@ -141,6 +169,7 @@ public class RTree {
 
     }
 
+    //Calculo de distancias
     public double calculoHaversine (double longitudRef, double latitudRef, double longitud_2, double latitud_2) {
         double dlatitud = latitudRef-latitud_2;
         double dlongitud = longitudRef-longitud_2;

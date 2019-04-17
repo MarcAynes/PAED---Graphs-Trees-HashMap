@@ -14,17 +14,42 @@ public class Nodo {
     }
 
     public void insertarPost (Post postAInsertar) {
-        if (tipo == 1) {
             if (cantidad == valores.length) {
 
             } else {
                 valores[cantidad] = postAInsertar;
                 cantidad++;
             }
-        }
-        else {
+    }
 
+
+    public void busquedaSiguienteRectangulo (int altura, Post postAInsertar) {
+        double incrementoMinimo = Double.MAX_VALUE;
+        double areaMinima = Double.MAX_VALUE;
+        double areaCalculada = 0;
+        double incrementoCalculado = 0;
+        int indice =0;
+        for (int y = 0; y < cantidad;y++){
+            incrementoCalculado = ((Rectangulo) valores[y]).calcularIncremento(postAInsertar);
+            if (incrementoCalculado == 0) {
+                indice = y;
+                break;
+            }
+            if (incrementoCalculado < incrementoMinimo ) {
+                indice = y;
+                incrementoMinimo = incrementoCalculado;
+                areaMinima = ((Rectangulo) valores[y]).calculoAreaActual();
+            }
+            else if (incrementoCalculado == incrementoMinimo) {
+                areaCalculada = ((Rectangulo) valores[y]).calculoAreaActual();
+                if (areaCalculada < areaMinima) {
+                    indice = y;
+                    areaMinima = areaCalculada;
+                }
+                //Es raro que tengan la misma area, asi que si tienen la misma aleatorio y ya
+            }
         }
+        ((Rectangulo) valores[indice]).bajarArbol(altura-1,postAInsertar);
     }
 
 
