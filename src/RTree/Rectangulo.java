@@ -79,4 +79,17 @@ public class Rectangulo {
     public int devolverCantidad () {
         return hijo.getCantidad();
     }
+
+
+    public void bajarArbol (int altura, Post postAInsertar) {
+        //Aqui lo unico que hacemos es mirar si hemos llegado al final o no, si hemos llegado al final, significa
+        //Que ya podemos insertar post, en caso contrario significara que tenemos que seguir escogiendo rectangulos
+        if (altura  == 0) {
+            hijo.insertarPost(postAInsertar);
+        }
+        else {
+            hijo.busquedaSiguienteRectangulo(altura,postAInsertar);
+        }
+    }
+
 }
