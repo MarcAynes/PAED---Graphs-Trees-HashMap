@@ -15,6 +15,15 @@ public class DynamicMatrix {
         matriz = new byte [8][1];
     }
 
+    public DynamicMatrix (int n_usuarios) {
+        int multiplicador = 1;
+        int i = 1;
+        while (multiplicador <= n_usuarios) {
+            multiplicador =  i* 8;
+            i++;
+        }
+        matriz = new byte [multiplicador] [i-1];
+    }
 
     public void insertarVinculacion (int posicion, int [] personasSeguidas) {
         if (cantidad == matriz.length) {
@@ -36,6 +45,13 @@ public class DynamicMatrix {
             matrizNueva [y] = matriz [y];
         }
         matriz = matrizNueva;
+    }
+
+    public void eliminarVinculacion (int indice) {
+        matriz[indice] = null;
+        for(int i= 0; i < matriz.length; i++) {
+            matriz[i][indice/8] = (byte) (matriz[i][indice/8] & ~(1 << (indice%8)));
+        }
     }
 
 

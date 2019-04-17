@@ -12,6 +12,12 @@ public class DynamicArrayUser {
         cantidad = 0;
     }
 
+    public void insertarUsuariosJSON (User [] arrayJSONUsers) {
+        for (int pepe = 0; pepe < arrayJSONUsers.length; pepe++) {
+            insertarElemento(arrayJSONUsers[pepe]);
+        }
+    }
+
 
     public int insertarElemento (User elementoAInsertar) {
         if (cantidad == valores.length) {
@@ -40,15 +46,15 @@ public class DynamicArrayUser {
         valores = valoresNew;
     }
 
-    public boolean eliminarElemento (String usernameAEliminar) {
+    public int eliminarElemento (String usernameAEliminar) {
         for (int j = 0; j < valores.length;j++) {
             if (valores[j] != null && valores[j].getUsuario().getUsername().equals(usernameAEliminar)) {
                 valores[j] = null;
                 cantidad--;
-                return true;
+                return j;
             }
         }
-        return false; //Usuario no encontrado!
+        return -1; //Usuario no encontrado!
     }
 
     public int [] buscarIndiceUsuariosSeguidos (String [] usernameABuscar) {

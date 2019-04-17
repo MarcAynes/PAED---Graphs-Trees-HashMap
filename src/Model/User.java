@@ -6,7 +6,7 @@ public class User {
     //Atributs de la classe User
     private String username;
     private long creation;
-    private List<String> to_follow;
+    private String [] to_follow;
 
 
     public User(String username, long creation) {
@@ -14,7 +14,7 @@ public class User {
         this.creation = creation;
     }
 
-    public User(String username, long creation, List<String> to_follow) {
+    public User(String username, long creation, String [] to_follow) {
         this.username = username;
         this.creation = creation;
         this.to_follow = to_follow;
@@ -36,11 +36,11 @@ public class User {
         this.creation = creation;
     }
 
-    public List<String> getTo_follow() {
+    public String[] getTo_follow() {
         return to_follow;
     }
 
-    public void setTo_follow(List<String> to_follow) {
+    public void setTo_follow(String[] to_follow) {
         this.to_follow = to_follow;
     }
 }
