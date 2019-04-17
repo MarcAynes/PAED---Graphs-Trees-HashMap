@@ -30,8 +30,8 @@ public class Node {
 
     public void add(Node node){
 
-        if (node.getNumero() < numero) {
-
+        if (node.getNumero() > numero) { //ex: numero actual 5 numero a inserir el 7
+                                        // 7 al fill dret
             if (filldret != null) {
 
                 filldret.add(node);
@@ -61,6 +61,40 @@ public class Node {
     public void setPare(Node node){
 
         this.pare = node;
+    }
+
+
+    /*
+        tipus = 1: PreOrdre
+                2: InOrdre
+                3: PostOrdre
+
+     */
+    public void visualitza(int tipus){
+
+        if  (tipus == 1){
+            System.out.println(numero);
+        }
+
+        if (fillEsquerra != null){
+
+            fillEsquerra.visualitza(tipus);
+        }
+
+        if (tipus == 2){
+            System.out.println(numero);
+        }
+
+        if (filldret != null){
+
+            filldret.visualitza(tipus);
+        }
+
+        if (tipus == 3){
+
+            System.out.println(numero);
+        }
+
     }
 
 

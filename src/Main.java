@@ -12,7 +12,7 @@ public class Main {
             Node aux = new Node(rn.nextInt(100));
             arbre.add(aux);
         }
-        System.out.println("aiudame");
+        arbre.visualitza(2);
 
     }
 }
