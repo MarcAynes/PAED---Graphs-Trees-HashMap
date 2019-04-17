@@ -26,5 +26,17 @@ public class ArbreAVL {
         }
     }
 
+    /*
+        tipus = 1: PreOrdre
+                2: InOrdre
+                3: PostOrdre
+
+     */
+
+    public void visualitza(int tipus){
+
+        root.visualitza(tipus);
+    }
+
 
 }
