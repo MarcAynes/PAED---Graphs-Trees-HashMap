@@ -87,7 +87,7 @@ public class Node {
 
         if (filldret != null){
 
-            filldret.visualitza(numero);
+            filldret.visualitza(tipus);
         }
 
         if (tipus == 3){
