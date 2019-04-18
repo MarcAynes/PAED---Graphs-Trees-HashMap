@@ -140,6 +140,10 @@ public class Node {
                         pare.definirAltura();
                     }
 
+                }else{
+                    //left right rotaion
+
+                    
                 }
 
             }
