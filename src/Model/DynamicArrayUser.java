@@ -17,7 +17,6 @@ public class DynamicArrayUser {
         }
     }
 
-
     public int insertarElemento (User elementoAInsertar) {
         if (cantidad == valores.length) {
             ampliarArray ();

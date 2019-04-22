@@ -15,7 +15,6 @@ public class ArbreAVL {
     }
 
     public void add(Node node){
-
         if (root.getNumero() != -1) {
             root.add(node, this);
         }else{
@@ -32,12 +31,10 @@ public class ArbreAVL {
      */
 
     public void visualitza(int tipus){
-
         root.visualitza(tipus);
     }
 
     public void setRoot(Node a){
-
         root = a;
     }
 
