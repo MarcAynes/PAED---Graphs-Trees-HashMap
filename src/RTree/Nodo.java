@@ -14,6 +14,12 @@ public class Nodo {
         tipo = 1;
     }
 
+    public Nodo(int max, byte tipo){
+        cantidad = 0;
+        valores = new Object [max];
+        this.tipo = tipo;
+    }
+
     public Rectangulo [] insertarPost (Post postAInsertar) {
             if (cantidad == valores.length) {
                 Rectangulo [] rectangulos = splitPost(postAInsertar);
@@ -173,6 +179,53 @@ public class Nodo {
         cantidad++;
     }
 
+    public void agregarRectanguloIndividual(Rectangulo rectangulo) {
+        //TODO: ¿Hay control cuando la cantidad es igual a lenght o no?
+        if (rectangulo != null) {
+            valores[cantidad] = rectangulo;
+            cantidad++;
+        }
+    }
+
+
+    public double calcularAreaRectangulos () {
+        if (tipo == 0) {
+            double area = 0;
+            double auxiliar = 0;
+            Rectangulo r = new Rectangulo(0);
+            r.setLongMin(Double.MAX_VALUE);
+            r.setLongMax(0);
+            r.setLatMin(Double.MAX_VALUE);
+            r.setLatMax(0);
+            for (int i = 0; i < cantidad;i++) {
+                auxiliar = ((Rectangulo)valores[i]).getLongMin();
+                if (auxiliar < r.getLongMin()) {
+                    r.setLongMin(auxiliar);
+                }
+                auxiliar = ((Rectangulo)valores[i]).getLongMax();
+                if (auxiliar > r.getLongMax()) {
+                    r.setLongMax(auxiliar);
+                }
+                auxiliar = ((Rectangulo)valores[i]).getLatMin();
+                if (auxiliar < r.getLatMin()) {
+                    r.setLatMin(auxiliar);
+                }
+                auxiliar = ((Rectangulo)valores[i]).getLatMax();
+                if (auxiliar > r.getLatMax()) {
+                    r.setLatMax(auxiliar);
+                }
+            }
+            return r.calculoAreaActual();
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public void eliminarUltimoValor () {
+        valores[cantidad-1] = null;
+        cantidad--;
+    }
 
     public void setTipo(byte tipo) {
         this.tipo = tipo;

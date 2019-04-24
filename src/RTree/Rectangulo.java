@@ -81,7 +81,7 @@ public class Rectangulo {
     }
 
 
-    public void bajarArbol (int altura, Post postAInsertar, Object objectPadre) {
+    public Rectangulo [] bajarArbol (int altura, Post postAInsertar, Object objectPadre) {
         //Aqui lo unico que hacemos es mirar si hemos llegado al final o no, si hemos llegado al final, significa
         //Que ya podemos insertar post, en caso contrario significara que tenemos que seguir escogiendo rectangulos
         if (altura  == 0) {
@@ -90,24 +90,66 @@ public class Rectangulo {
             if (rectangulos != null ) {
                 if (objectPadre instanceof Nodo) {
                     if (((Nodo)objectPadre).getCantidad() == ((Nodo)objectPadre).getValores().length) {
-                        //TODO: INSERCION CHUNGA, PELIGRO NO APTO PARA CARDIACOS
+                        return rectangulos;
                     } else {
                         ((Nodo)objectPadre).agregarRectangulos(rectangulos,this);
+                        return null;
                     }
                 }
                 else {
                     if (((RTree)objectPadre).getCantidad() == ((RTree)objectPadre).getMax()) {
-                        //TODO: Insercion chunga, no apta para multimedias
+                        return rectangulos;
                     }
                     else {
                         ((RTree)objectPadre).agregarRectangulos(rectangulos,this);
+                        return null;
                     }
                 }
             }
+            return null;
         }
         else {
             hijo.busquedaSiguienteRectangulo(altura,postAInsertar);
+            return null;
         }
     }
 
+    public double getLatMax() {
+        return latMax;
+    }
+
+    public void setLatMax(double latMax) {
+        this.latMax = latMax;
+    }
+
+    public double getLatMin() {
+        return latMin;
+    }
+
+    public void setLatMin(double latMin) {
+        this.latMin = latMin;
+    }
+
+    public double getLongMax() {
+        return longMax;
+    }
+
+    public void setLongMax(double longMax) {
+        this.longMax = longMax;
+    }
+
+    public double getLongMin() {
+        return longMin;
+    }
+
+    public void setLongMin(double longMin) {
+        this.longMin = longMin;
+    }
+
+    public void setAll (Rectangulo rectanguloACopiar) {
+        this.longMin = rectanguloACopiar.getLongMin();
+        this.longMax = rectanguloACopiar.getLongMax();
+        this.latMin = rectanguloACopiar.getLatMin();
+        this.latMax = rectanguloACopiar.getLatMax();
+    }
 }

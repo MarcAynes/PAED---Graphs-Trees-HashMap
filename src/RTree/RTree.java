@@ -59,7 +59,87 @@ public class RTree {
                     //Es raro que tengan la misma area, asi que si tienen la misma aleatorio y ya
                 }
             }
-            ((Rectangulo)raiz[indice]).bajarArbol(altura-1,postAInsertar,this);
+            Rectangulo [] rectangulos = ((Rectangulo)raiz[indice]).bajarArbol(altura-1,postAInsertar,this);
+            if (rectangulos != null) {
+                //Creamos los dos rectangulos que in crementaran la altura del arbol
+                Nodo hijoIzquierdo = new Nodo(max,(byte) 0);
+                Nodo hijoDerecho = new Nodo(max,(byte) 0);
+                Rectangulo [] unionRectangulosASplitear = new Rectangulo[max+1];
+                /* Para la gente con perdida de orina:
+                    Lo que hacemos aqui es coger los rectangulos nuevos que han nacido del split y añadirlos a un array auxiliar
+                    Cabe destacar que el rectangulo origen del split se elimina (basicamente no se añade)
+                 */
+                for (int y = 0; y < raiz.length; y++) {
+                    if (y != indice) {
+                        unionRectangulosASplitear[y] = (Rectangulo) raiz[y];
+                    }
+                }
+                //Rectangulos nacidos del split
+                unionRectangulosASplitear[max - 1] = rectangulos [0];
+                unionRectangulosASplitear[max] = rectangulos[1];
+
+
+                Rectangulo rectanguloAuxiliar = new Rectangulo(0);
+                double areaAux;
+                double areaMaxActual = -69;
+                int indice1 = 0;
+                int indice2 = 0;
+                /*
+                    Aqui simplemente lo que hacemos es buscar los dos rectangulos de area maxima para separarlos
+                 */
+                for (int p=0; p < (max + 1) ;p++) {
+                    for(int w = p+1; w < (max+1);w++) {
+                        areaAux = calculoAumentoArea(unionRectangulosASplitear[p], unionRectangulosASplitear[w]);
+                        if (areaMaxActual < areaAux) {
+                            indice1 = p;
+                            indice2 = w;
+                        }
+                    }
+                }
+
+                //Creamos la base del split
+                hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[indice1]);
+                hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[indice2]);
+                double areaAux2;
+
+
+                /*
+                 * Para saber donde poner cada rectangulo donde le pertenece, haremos varias cosas:
+                 *  1) Calcularemos el incremento
+                 *  2) En caso que los incrementos de area sean iguales nos cogeremos el area anterior que sea mejor
+                 *  3) Se añade el rectangulo alli donde se cumplan las minimas condiciones segun los dos criterios anteriores
+                 */
+                for (int i = 0; i < unionRectangulosASplitear.length; i++) {
+                    if ((i != indice1) && (i != indice2)) {
+
+                        double areaIzqSinConjunto = hijoIzquierdo.calcularAreaRectangulos();
+                        double areaDerSinConjunto = hijoDerecho.calcularAreaRectangulos();
+                        hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[indice1]);
+                        hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[indice2]);
+                        double areaConjuntaIzq = hijoIzquierdo.calcularAreaRectangulos() - areaIzqSinConjunto;
+                        double areaConjuntoDer = hijoDerecho.calcularAreaRectangulos() - areaDerSinConjunto;
+
+
+                        if (areaConjuntaIzq < areaConjuntoDer) {
+                            hijoDerecho.eliminarUltimoValor();
+                        }
+                        else {
+                            if (areaConjuntaIzq > areaConjuntoDer) {
+                                hijoIzquierdo.eliminarUltimoValor();
+                            }
+                            else {
+                                if (areaIzqSinConjunto < areaDerSinConjunto) {
+                                    hijoDerecho.eliminarUltimoValor();
+                                }
+                                else {
+                                    hijoIzquierdo.eliminarUltimoValor();
+                                }
+                            }
+                        }
+                    }
+                }
+                //TODO: No se si habría que juntarv con la raíz
+            }
         }
         cantidadTotal++;
     }
@@ -78,7 +158,7 @@ public class RTree {
         double posibleDistMax = 0;
         //Se buscan los posts mas distantes
         for (int j = 0; j <= max;j++) {
-            for (int w = j; w <= max; w++) {
+            for (int w = j+1; w <= max; w++) {
                 posibleDistMax = Haversine.calculoHaversine(auxiliar[j].getLocation()[1],auxiliar[j].getLocation()[0],auxiliar[w].getLocation()[1],auxiliar[w].getLocation()[0]);
                 if (posibleDistMax > distanciaMax) {
                     aux_1 = j;
@@ -182,6 +262,37 @@ public class RTree {
     }
 
 
+
+    //Privados
+
+    private double calculoAumentoArea (Rectangulo r1, Rectangulo r2) {
+        Rectangulo rectanguloAuxiliar = new Rectangulo(0);
+
+        rectanguloAuxiliar.setAll(r1);
+        if (r1.getLongMin() > r2.getLongMin()) {
+            rectanguloAuxiliar.setLongMin(r2.getLongMin());
+        }
+        if (r1.getLongMax() < r2.getLongMax()) {
+            rectanguloAuxiliar.setLongMax(r2.getLongMax());
+        }
+        if (r1.getLatMin() > r2.getLatMin()) {
+            rectanguloAuxiliar.setLatMin(r2.getLatMin());
+        }
+        if (r1.getLatMax() < r2.getLatMax()) {
+            rectanguloAuxiliar.setLatMax(r2.getLatMax());
+        }
+
+        return rectanguloAuxiliar.calculoAreaActual();
+    }
+
+
+
+
+
+
+
+
+    //Getters y setters
 
     public int getCantidad() {
         return cantidad;
