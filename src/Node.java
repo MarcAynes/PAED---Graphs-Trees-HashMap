@@ -20,6 +20,7 @@ public class Node {
 
     public Node(int numero){
         this.numero = numero;
+        pare = null;
     }
 
     public int getNumero(){
@@ -121,10 +122,14 @@ public class Node {
                     Node auxiliar = fillEsquerra;
 
                     //posem com a fill esquerra el node mes semblant per la esquerra (el fill dret del nostre fill esquerre)
-                    fillEsquerra = fillEsquerra.getFilldret();
-                    fillEsquerra.setPare(this);
+                    if (fillEsquerra.getFilldret().getAltura()==0){
+                        fillEsquerra = null;
+                    } else {
+                        fillEsquerra = fillEsquerra.getFilldret();
+                        fillEsquerra.setPare(this);
+                    }
 
-                    //posem el node actual com a fill dret del auxiliar (el que abans ere el nostre fill esquerra)
+                    //posem el node actual com a fill dret del auxiliar (el que abans era el nostre fill esquerra)
                     //si abans era el nostre fill esquerra vol dir que erem un nombre menor al seu
                     //per tant aquest fill al "pujar" tinddra un nombre menor al pare i aquest passara a ser un fill dret
                     auxiliar.setFilldret(this);
@@ -137,6 +142,7 @@ public class Node {
                         }else{
                             pare.setFillEsquerra(auxiliar);
                         }
+                        auxiliar.setPare(pare);
 
                     } else {
                         //si el node es root hem de modificar la classe arbre
@@ -243,13 +249,26 @@ public class Node {
     }
 
     public Node getFillEsquerra(){
+        if (fillEsquerra != null){
+            return fillEsquerra;
 
-        return fillEsquerra;
+        } else {
+            Node node = new Node(0);
+            node.setAltura(0);
+            return node;
+        }
     }
 
     public Node getFilldret(){
+        if (filldret != null){
+            return filldret;
 
-        return filldret;
+        } else {
+            Node node = new Node(0);
+            node.setAltura(0);
+            return node;
+        }
+
     }
 
     public void setFillEsquerra(Node fill){
@@ -262,4 +281,7 @@ public class Node {
         filldret = fill;
     }
 
+    public void setAltura(int altura) {
+        this.altura = altura;
+    }
 }

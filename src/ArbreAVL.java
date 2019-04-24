@@ -11,7 +11,7 @@ public class ArbreAVL {
     public ArbreAVL(Node root){
 
         this.root = root;
-        root.setProfunditat(0);
+        root.setAltura(1);
     }
 
     public void add(Node node){
@@ -19,7 +19,7 @@ public class ArbreAVL {
             root.add(node, this);
         }else{
             root = node;
-            root.setProfunditat(0);
+            root.setAltura(1);
         }
     }
 
