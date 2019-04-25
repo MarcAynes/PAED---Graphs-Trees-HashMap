@@ -117,52 +117,58 @@ public class Node {
                 //rotacions cas esquerra -> rotacions cap a la dreta
                 //left left case = right rotation
 
-                if (fillEsquerra.getFilldret().getAltura() < fillEsquerra.getFillEsquerra().getAltura()){
-                    //ens guardem el fill esquerra el cual ara sera el pare en un node auxiliar
-                    Node auxiliar = fillEsquerra;
+                if (fillEsquerra.altura > filldret.getAltura()) {
+                    if (fillEsquerra.getFilldret().getAltura() < fillEsquerra.getFillEsquerra().getAltura()){
+                        //ens guardem el fill esquerra el cual ara sera el pare en un node auxiliar
+                        Node auxiliar = fillEsquerra;
 
-                    //posem com a fill esquerra el node mes semblant per la esquerra (el fill dret del nostre fill esquerre)
-                    if (fillEsquerra.getFilldret().getAltura()==0){
-                        fillEsquerra = null;
-                    } else {
-                        fillEsquerra = fillEsquerra.getFilldret();
-                        fillEsquerra.setPare(this);
-                    }
-
-                    //posem el node actual com a fill dret del auxiliar (el que abans era el nostre fill esquerra)
-                    //si abans era el nostre fill esquerra vol dir que erem un nombre menor al seu
-                    //per tant aquest fill al "pujar" tinddra un nombre menor al pare i aquest passara a ser un fill dret
-                    auxiliar.setFilldret(this);
-
-                    //si el node no era root
-                    if (pare != null){
-                        //posem el nou fill dret o esquerra del node pare
-                        if (pare.getFilldret().equals(this)){
-                            pare.setFilldret(auxiliar);
-                        }else{
-                            pare.setFillEsquerra(auxiliar);
+                        //posem com a fill esquerra el node mes semblant per la esquerra (el fill dret del nostre fill esquerre)
+                        if (fillEsquerra.getFilldret().getAltura() == 0){
+                            fillEsquerra = null;
+                        } else {
+                            fillEsquerra = fillEsquerra.getFilldret();
+                            fillEsquerra.setPare(this);
                         }
-                        auxiliar.setPare(pare);
 
-                    } else {
-                        //si el node es root hem de modificar la classe arbre
-                        arbre.setRoot(auxiliar);
-                        auxiliar.setPare(null);
+                        //posem el node actual com a fill dret del auxiliar (el que abans era el nostre fill esquerra)
+                        //si abans era el nostre fill esquerra vol dir que erem un nombre menor al seu
+                        //per tant aquest fill al "pujar" tinddra un nombre menor al pare i aquest passara a ser un fill dret
+                        auxiliar.setFilldret(this);
+
+                        //si el node no era root
+                        if (pare != null){
+                            //posem el nou fill dret o esquerra del node pare
+                            if (pare.getFilldret().equals(this)){
+                                pare.setFilldret(auxiliar);
+                            }else{
+                                pare.setFillEsquerra(auxiliar);
+                            }
+                            auxiliar.setPare(pare);
+
+                        } else {
+                            //si el node es root hem de modificar la classe arbre
+                            arbre.setRoot(auxiliar);
+                            auxiliar.setPare(null);
+                        }
+
+                        pare = auxiliar;
+                        //definim les noves altures
+                        definirAltura();
+                        auxiliar.definirAltura();
+
+                        if (pare != null){
+                            pare.definirAltura();
+                        }
+
+                    }else{
+                        //left right rotation
+
                     }
+                } else {
 
-                    pare = auxiliar;
-                    //definim les noves altures
-                    definirAltura();
-                    auxiliar.definirAltura();
-
-                    if (pare != null){
-                        pare.definirAltura();
-                    }
-
-                }else{
-                    //left right rotation
-                    
                 }
+
+
 
             }
         }
