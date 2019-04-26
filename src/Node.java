@@ -112,7 +112,6 @@ public class Node {
             }
 
             //Comprovem si hi ha desaquilibri en el node actual
-            //TODO: si un dels dos fills es null, s'hauria de controller just aquí
             if (Math.abs(getFillEsquerra().getAltura() - getFilldret().getAltura()) >= 2) {
                 //rotacions cas esquerra -> rotacions cap a la dreta
                 //left left case = right rotation
@@ -164,12 +163,52 @@ public class Node {
 
                     }else{
                         //left right rotation
-                        Node auxiliar = fillEsquerra.getFilldret();
+                        Node auxiliar = fillEsquerra;
+                        fillEsquerra = fillEsquerra.getFilldret();  //intercambient el fill esquerra per el fill dret del fill esquerra
+                        fillEsquerra.setPare(this);
 
+                        if (fillEsquerra.getFillEsquerra().getAltura() == 0){
+                            auxiliar.setFilldret(null);
+                        }else{
+                            auxiliar.setFilldret(fillEsquerra.getFilldret());       //el fill dret del auxiliar es el fill esquerra del node que acabem d'intercanviar
+                            auxiliar.getFilldret().setPare(auxiliar);               //i el pare del auxiliar ara sera el fill esquerra del anteriorment intercanviat,
+                        }                                                           //el que ara es el nostre fill esquerra
 
+                        fillEsquerra.setFillEsquerra(auxiliar);
+                        auxiliar.setPare(fillEsquerra);
 
+                        auxiliar = fillEsquerra;
+
+                        if (fillEsquerra.getFilldret().getAltura() == 0){
+                            fillEsquerra = null;
+                        } else {
+                            fillEsquerra = fillEsquerra.getFilldret();
+                            fillEsquerra.setPare(this);
+                        }
+
+                        auxiliar.setPare(pare);
+
+                        //si el node no era root
+                        if (pare != null){
+                            //posem el nou fill dret o esquerra del node pare
+                            if (pare.getFilldret().equals(this)){
+                                pare.setFilldret(auxiliar);
+                            }else{
+                                pare.setFillEsquerra(auxiliar);
+                            }
+
+                        } else {
+                            //si el node es root hem de modificar la classe arbre
+                            arbre.setRoot(auxiliar);
+                        }
+
+                        auxiliar.setFilldret(this);
+                        pare = auxiliar;
+
+                        pare.definirAltura();
 
                     }
+
                 } else {
 
                 }
