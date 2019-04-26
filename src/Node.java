@@ -189,9 +189,9 @@ public class Node {
             fillDret.definirAltura();
         }
 
-        if (filldret == null && fillEsquerra == null) {
+        if (fillDret == null && fillEsquerra == null) {
             altura = 1;
-        } else if (filldret == null) {
+        } else if (fillDret == null) {
             altura = fillEsquerra.getAltura() + 1;
         } else if (fillEsquerra == null) {
             altura = fillDret.getAltura() + 1;
@@ -265,12 +265,8 @@ public class Node {
         pare = auxiliar;
 
         //definim les noves altures
-        definirAltura();
         auxiliar.definirAltura();
 
-        if (pare != null){
-            pare.definirAltura();
-        }
     }
 
     private void rotacions(ArbreAVL arbre){
@@ -354,23 +350,7 @@ public class Node {
         }
 
         auxiliar.setPare(pare);
-
-        //si el node no era root
-        if (pare != null){
-            //posem el nou fill dret o esquerra del node pare
-            if (pare.getFillDret().equals(this)){
-                pare.setFilldret(auxiliar);
-            }else{
-                pare.setFillEsquerra(auxiliar);
-            }
-
-        } else {
-            //si el node es root hem de modificar la classe arbre
-            arbre.setRoot(auxiliar);
-        }
-
-        auxiliar.setFilldret(this);
-        pare = auxiliar;
+        isRoot(auxiliar, arbre);
 
     }
 
