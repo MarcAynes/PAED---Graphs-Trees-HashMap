@@ -236,7 +236,6 @@ public class Node {
         if (Math.abs(getFillEsquerra().getAltura() - getFilldret().getAltura()) >= 2) {
             //rotacions cas esquerra -> rotacions cap a la dreta
             //left left case = right rotation
-
             //
             if (getFillEsquerra().getAltura() > getFilldret().getAltura()) {
 
@@ -252,7 +251,7 @@ public class Node {
 
             }
 
-
+            pare.definirAltura();
 
         }
 
@@ -292,13 +291,6 @@ public class Node {
         }
 
         pare = auxiliar;
-        //definim les noves altures
-        definirAltura();
-        auxiliar.definirAltura();
-
-        if (pare != null){
-            pare.definirAltura();
-        }
 
     }
 
@@ -345,8 +337,6 @@ public class Node {
 
         auxiliar.setFilldret(this);
         pare = auxiliar;
-
-        pare.definirAltura();
 
     }
 }
