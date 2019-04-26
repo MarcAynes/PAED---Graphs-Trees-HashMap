@@ -118,6 +118,18 @@ public class Node {
         //definirAltura();
     }
 
+
+    public void delete(Node node, ArbreAVL arbre){
+
+       if (node.getNumero() == numero){
+           //eliminar aquest node
+
+       }else{
+           //(node.getNumero() > numero) ? fillEsquerra.delete(node, arbre) : filldret.delete(node, arbre);
+
+       }
+    }
+
     public void setProfunditat(int profunditat){
 
         this.profunditat = profunditat;
@@ -163,7 +175,7 @@ public class Node {
             System.out.println("Root Node: " + numero + ", Altura: " + altura);
         } else if (pare.numero < numero) {
             System.out.println("Right Node: " + numero + ", Altura: " + altura);
-        } else if (pare.numero > numero){
+        } else if (pare.numero >= numero){
             System.out.println("Left Node: " + numero + ", Altura: " + altura);
         }
     }
@@ -178,7 +190,7 @@ public class Node {
         }
 
         if (filldret == null && fillEsquerra == null) {
-            altura = 0;
+            altura = 1;
         } else if (filldret == null) {
             altura = fillEsquerra.getAltura() + 1;
         } else if (fillEsquerra == null) {
