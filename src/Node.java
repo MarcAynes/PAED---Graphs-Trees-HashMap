@@ -113,12 +113,12 @@ public class Node {
 
             //Comprovem si hi ha desaquilibri en el node actual
             //TODO: si un dels dos fills es null, s'hauria de controller just aquí
-            if (Math.abs(getFillEsquerra().getAltura() - filldret.getAltura()) >= 2) {
+            if (Math.abs(getFillEsquerra().getAltura() - getFilldret().getAltura()) >= 2) {
                 //rotacions cas esquerra -> rotacions cap a la dreta
                 //left left case = right rotation
 
                 //
-                if (getFillEsquerra().getAltura() > filldret.getAltura()) {
+                if (getFillEsquerra().getAltura() > getFilldret().getAltura()) {
 
                     if (fillEsquerra.getFilldret().getAltura() < fillEsquerra.getFillEsquerra().getAltura()){
                         //ens guardem el fill esquerra el cual ara sera el pare en un node auxiliar
@@ -164,6 +164,10 @@ public class Node {
 
                     }else{
                         //left right rotation
+                        Node auxiliar = fillEsquerra.getFilldret();
+
+
+
 
                     }
                 } else {
