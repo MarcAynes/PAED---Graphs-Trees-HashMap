@@ -120,12 +120,12 @@ public class Node {
                 //
                 if (getFillEsquerra().getAltura() > filldret.getAltura()) {
 
-                    if (getFillEsquerra().getFilldret().getAltura() < getFillEsquerra().getFillEsquerra().getAltura()){
+                    if (fillEsquerra.getFilldret().getAltura() < fillEsquerra.getFillEsquerra().getAltura()){
                         //ens guardem el fill esquerra el cual ara sera el pare en un node auxiliar
-                        Node auxiliar = getFillEsquerra();
+                        Node auxiliar = fillEsquerra;
 
                         //posem com a fill esquerra el node mes semblant per la esquerra (el fill dret del nostre fill esquerre)
-                        if (getFillEsquerra().getFilldret().getAltura() == 0){
+                        if (fillEsquerra.getFilldret().getAltura() == 0){
                             fillEsquerra = null;
                         } else {
                             fillEsquerra = fillEsquerra.getFilldret();
