@@ -2,12 +2,6 @@ public class ArbreAVL {
 
     private Node root;
 
-    public ArbreAVL(){
-
-        root = new Node(-1);
-        root.setProfunditat(0);
-    }
-
     public ArbreAVL(Node root){
 
         this.root = root;

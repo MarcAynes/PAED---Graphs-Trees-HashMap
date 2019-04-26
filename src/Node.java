@@ -21,6 +21,7 @@ public class Node {
     public Node(int numero){
         this.numero = numero;
         pare = null;
+        altura = 1;
     }
 
     public int getNumero(){
