@@ -159,7 +159,7 @@ public class Node {
                         auxiliar.definirAltura();
 
                         if (pare != null){
-                            pare.definirAltura();
+                            pare
                         }
 
                     }else{
