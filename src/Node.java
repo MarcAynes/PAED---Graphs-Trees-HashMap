@@ -113,17 +113,19 @@ public class Node {
 
             //Comprovem si hi ha desaquilibri en el node actual
             //TODO: si un dels dos fills es null, s'hauria de controller just aquí
-            if (Math.abs(fillEsquerra.getAltura() - filldret.getAltura()) >= 2) {
+            if (Math.abs(getFillEsquerra().getAltura() - filldret.getAltura()) >= 2) {
                 //rotacions cas esquerra -> rotacions cap a la dreta
                 //left left case = right rotation
 
-                if (fillEsquerra.altura > filldret.getAltura()) {
-                    if (fillEsquerra.getFilldret().getAltura() < fillEsquerra.getFillEsquerra().getAltura()){
+                //
+                if (getFillEsquerra().getAltura() > filldret.getAltura()) {
+
+                    if (getFillEsquerra().getFilldret().getAltura() < getFillEsquerra().getFillEsquerra().getAltura()){
                         //ens guardem el fill esquerra el cual ara sera el pare en un node auxiliar
-                        Node auxiliar = fillEsquerra;
+                        Node auxiliar = getFillEsquerra();
 
                         //posem com a fill esquerra el node mes semblant per la esquerra (el fill dret del nostre fill esquerre)
-                        if (fillEsquerra.getFilldret().getAltura() == 0){
+                        if (getFillEsquerra().getFilldret().getAltura() == 0){
                             fillEsquerra = null;
                         } else {
                             fillEsquerra = fillEsquerra.getFilldret();
@@ -238,19 +240,18 @@ public class Node {
         if (filldret == null && fillEsquerra == null) {
             altura = 0;
         } else if (filldret == null) {
-            altura = fillEsquerra.altura + 1;
+            altura = fillEsquerra.getAltura() + 1;
         } else if (fillEsquerra == null) {
-            altura = filldret.altura + 1;
-        } else if (fillEsquerra.altura > filldret.altura) {
-            altura = fillEsquerra.altura + 1;
+            altura = filldret.getAltura() + 1;
+        } else if (fillEsquerra.getAltura() > filldret.getAltura()) {
+            altura = fillEsquerra.getAltura() + 1;
         } else {
-            altura = filldret.altura + 1;
+            altura = filldret.getAltura() + 1;
         }
 
     }
 
     public int getAltura(){
-
         return altura;
     }
 
