@@ -125,7 +125,12 @@ public class Node {
            //eliminar aquest node
 
        }else{
-           //(node.getNumero() > numero) ? fillEsquerra.delete(node, arbre) : filldret.delete(node, arbre);
+           if(node.getNumero() >= numero && fillEsquerra != null){
+                   fillEsquerra.delete(node, arbre);
+
+           }else if(fillDret != null){
+               fillDret.delete(node, arbre);
+           }
 
        }
     }
