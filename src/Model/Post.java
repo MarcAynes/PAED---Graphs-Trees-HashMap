@@ -13,6 +13,11 @@ public class Post {
     private double [] location; //(latitud,longitud)
     private String[] hashtags;
 
+    public Post(int id, double[] location) {
+        this.id = id;
+        this.location = location;
+    }
+
     public int getId() {
         return id;
     }
