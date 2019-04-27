@@ -2,6 +2,7 @@ package RTree;
 
 import Model.Post;
 import Utiles.Haversine;
+import org.w3c.dom.css.Rect;
 
 public class Nodo {
     private byte tipo; //Para saber dentro del nodo (0 rectangulo y 1 punto)
@@ -20,19 +21,20 @@ public class Nodo {
         this.tipo = tipo;
     }
 
-    public Rectangulo [] insertarPost (Post postAInsertar) {
+    public Rectangulo [] insertarPost (Post postAInsertar, Rectangulo yoSoyTuRectangulo) {
             if (cantidad == valores.length) {
                 Rectangulo [] rectangulos = splitPost(postAInsertar);
                 return rectangulos;
             } else {
                 valores[cantidad] = postAInsertar;
                 cantidad++;
+                yoSoyTuRectangulo.actualizarValoresConPost(postAInsertar);
                 return null;
             }
     }
 
 
-    public void busquedaSiguienteRectangulo (int altura, Post postAInsertar) {
+    public Rectangulo[] busquedaSiguienteRectangulo (int altura, Post postAInsertar) {
         double incrementoMinimo = Double.MAX_VALUE;
         double areaMinima = Double.MAX_VALUE;
         double areaCalculada = 0;
@@ -58,7 +60,151 @@ public class Nodo {
                 //Es raro que tengan la misma area, asi que si tienen la misma aleatorio y ya
             }
         }
-        ((Rectangulo) valores[indice]).bajarArbol(altura-1,postAInsertar,this);
+        Rectangulo[] rectangulosGenerados = ((Rectangulo) valores[indice]).bajarArbol(altura-1,postAInsertar,this);
+
+        // Caso ha habido split en hijo y nodo debe de splitearse para almacenar rectangulos
+        if(rectangulosGenerados != null){
+            //Creamos los dos rectangulos que in crementaran la altura del arbol
+            Nodo hijoIzquierdo = new Nodo(valores.length,(byte) 0);
+            Nodo hijoDerecho = new Nodo(valores.length,(byte) 0);
+            tipo = 0;
+            Rectangulo rectanguloIzquierdo = new Rectangulo(hijoIzquierdo);
+            Rectangulo rectanguloDerecho = new Rectangulo(hijoDerecho);
+
+
+            Rectangulo [] unionRectangulosASplitear = new Rectangulo[valores.length+1];
+                /* Para la gente con perdida de orina:
+                    Lo que hacemos aqui es coger los rectangulos nuevos que han nacido del split y añadirlos a un array auxiliar
+                    Cabe destacar que el rectangulo origen del split se elimina (basicamente no se añade)
+                 */
+            for (int y = 0; y < valores.length; y++) {
+                if (y != indice) {
+                    unionRectangulosASplitear[y] = (Rectangulo) valores[y];
+                }
+            }
+            //Rectangulos nacidos del split
+            unionRectangulosASplitear[valores.length - 1] = rectangulosGenerados[0];
+            unionRectangulosASplitear[valores.length] = rectangulosGenerados[1];
+
+            double areaAux;
+            double areaMaxActual = -69;
+            int indice1 = 0;
+            int indice2 = 0;
+                /*
+                    Aqui simplemente lo que hacemos es buscar los dos rectangulos de area maxima para separarlos
+                 */
+            for (int p=0; p < (valores.length + 1) ;p++) {
+                for(int w = p+1; w < (valores.length+1);w++) {
+                    areaAux = calculoAumentoArea(unionRectangulosASplitear[p], unionRectangulosASplitear[w]);
+                    if (areaMaxActual < areaAux) {
+                        indice1 = p;
+                        indice2 = w;
+                    }
+                }
+            }
+
+            //Creamos la base del split
+            hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[indice1]);
+            rectanguloIzquierdo.setAll(unionRectangulosASplitear[indice1]);
+            hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[indice2]);
+            rectanguloDerecho.setAll(unionRectangulosASplitear[indice2]);
+
+            Rectangulo[] rectangulosSolucion = new Rectangulo[2];
+            rectangulosSolucion[0] = rectanguloIzquierdo;
+            rectangulosSolucion[1] = rectanguloDerecho;
+            /*for (int i = 0; i < valores.length;i++) {
+                valores[i] = null;
+            }
+            valores[0] = rectanguloIzquierdo;
+            valores[1] = rectanguloDerecho;
+            cantidad = 2; */
+
+            double areaAux2;
+
+
+            /*
+             * Para saber donde poner cada rectangulo donde le pertenece, haremos varias cosas:
+             *  1) Calcularemos el incremento
+             *  2) En caso que los incrementos de area sean iguales nos cogeremos el area anterior que sea mejor
+             *  3) Se añade el rectangulo alli donde se cumplan las minimas condiciones segun los dos criterios anteriores
+             */
+            for (int i = 0; i < unionRectangulosASplitear.length; i++) {
+                if ((i != indice1) && (i != indice2)) {
+
+                    double areaIzqSinConjunto = rectanguloIzquierdo.calculoAreaActual();
+                    double areaDerSinConjunto = rectanguloDerecho.calculoAreaActual();
+                    double incrementoIzq = rectanguloIzquierdo.calcularIncrementoConRectangulo(unionRectangulosASplitear[i]);
+                    double incrementoDer = rectanguloDerecho.calcularIncrementoConRectangulo(unionRectangulosASplitear[i]);
+                    double areaConjuntaIzq = incrementoIzq - areaIzqSinConjunto;
+                    double areaConjuntoDer = incrementoDer - areaDerSinConjunto;
+
+                    boolean procesoCorrecto;
+                    if (areaConjuntaIzq < areaConjuntoDer) {
+                        procesoCorrecto = hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                        if (!procesoCorrecto) {
+                            hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                            rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
+                        }
+                        else {
+                            rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
+                        }
+                    }
+                    else {
+                        if (areaConjuntaIzq > areaConjuntoDer) {
+                            procesoCorrecto = hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                            if (!procesoCorrecto) {
+                                hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
+                            }
+                            else {
+                                rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
+                            }
+                        }
+                        else {
+                            if (areaIzqSinConjunto < areaDerSinConjunto) {
+                                procesoCorrecto = hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                if (!procesoCorrecto) {
+                                    hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                    rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
+                                }
+                                else {
+                                    rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
+                                }
+                            }
+                            else {
+                                if (areaIzqSinConjunto > areaDerSinConjunto) {
+                                    procesoCorrecto = hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                    if (!procesoCorrecto) {
+                                        hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                        rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
+                                    } else {
+                                        rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
+                                    }
+                                }
+                                else {
+                                    if(hijoIzquierdo.getCantidad() <= hijoDerecho.getCantidad()){
+                                        hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                        rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
+                                    }
+                                    else {
+                                        hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                        rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
+
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return rectangulosSolucion;
+        }
+        else {
+            return null;
+        }
+
     }
 
     public Rectangulo [] splitPost (Post postAInsertar) {
@@ -179,12 +325,16 @@ public class Nodo {
         cantidad++;
     }
 
-    public void agregarRectanguloIndividual(Rectangulo rectangulo) {
-        //TODO: ¿Hay control cuando la cantidad es igual a lenght o no?
+    public boolean agregarRectanguloIndividual(Rectangulo rectangulo) {
+        // ¿Hay control cuando la cantidad es igual a lenght o no?
         if (rectangulo != null) {
-            valores[cantidad] = rectangulo;
-            cantidad++;
+            if(cantidad != valores.length){
+                valores[cantidad] = rectangulo;
+                cantidad++;
+                return true;
+            }
         }
+        return false;
     }
 
 
@@ -245,5 +395,25 @@ public class Nodo {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public double calculoAumentoArea (Rectangulo r1, Rectangulo r2) {
+        Rectangulo rectanguloAuxiliar = new Rectangulo(0);
+
+        rectanguloAuxiliar.setAll(r1);
+        if (r1.getLongMin() > r2.getLongMin()) {
+            rectanguloAuxiliar.setLongMin(r2.getLongMin());
+        }
+        if (r1.getLongMax() < r2.getLongMax()) {
+            rectanguloAuxiliar.setLongMax(r2.getLongMax());
+        }
+        if (r1.getLatMin() > r2.getLatMin()) {
+            rectanguloAuxiliar.setLatMin(r2.getLatMin());
+        }
+        if (r1.getLatMax() < r2.getLatMax()) {
+            rectanguloAuxiliar.setLatMax(r2.getLatMax());
+        }
+
+        return rectanguloAuxiliar.calculoAreaActual();
     }
 }

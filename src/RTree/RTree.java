@@ -12,7 +12,7 @@ public class RTree {
     private int cantidad; //Cantidad en la raiz
     private int cantidadTotal;
 
-    public void RTree (int min, int max) {
+    public RTree (int min, int max) {
         tipo = 1;
         this.min = min;
         this.max = max;
@@ -23,6 +23,7 @@ public class RTree {
 
     public void insertarElemento (Post postAInsertar) {
         if (tipo == 1) {
+            // Split inicial
             if (cantidad == max) {
                 splitPost (postAInsertar);
                 altura++;
@@ -34,6 +35,7 @@ public class RTree {
             }
         }
         else {
+            // Miramos post donde se encuentra mas cercano a los rectangulos actuales
             double incrementoMinimo = Double.MAX_VALUE;
             double areaMinima = Double.MAX_VALUE;
             double areaCalculada = 0;
@@ -60,26 +62,32 @@ public class RTree {
                 }
             }
             Rectangulo [] rectangulos = ((Rectangulo)raiz[indice]).bajarArbol(altura-1,postAInsertar,this);
+
             if (rectangulos != null) {
                 //Creamos los dos rectangulos que in crementaran la altura del arbol
                 Nodo hijoIzquierdo = new Nodo(max,(byte) 0);
                 Nodo hijoDerecho = new Nodo(max,(byte) 0);
+                tipo = 0;
+                Rectangulo rectanguloIzquierdo = new Rectangulo(hijoIzquierdo);
+                Rectangulo rectanguloDerecho = new Rectangulo(hijoDerecho);
+
+
                 Rectangulo [] unionRectangulosASplitear = new Rectangulo[max+1];
                 /* Para la gente con perdida de orina:
                     Lo que hacemos aqui es coger los rectangulos nuevos que han nacido del split y añadirlos a un array auxiliar
                     Cabe destacar que el rectangulo origen del split se elimina (basicamente no se añade)
                  */
+                int contador = 0;
                 for (int y = 0; y < raiz.length; y++) {
                     if (y != indice) {
-                        unionRectangulosASplitear[y] = (Rectangulo) raiz[y];
+                        unionRectangulosASplitear[contador] = (Rectangulo) raiz[y];
+                        contador++;
                     }
                 }
                 //Rectangulos nacidos del split
                 unionRectangulosASplitear[max - 1] = rectangulos [0];
                 unionRectangulosASplitear[max] = rectangulos[1];
 
-
-                Rectangulo rectanguloAuxiliar = new Rectangulo(0);
                 double areaAux;
                 double areaMaxActual = -69;
                 int indice1 = 0;
@@ -99,7 +107,14 @@ public class RTree {
 
                 //Creamos la base del split
                 hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[indice1]);
+                rectanguloIzquierdo.setAll(unionRectangulosASplitear[indice1]);
                 hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[indice2]);
+                rectanguloDerecho.setAll(unionRectangulosASplitear[indice2]);
+                raiz = new Object[max];
+                raiz[0] = rectanguloIzquierdo;
+                raiz[1] = rectanguloDerecho;
+                cantidad = 2;
+
                 double areaAux2;
 
 
@@ -112,33 +127,74 @@ public class RTree {
                 for (int i = 0; i < unionRectangulosASplitear.length; i++) {
                     if ((i != indice1) && (i != indice2)) {
 
-                        double areaIzqSinConjunto = hijoIzquierdo.calcularAreaRectangulos();
-                        double areaDerSinConjunto = hijoDerecho.calcularAreaRectangulos();
-                        hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[indice1]);
-                        hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[indice2]);
-                        double areaConjuntaIzq = hijoIzquierdo.calcularAreaRectangulos() - areaIzqSinConjunto;
-                        double areaConjuntoDer = hijoDerecho.calcularAreaRectangulos() - areaDerSinConjunto;
+                        double areaIzqSinConjunto = rectanguloIzquierdo.calculoAreaActual();
+                        double areaDerSinConjunto = rectanguloDerecho.calculoAreaActual();
+                        double incrementoIzq = rectanguloIzquierdo.calcularIncrementoConRectangulo(unionRectangulosASplitear[i]);
+                        double incrementoDer = rectanguloDerecho.calcularIncrementoConRectangulo(unionRectangulosASplitear[i]);
+                        double areaConjuntaIzq = incrementoIzq - areaIzqSinConjunto;
+                        double areaConjuntoDer = incrementoDer - areaDerSinConjunto;
 
-
+                        boolean procesoCorrecto;
                         if (areaConjuntaIzq < areaConjuntoDer) {
-                            hijoDerecho.eliminarUltimoValor();
+                            procesoCorrecto = hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                            if (!procesoCorrecto) {
+                                hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
+                            }
+                            else {
+                                rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
+                            }
                         }
                         else {
                             if (areaConjuntaIzq > areaConjuntoDer) {
-                                hijoIzquierdo.eliminarUltimoValor();
+                                procesoCorrecto = hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                if (!procesoCorrecto) {
+                                    hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                    rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
+                                }
+                                else {
+                                    rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
+                                }
                             }
                             else {
                                 if (areaIzqSinConjunto < areaDerSinConjunto) {
-                                    hijoDerecho.eliminarUltimoValor();
+                                    procesoCorrecto = hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                    if (!procesoCorrecto) {
+                                        hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                        rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
+                                    }
+                                    else {
+                                        rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
+                                    }
                                 }
                                 else {
-                                    hijoIzquierdo.eliminarUltimoValor();
+                                    if (areaIzqSinConjunto > areaDerSinConjunto) {
+                                        procesoCorrecto = hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                        if (!procesoCorrecto) {
+                                            hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                            rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
+                                        } else {
+                                            rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
+                                        }
+                                    }
+                                    else {
+                                        if(hijoIzquierdo.getCantidad() <= hijoDerecho.getCantidad()){
+                                            hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                            rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
+                                        }
+                                        else {
+                                            hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                            rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
+
+                                        }
+
+                                    }
                                 }
                             }
                         }
                     }
                 }
-                //TODO: No se si habría que juntarv con la raíz
+                altura++;
             }
         }
         cantidadTotal++;
@@ -265,7 +321,7 @@ public class RTree {
 
     //Privados
 
-    private double calculoAumentoArea (Rectangulo r1, Rectangulo r2) {
+    public double calculoAumentoArea (Rectangulo r1, Rectangulo r2) {
         Rectangulo rectanguloAuxiliar = new Rectangulo(0);
 
         rectanguloAuxiliar.setAll(r1);
