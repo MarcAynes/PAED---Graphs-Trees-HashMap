@@ -87,6 +87,7 @@ public class DynamicArrayUser {
         return valores;
     }
 
+
     public void setValores(PosicionUser[] valores) {
         this.valores = valores;
     }

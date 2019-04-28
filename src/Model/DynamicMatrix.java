@@ -54,6 +54,19 @@ public class DynamicMatrix {
         }
     }
 
+    public byte[][] getMatriz() {
+        return matriz;
+    }
 
+    public void setMatriz(byte[][] matriz) {
+        this.matriz = matriz;
+    }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
 }

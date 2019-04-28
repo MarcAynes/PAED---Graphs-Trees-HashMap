@@ -40,4 +40,26 @@ public class Graph {
         }
     }
 
+    public void visualizacionGraph () {
+        int contador = 0;
+        for (int i = 0; i < users.getValores().length; i++) {
+            if (users.getValores()[i] != null) {
+                System.out.println("\nUser: " + users.getValores()[i].getUsuario().getUsername());
+                contador = 0;
+                for (int j = 0; j < vinculaciones.getMatriz()[i].length; j++) {
+                    byte b = vinculaciones.getMatriz()[i][j];
+                    for (byte w = 0; w < 8; w++) {
+                        byte aux = (byte) (b & 0x01);
+                        if (aux == 1) {
+                            System.out.println("\t  " + users.getValores()[contador].getUsuario().getUsername());
+                        }
+                        contador++;
+                        b = (byte) (b >> 1);
+                    }
+
+                }
+            }
+        }
+    }
+
 }
