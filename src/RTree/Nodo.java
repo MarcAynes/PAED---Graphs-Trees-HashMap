@@ -77,9 +77,11 @@ public class Nodo {
                     Lo que hacemos aqui es coger los rectangulos nuevos que han nacido del split y añadirlos a un array auxiliar
                     Cabe destacar que el rectangulo origen del split se elimina (basicamente no se añade)
                  */
+                int contador = 0;
             for (int y = 0; y < valores.length; y++) {
                 if (y != indice) {
-                    unionRectangulosASplitear[y] = (Rectangulo) valores[y];
+                    unionRectangulosASplitear[contador] = (Rectangulo) valores[y];
+                    contador++;
                 }
             }
             //Rectangulos nacidos del split
