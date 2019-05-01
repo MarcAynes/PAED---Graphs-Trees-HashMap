@@ -176,12 +176,13 @@ public class Node {
            }
 
        } else {
-           if(node.getNumero() >= numero && fillEsquerra != null){
+           if(node.getNumero() <= numero && fillEsquerra != null){
                fillEsquerra.delete(node, arbre);
 
            }else if(fillDret != null){
                fillDret.delete(node, arbre);
            }
+
            if (getFillEsquerra().getAltura() > getFillDret().getAltura()) {
                altura = getFillEsquerra().getAltura() + 1;
            } else {
