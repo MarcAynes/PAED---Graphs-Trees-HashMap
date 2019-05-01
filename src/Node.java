@@ -144,6 +144,19 @@ public class Node {
                    }else{
                        pare.setFillEsquerra(aux);
                    }
+               }else{
+                   Node aux = fillDret.cercaSubst(arbre);
+                   aux.setPare(pare);
+                   aux.setFillEsquerra(fillEsquerra);
+                   aux.setFilldret(fillDret);
+
+                   if (pare.getFillDret().equals(this)){
+                       pare.setFilldret(aux);
+                   }else{
+                       pare.setFillEsquerra(aux);
+                   }
+                   fillEsquerra = null;
+                   fillDret = null;
                }
 
            }
@@ -167,6 +180,36 @@ public class Node {
            rotacions(arbre);
 
        }
+    }
+
+    private Node cercaSubst(ArbreAVL arbre){
+
+        if (fillEsquerra == null){
+
+            if (fillDret != null){
+                pare.setFillEsquerra(fillDret);
+                fillDret.setPare(pare);
+            }else{
+                pare.setFillEsquerra(null);
+            }
+
+            pare.definirAltura();
+            pare.rotacions(arbre);
+
+            return this;
+        }else{
+            Node auxi = fillEsquerra.cercaSubst(arbre);
+            if (fillDret == null) {
+                altura = fillEsquerra.getAltura() + 1;
+            } else if (fillEsquerra.getAltura() > fillDret.getAltura()) {
+                altura = fillEsquerra.getAltura() + 1;
+            } else {
+                altura = fillDret.getAltura() + 1;
+            }
+            rotacions(arbre);
+            return auxi;
+        }
+
     }
 
     public void setProfunditat(int profunditat){
