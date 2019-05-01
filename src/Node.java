@@ -111,10 +111,9 @@ public class Node {
                 }
 
             }
-
-            rotacions(arbre);
         }
 
+        rotacions(arbre);
         //definirAltura();
     }
 
@@ -298,7 +297,6 @@ public class Node {
         //si abans era el nostre fill esquerra vol dir que erem un nombre menor al seu
         //per tant aquest fill al "pujar" tinddra un nombre menor al pare i aquest passara a ser un fill dret
         auxiliar.setFilldret(this);
-
         isRoot(auxiliar, arbre);
 
     }
@@ -328,7 +326,7 @@ public class Node {
             fillEsquerra.setPare(this);
         }
 
-        auxiliar.setPare(pare);
+        auxiliar.setFilldret(this);
         isRoot(auxiliar, arbre);
 
     }
@@ -339,23 +337,22 @@ public class Node {
         //Rotacions cas dret -> rotacions cap a l'esquerra
         //right right case = left rotation
 
-        if (fillDret.getFillEsquerra().getAltura() < fillDret.getFillDret().getAltura()) {
-            //Ens guardem el fill dret el qual ara sera el pare en un node auxiliar
-            Node auxiliar = fillDret;
+        //Ens guardem el fill dret el qual ara sera el pare en un node auxiliar
+        Node auxiliar = fillDret;
 
-            //Posem com a fill dret el node mes semblant per la dreta (el fill esquerra del nostre fill dret)
-            if (fillDret.getFillEsquerra().getAltura() == 0) {
-                fillDret = null;
+        //Posem com a fill dret el node mes semblant per la dreta (el fill esquerra del nostre fill dret)
+        if (fillDret.getFillEsquerra().getAltura() == 0) {
+            fillDret = null;
 
-            } else {
-                fillDret = fillDret.getFillEsquerra();
-                fillDret.setPare(this);
-            }
-
-            auxiliar.setFillEsquerra(this);
-
-            isRoot(auxiliar, arbre);
+        } else {
+            fillDret = fillDret.getFillEsquerra();
+            fillDret.setPare(this);
         }
+
+        auxiliar.setFillEsquerra(this);
+
+        isRoot(auxiliar, arbre);
+
     }
 
     private void rightleft(ArbreAVL arbre) {
@@ -383,10 +380,16 @@ public class Node {
             fillDret.setPare(this);
         }
 
-        auxiliar.setPare(pare);
+        auxiliar.setFillEsquerra(this);
         isRoot(auxiliar, arbre);
     }
 
+    /**
+     * Comprovem que el auxiliar que s'ha rotat i queda amunt és root o no és root. Finalment fem l'assignació del node
+     * rootat com a pare el auxiliar.
+     * @param auxiliar
+     * @param arbre
+     */
     private void isRoot(Node auxiliar, ArbreAVL arbre) {
         //Si el node no era root
         if (pare != null) {
