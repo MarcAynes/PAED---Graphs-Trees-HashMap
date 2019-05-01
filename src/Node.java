@@ -31,7 +31,7 @@ public class Node {
     public void add (Node node, ArbreAVL arbre) {
         //Si el node actual a inserir es mes gran que el node actual
         if (node.getNumero() > numero) { //ex: numero actual 5 numero a inserir el 7
-                                         //7 al fill dret
+            //7 al fill dret
 
             //Si el node actual te un fill dret
             if (fillDret != null) {
@@ -50,7 +50,7 @@ public class Node {
                     altura = fillDret.getAltura() + 1;
                 }
 
-            //Si el node actual no te fill dret, l'afegim
+                //Si el node actual no te fill dret, l'afegim
             } else {
                 fillDret = node;
                 fillDret.setPare(this);
@@ -71,7 +71,7 @@ public class Node {
 
             }
 
-        //Si el node actual a inserir es mes petit que el node actual
+            //Si el node actual a inserir es mes petit que el node actual
         } else {
 
             //Si el node actual te un fill esquerra
@@ -92,7 +92,7 @@ public class Node {
                     altura = fillEsquerra.getAltura()+1;
                 }
 
-            //Si el node actual no te fill esquerra, l'afegim
+                //Si el node actual no te fill esquerra, l'afegim
             } else {
                 fillEsquerra = node;
                 fillEsquerra.setPare(this);
@@ -103,7 +103,7 @@ public class Node {
                         altura = fillEsquerra.getAltura()+1;
 
                     }else{
-                         altura = fillDret.getAltura()+1;
+                        altura = fillDret.getAltura()+1;
                     }
 
                 }else{
@@ -118,28 +118,28 @@ public class Node {
     }
 
     public void delete (Node node, ArbreAVL arbre) {
-       if (node.getNumero() == numero){
-           //eliminar aquest node
-           if (fillDret == null && fillEsquerra == null){
-               //eliminar fulla cas trivial
-               if (pare != null) {
-                   if (pare.getFillDret().equals(this)) {
-                       pare.setFilldret(null);
-                   } else {
-                       pare.setFillEsquerra(null);
-                   }
-               } else {
-                   arbre.setRoot(new Node(-1));
-               }
-           } else {
-               if(fillEsquerra == null || fillDret == null){
-                   Node aux;
-                   if (fillDret == null){
-                       aux = fillEsquerra;
-                   } else {
-                       aux = fillDret;
-                   }
-                   aux.setPare(pare);
+        if (node.getNumero() == numero){
+            //eliminar aquest node
+            if (fillDret == null && fillEsquerra == null){
+                //eliminar fulla cas trivial
+                if (pare != null) {
+                    if (pare.getFillDret().equals(this)) {
+                        pare.setFilldret(null);
+                    } else {
+                        pare.setFillEsquerra(null);
+                    }
+                } else {
+                    arbre.setRoot(new Node(-1));
+                }
+            } else {
+                if(fillEsquerra == null || fillDret == null){
+                    Node aux;
+                    if (fillDret == null){
+                        aux = fillEsquerra;
+                    } else {
+                        aux = fillDret;
+                    }
+                    aux.setPare(pare);
                     if (pare != null) {
                         if (pare.getFillDret().equals(this)) {
                             pare.setFilldret(aux);
@@ -149,11 +149,11 @@ public class Node {
                     } else {
                         arbre.setRoot(aux);
                     }
-               } else {
-                   Node aux = fillDret.cercaSubst(arbre);
-                   aux.setPare(pare);
-                   aux.setFillEsquerra(fillEsquerra);
-                   aux.setFilldret(fillDret);
+                } else {
+                    Node aux = fillDret.cercaSubst(arbre);
+                    aux.setPare(pare);
+                    aux.setFillEsquerra(fillEsquerra);
+                    aux.setFilldret(fillDret);
                     if (pare != null) {
                         if (pare.getFillDret().equals(this)) {
                             pare.setFilldret(aux);
@@ -165,32 +165,32 @@ public class Node {
                     }
                     aux.definirAltura();
                     aux.rotacions(arbre);
-                   fillEsquerra = null;
-                   fillDret = null;
-               }
-           }
-           if (pare != null) {
-               pare.definirAltura();
-               pare.rotacions(arbre);
-               pare = null;
-           }
+                    fillEsquerra = null;
+                    fillDret = null;
+                }
+            }
+            if (pare != null) {
+                pare.definirAltura();
+                pare.rotacions(arbre);
+                pare = null;
+            }
 
-       } else {
-           if(node.getNumero() <= numero && fillEsquerra != null){
-               fillEsquerra.delete(node, arbre);
+        } else {
+            if(node.getNumero() <= numero && fillEsquerra != null){
+                fillEsquerra.delete(node, arbre);
 
-           }else if(fillDret != null){
-               fillDret.delete(node, arbre);
-           }
+            }else if(fillDret != null){
+                fillDret.delete(node, arbre);
+            }
 
-           if (getFillEsquerra().getAltura() > getFillDret().getAltura()) {
-               altura = getFillEsquerra().getAltura() + 1;
-           } else {
-               altura = getFillDret().getAltura() + 1;
-           }
-           rotacions(arbre);
+            if (getFillEsquerra().getAltura() > getFillDret().getAltura()) {
+                altura = getFillEsquerra().getAltura() + 1;
+            } else {
+                altura = getFillDret().getAltura() + 1;
+            }
+            rotacions(arbre);
 
-       }
+        }
     }
 
     private Node cercaSubst(ArbreAVL arbre){
@@ -201,7 +201,11 @@ public class Node {
                 pare.setFillEsquerra(fillDret);
                 fillDret.setPare(pare);
             }else{
-                pare.setFillEsquerra(null);
+                if (pare.getFillDret().equals(this)){
+                    pare.setFilldret(null);
+                }else{
+                    pare.setFillEsquerra(null);
+                }
             }
 
             pare.definirAltura();
@@ -345,7 +349,7 @@ public class Node {
             //
             if (getFillEsquerra().getAltura() > getFillDret().getAltura()) {
 
-                if (fillEsquerra.getFillDret().getAltura() < fillEsquerra.getFillEsquerra().getAltura()){
+                if (fillEsquerra.getFillDret().getAltura() <= fillEsquerra.getFillEsquerra().getAltura()){
                     leftleft(arbre);
 
                 }else{
@@ -355,7 +359,7 @@ public class Node {
             } else {
 
                 //El desaquilibri es troba en le fill dret
-                if (fillDret.getFillEsquerra().getAltura() < fillDret.getFillDret().getAltura()){
+                if (fillDret.getFillEsquerra().getAltura() <= fillDret.getFillDret().getAltura()){
                     rightright(arbre);
 
                 }else{
