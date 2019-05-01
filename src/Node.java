@@ -122,14 +122,49 @@ public class Node {
 
        if (node.getNumero() == numero){
            //eliminar aquest node
+           if (fillDret == null && fillEsquerra == null){
+               //eliminar fulla cas trivial
+               if (pare.getFillDret().equals(this)){
+                  pare.setFilldret(null);
+               }else{
+                   pare.setFillEsquerra(null);
+               }
+               pare = null;
+           }else{
+               if(fillEsquerra == null || fillDret == null){
+                   Node aux;
+                   if (fillDret == null){
+                       aux = fillEsquerra;
+                   }else{
+                       aux = fillEsquerra;
+                   }
+                   aux.setPare(pare);
+
+                   if (pare.getFillDret().equals(this)){
+                       pare.setFilldret(aux);
+                   }else{
+                       pare.setFillEsquerra(aux);
+                   }
+               }
+
+           }
+           pare.definirAltura();
+           pare.rotacions(arbre);
 
        }else{
            if(node.getNumero() >= numero && fillEsquerra != null){
-                   fillEsquerra.delete(node, arbre);
+               fillEsquerra.delete(node, arbre);
 
            }else if(fillDret != null){
                fillDret.delete(node, arbre);
            }
+
+           if (fillEsquerra.getAltura() > fillDret.getAltura()) {
+               altura = fillEsquerra.getAltura() + 1;
+           } else {
+               altura = fillDret.getAltura() + 1;
+           }
+           rotacions(arbre);
 
        }
     }
