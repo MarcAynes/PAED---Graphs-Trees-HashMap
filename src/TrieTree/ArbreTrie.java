@@ -7,7 +7,4 @@ public class ArbreTrie {
         this.root = root;
     }
 
-
-
-
 }

@@ -14,11 +14,14 @@ public class Node {
 
     public Node() {
         altura = 1;
+
+        for (int i = 0; i < lletres.length; i++) {
+            lletres = null;
+        }
     }
 
     public void addWord(char[] paraula) {
         lletra = paraula[0];
-
 
     }
 
