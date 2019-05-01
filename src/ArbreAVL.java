@@ -9,7 +9,7 @@ public class ArbreAVL {
     }
 
     public void add(Node node){
-        if (root.getNumero() != -1) {
+        if (root.getNumero() != -1 ) {
             root.add(node, this);
         }else{
             root = node;

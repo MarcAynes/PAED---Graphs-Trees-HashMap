@@ -124,10 +124,14 @@ public class Node {
            //eliminar aquest node
            if (fillDret == null && fillEsquerra == null){
                //eliminar fulla cas trivial
-               if (pare.getFillDret().equals(this)){
-                  pare.setFilldret(null);
+               if (pare != null) {
+                   if (pare.getFillDret().equals(this)) {
+                       pare.setFilldret(null);
+                   } else {
+                       pare.setFillEsquerra(null);
+                   }
                }else{
-                   pare.setFillEsquerra(null);
+                   arbre.setRoot(new Node(-1));
                }
            }else{
                if(fillEsquerra == null || fillDret == null){
@@ -138,23 +142,29 @@ public class Node {
                        aux = fillDret;
                    }
                    aux.setPare(pare);
-
-                   if (pare.getFillDret().equals(this)){
-                       pare.setFilldret(aux);
-                   }else{
-                       pare.setFillEsquerra(aux);
-                   }
+                    if (pare != null) {
+                        if (pare.getFillDret().equals(this)) {
+                            pare.setFilldret(aux);
+                        } else {
+                            pare.setFillEsquerra(aux);
+                        }
+                    }else{
+                        arbre.setRoot(aux);
+                    }
                }else{
                    Node aux = fillDret.cercaSubst(arbre);
                    aux.setPare(pare);
                    aux.setFillEsquerra(fillEsquerra);
                    aux.setFilldret(fillDret);
-
-                   if (pare.getFillDret().equals(this)){
-                       pare.setFilldret(aux);
-                   }else{
-                       pare.setFillEsquerra(aux);
-                   }
+                    if (pare != null) {
+                        if (pare.getFillDret().equals(this)) {
+                            pare.setFilldret(aux);
+                        } else {
+                            pare.setFillEsquerra(aux);
+                        }
+                    } else {
+                        arbre.setRoot(aux);
+                    }
                    fillEsquerra = null;
                    fillDret = null;
                }
