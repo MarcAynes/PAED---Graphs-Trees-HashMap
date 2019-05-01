@@ -7,12 +7,24 @@ public class Node {
     public int altura;
 
     public char lletra;
+    public int value;
 
-    public Node(char lletra) {
-        this.lletra = lletra;
+    public Node[] lletres = new Node[26];
+
+
+    public Node() {
         altura = 1;
     }
 
+    public void addWord(char[] paraula) {
+        lletra = paraula[0];
+
+
+    }
+
+    public void recorregut() {
+
+    }
 
 
     public Node getFillDret() {

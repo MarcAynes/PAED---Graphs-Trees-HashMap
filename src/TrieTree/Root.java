@@ -5,6 +5,8 @@ public class Root {
                                 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
                                 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
+    public Node[] lletres = new Node[26];
+
     public Node fillDret;
     public Node fillEsquerra;
     public Node pare;
@@ -13,11 +15,11 @@ public class Root {
     public Root() {
         pare = null;
         altura = 1;
+
+        for (int i = 0; i < lletres.length; i++) {
+            lletres = null;
+        }
     }
-
-
-
-
 
     public char[] getAbecedari() {
         return abecedari;
@@ -57,5 +59,13 @@ public class Root {
 
     public void setAltura(int altura) {
         this.altura = altura;
+    }
+
+    public Node[] getLletres() {
+        return lletres;
+    }
+
+    public void setLletres(Node[] lletres) {
+        this.lletres = lletres;
     }
 }
