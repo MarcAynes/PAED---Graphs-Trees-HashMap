@@ -129,14 +129,13 @@ public class Node {
                }else{
                    pare.setFillEsquerra(null);
                }
-               pare = null;
            }else{
                if(fillEsquerra == null || fillDret == null){
                    Node aux;
                    if (fillDret == null){
                        aux = fillEsquerra;
                    }else{
-                       aux = fillEsquerra;
+                       aux = fillDret;
                    }
                    aux.setPare(pare);
 
@@ -150,6 +149,7 @@ public class Node {
            }
            pare.definirAltura();
            pare.rotacions(arbre);
+           pare = null;
 
        }else{
            if(node.getNumero() >= numero && fillEsquerra != null){
