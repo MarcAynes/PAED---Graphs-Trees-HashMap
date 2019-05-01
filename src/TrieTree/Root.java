@@ -1,19 +1,31 @@
 package TrieTree;
 
-public class Node {
+public class Root {
+    public char[] abecedari = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+                                'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+                                's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+
     public Node fillDret;
     public Node fillEsquerra;
     public Node pare;
     public int altura;
 
-    public char lletra;
-
-    public Node(char lletra) {
-        this.lletra = lletra;
+    public Root() {
+        pare = null;
         altura = 1;
     }
 
 
+
+
+
+    public char[] getAbecedari() {
+        return abecedari;
+    }
+
+    public void setAbecedari(char[] abecedari) {
+        this.abecedari = abecedari;
+    }
 
     public Node getFillDret() {
         return fillDret;
@@ -45,13 +57,5 @@ public class Node {
 
     public void setAltura(int altura) {
         this.altura = altura;
-    }
-
-    public char getLletra() {
-        return lletra;
-    }
-
-    public void setLletra(char lletra) {
-        this.lletra = lletra;
     }
 }
