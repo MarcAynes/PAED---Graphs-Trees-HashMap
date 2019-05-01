@@ -1,3 +1,5 @@
+package AVLTree;
+
 public class ArbreAVL {
 
     private Node root;

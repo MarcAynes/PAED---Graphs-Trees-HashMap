@@ -1,3 +1,5 @@
+package AVLTree;
+
 public class Node {
     private int numero;
 
@@ -269,11 +271,11 @@ public class Node {
         System.out.print(">");
 
         if (pare == null) {
-            System.out.println("Root Node: " + numero + ", Altura: " + altura);
+            System.out.println("Root AVLTree.Node: " + numero + ", Altura: " + altura);
         } else if (pare.numero < numero) {
-            System.out.println("Right Node: " + numero + ", Altura: " + altura);
+            System.out.println("Right AVLTree.Node: " + numero + ", Altura: " + altura);
         } else if (pare.numero >= numero){
-            System.out.println("Left Node: " + numero + ", Altura: " + altura);
+            System.out.println("Left AVLTree.Node: " + numero + ", Altura: " + altura);
         }
     }
 

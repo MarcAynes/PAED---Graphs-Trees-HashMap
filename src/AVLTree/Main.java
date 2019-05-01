@@ -1,4 +1,5 @@
-import java.util.Random;
+package AVLTree;
+
 import java.util.Scanner;
 
 public class Main {
