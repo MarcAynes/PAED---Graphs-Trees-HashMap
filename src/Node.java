@@ -163,13 +163,17 @@ public class Node {
                     } else {
                         arbre.setRoot(aux);
                     }
+                    aux.definirAltura();
+                    aux.rotacions(arbre);
                    fillEsquerra = null;
                    fillDret = null;
                }
            }
-           pare.definirAltura();
-           pare.rotacions(arbre);
-           pare = null;
+           if (pare != null) {
+               pare.definirAltura();
+               pare.rotacions(arbre);
+               pare = null;
+           }
 
        } else {
            if(node.getNumero() >= numero && fillEsquerra != null){
