@@ -17,6 +17,10 @@ public class ArbreAVL {
         }
     }
 
+    public void delete(Node node){
+        root.delete(node,this);
+    }
+
     /*
         tipus = 1: PreOrdre
                 2: InOrdre
