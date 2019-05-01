@@ -181,11 +181,10 @@ public class Node {
            }else if(fillDret != null){
                fillDret.delete(node, arbre);
            }
-
-           if (fillEsquerra.getAltura() > fillDret.getAltura()) {
-               altura = fillEsquerra.getAltura() + 1;
+           if (getFillEsquerra().getAltura() > getFillDret().getAltura()) {
+               altura = getFillEsquerra().getAltura() + 1;
            } else {
-               altura = fillDret.getAltura() + 1;
+               altura = getFillDret().getAltura() + 1;
            }
            rotacions(arbre);
 
