@@ -103,7 +103,7 @@ public class Node {
                         altura = fillEsquerra.getAltura()+1;
 
                     }else{
-                        altura = fillDret.getAltura()+1;
+                         altura = fillDret.getAltura()+1;
                     }
 
                 }else{
@@ -117,9 +117,7 @@ public class Node {
         //definirAltura();
     }
 
-
-    public void delete(Node node, ArbreAVL arbre){
-
+    public void delete (Node node, ArbreAVL arbre) {
        if (node.getNumero() == numero){
            //eliminar aquest node
            if (fillDret == null && fillEsquerra == null){
@@ -130,15 +128,15 @@ public class Node {
                    } else {
                        pare.setFillEsquerra(null);
                    }
-               }else{
+               } else {
                    arbre.setRoot(new Node(-1));
                }
-           }else{
+           } else {
                if(fillEsquerra == null || fillDret == null){
                    Node aux;
                    if (fillDret == null){
                        aux = fillEsquerra;
-                   }else{
+                   } else {
                        aux = fillDret;
                    }
                    aux.setPare(pare);
@@ -148,10 +146,10 @@ public class Node {
                         } else {
                             pare.setFillEsquerra(aux);
                         }
-                    }else{
+                    } else {
                         arbre.setRoot(aux);
                     }
-               }else{
+               } else {
                    Node aux = fillDret.cercaSubst(arbre);
                    aux.setPare(pare);
                    aux.setFillEsquerra(fillEsquerra);
@@ -168,13 +166,12 @@ public class Node {
                    fillEsquerra = null;
                    fillDret = null;
                }
-
            }
            pare.definirAltura();
            pare.rotacions(arbre);
            pare = null;
 
-       }else{
+       } else {
            if(node.getNumero() >= numero && fillEsquerra != null){
                fillEsquerra.delete(node, arbre);
 
