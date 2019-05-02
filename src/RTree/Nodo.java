@@ -122,6 +122,9 @@ public class Nodo {
                 unionRectangulosASplitear[i].setIncremento(rectNoQuiero1.calcularIncrementoConRectangulo(unionRectangulosASplitear[i]));
             }
 
+            QuickSort q = new QuickSort();
+            q.quickSort(unionRectangulosASplitear,new ComparadorRectangulo(),0,unionRectangulosASplitear.length-1);
+
             /*
              * Para saber donde poner cada rectangulo donde le pertenece, haremos varias cosas:
              *  1) Calcularemos el incremento
