@@ -8,6 +8,7 @@ public class Rectangulo {
     private double latMin;
     private double longMax;
     private double longMin;
+    private double incremento;
 
     public Rectangulo(int max) {
         this.latMax = -91;
@@ -237,5 +238,9 @@ public class Rectangulo {
         if (lon < longMin) {
             longMin = lon;
         }
+    }
+
+    public void setIncremento(double incremento) {
+        this.incremento = incremento;
     }
 }
