@@ -123,7 +123,7 @@ public class Nodo {
             }
 
             QuickSort q = new QuickSort();
-            q.quickSort(unionRectangulosASplitear,new ComparadorRectangulo(),0,unionRectangulosASplitear.length-1);
+            unionRectangulosASplitear = q.quickSort(unionRectangulosASplitear,new ComparadorRectangulo(),0,unionRectangulosASplitear.length-1);
 
             /*
              * Para saber donde poner cada rectangulo donde le pertenece, haremos varias cosas:
