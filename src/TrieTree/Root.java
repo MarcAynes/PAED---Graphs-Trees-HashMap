@@ -7,8 +7,6 @@ public class Root {
 
     public Node[] lletres = new Node[26];
 
-    public Node fillDret;
-    public Node fillEsquerra;
     public Node pare;
     public int altura;
 
@@ -21,28 +19,21 @@ public class Root {
         }
     }
 
+    public void add(char[] paraula){
+        for(char aux:paraula){
+            if  (aux == paraula[0]){
+
+
+            }
+        }
+    }
+
     public char[] getAbecedari() {
         return abecedari;
     }
 
     public void setAbecedari(char[] abecedari) {
         this.abecedari = abecedari;
-    }
-
-    public Node getFillDret() {
-        return fillDret;
-    }
-
-    public void setFillDret(Node fillDret) {
-        this.fillDret = fillDret;
-    }
-
-    public Node getFillEsquerra() {
-        return fillEsquerra;
-    }
-
-    public void setFillEsquerra(Node fillEsquerra) {
-        this.fillEsquerra = fillEsquerra;
     }
 
     public Node getPare() {

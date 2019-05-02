@@ -1,8 +1,6 @@
 package TrieTree;
 
 public class Node {
-    public Node fillDret;
-    public Node fillEsquerra;
     public Node pare;
     public int altura;
 
@@ -20,8 +18,9 @@ public class Node {
         }
     }
 
-    public void addWord(char[] paraula) {
-        lletra = paraula[0];
+    public void addLetter(char[] lletra, int i) {
+
+        this.lletra = lletra[i];
 
     }
 
@@ -30,21 +29,7 @@ public class Node {
     }
 
 
-    public Node getFillDret() {
-        return fillDret;
-    }
 
-    public void setFillDret(Node fillDret) {
-        this.fillDret = fillDret;
-    }
-
-    public Node getFillEsquerra() {
-        return fillEsquerra;
-    }
-
-    public void setFillEsquerra(Node fillEsquerra) {
-        this.fillEsquerra = fillEsquerra;
-    }
 
     public Node getPare() {
         return pare;

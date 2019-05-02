@@ -12,8 +12,8 @@ public class MainTriePaLosJajas {
         Node aux = new Node();
 
         for (;;) {
-            char[] paraula = sc.next().toCharArray();
-            aux.addWord(paraula);
+            char[] paraula = sc.next().toLowerCase().toCharArray();
+            root.add(paraula);
         }
 
     }
