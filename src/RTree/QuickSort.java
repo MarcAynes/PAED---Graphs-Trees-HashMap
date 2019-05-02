@@ -14,7 +14,7 @@ public class QuickSort {
          * @param j posicio final
          * @return
          */
-        public List<Rectangulo> quickSort (List<Rectangulo> p, Comparator c, int i, int j) {
+        public Rectangulo [] quickSort (Rectangulo [] p, Comparator c, int i, int j) {
             int s;
             int t;
             int array_aux_ij [] = new int [2];
@@ -42,7 +42,7 @@ public class QuickSort {
          * @param c comparador que gastem en el quicksort
          * @return El nostre array amb la petita part ordenada
          */
-        private int [] particio (List <Rectangulo> p, int array_aux_ij[], Comparator c) {
+        private int [] particio (Rectangulo [] p, int array_aux_ij[], Comparator c) {
             int mig;
             Rectangulo pivot;
             Rectangulo tmp;
@@ -51,18 +51,18 @@ public class QuickSort {
             s = array_aux_ij[0];
             t = array_aux_ij[1];
             mig = (array_aux_ij[0] + array_aux_ij[1])/2;
-            pivot = p.get(mig);
+            pivot = p[mig];
             while (s <= t) {
-                while (c.compararp2top1(p.get(s),pivot)) {
+                while (c.compararp2top1(p[s],pivot)) {
                     s = s + 1;
                 }
-                while (c.compararp1top2(p.get(t),pivot)) {
+                while (c.compararp1top2(p[t],pivot)) {
                     t = t - 1;
                 }
                 if (s < t) {
-                    tmp = p.get(s);
-                    p.set(s, p.get(t));
-                    p.set(t,tmp);
+                    tmp = p[s];
+                    p[s] = p[t];
+                    p[t] = tmp;
                     s = s + 1;
                     t = t - 1;
                 }
