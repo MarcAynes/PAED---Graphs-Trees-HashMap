@@ -10,7 +10,6 @@ public class Rectangulo {
     private double longMin;
     private double incremento;
 
-
     public Rectangulo(int max) {
         this.latMax = -91;
         this.latMin = 91;
@@ -33,6 +32,22 @@ public class Rectangulo {
             return false;
         }
         else {
+            double lat = postAInsertar.getLocation()[0];
+            double lon = postAInsertar.getLocation()[1];
+
+            if (lat > latMax) {
+                latMax = lat;
+            }
+            if (lat < latMin) {
+                latMin = lat;
+            }
+            if (lon > longMax) {
+                longMax = lon;
+            }
+            if (lon < longMin) {
+                longMin = lon;
+            }
+
             hijo.insertarPost(postAInsertar,this);
             return true;
         }
@@ -104,21 +119,13 @@ public class Rectangulo {
         if (altura  == 0) {
             Rectangulo [] rectangulos = hijo.insertarPost(postAInsertar,this);
             //Si hay split de puntos que genera rectangulos, entonces se devolveran los dois nuevos rectangulos(si no null)
-            if (rectangulos != null) {
+            if (rectangulos != null ) {
                 if (objectPadre instanceof Nodo) {
                     if (((Nodo)objectPadre).getCantidad() == ((Nodo)objectPadre).getValores().length) {
                         return rectangulos;
                     } else {
                         ((Nodo)objectPadre).agregarRectangulos(rectangulos,this);
-
-                        Rectangulo rectanguloAux = new Rectangulo(0);
-                        rectanguloAux.setAll(rectangulos[0]);
-                        rectanguloAux.actualizarValores(rectangulos[1]);
-
-                        Rectangulo[] array = new Rectangulo[1];
-                        array[0] = rectanguloAux;
-
-                        return array;
+                        return null;
                     }
                 }
                 else {
@@ -127,42 +134,22 @@ public class Rectangulo {
                     }
                     else {
                         ((RTree)objectPadre).agregarRectangulos(rectangulos,this);
-
-                        Rectangulo rectanguloAux = new Rectangulo(0);
-                        rectanguloAux.setAll(rectangulos[0]);
-                        rectanguloAux.actualizarValores(rectangulos[1]);
-
-                        Rectangulo[] array = new Rectangulo[1];
-                        array[0] = rectanguloAux;
-
-                        return array;
+                        return null;
                     }
                 }
             }
-            else {
-                Rectangulo[] array = new Rectangulo[1];
-                array[0] = this;
-                return array;
-            }
+            return null;
         }
         else {
             Rectangulo [] rectangulos = hijo.busquedaSiguienteRectangulo(altura,postAInsertar);
 
-            if (rectangulos.length != 1) {
+            if (rectangulos != null ) {
                 if (objectPadre instanceof Nodo) {
                     if (((Nodo)objectPadre).getCantidad() == ((Nodo)objectPadre).getValores().length) {
                         return rectangulos;
                     } else {
                         ((Nodo)objectPadre).agregarRectangulos(rectangulos,this);
-
-                        Rectangulo rectanguloAux = new Rectangulo(0);
-                        rectanguloAux.setAll(rectangulos[0]);
-                        rectanguloAux.actualizarValores(rectangulos[1]);
-
-                        Rectangulo[] array = new Rectangulo[1];
-                        array[0] = rectanguloAux;
-
-                        return array;
+                        return null;
                     }
                 }
                 else {
@@ -171,26 +158,11 @@ public class Rectangulo {
                     }
                     else {
                         ((RTree)objectPadre).agregarRectangulos(rectangulos,this);
-
-                        Rectangulo rectanguloAux = new Rectangulo(0);
-                        rectanguloAux.setAll(rectangulos[0]);
-                        rectanguloAux.actualizarValores(rectangulos[1]);
-
-                        Rectangulo[] array = new Rectangulo[1];
-                        array[0] = rectanguloAux;
-
-                        return array;
+                        return null;
                     }
                 }
             }
-            else {
-                this.actualizarValores(rectangulos[0]);
-
-                Rectangulo[] array = new Rectangulo[1];
-                array[0] = this;
-                return array;
-            }
-
+            return null;
         }
     }
 
@@ -238,7 +210,7 @@ public class Rectangulo {
             latMax = rectangulo.getLatMax();
         }
         if(rectangulo.getLatMin() < latMin) {
-            latMin = rectangulo.getLatMin();
+            latMin = getLatMin();
         }
         if (rectangulo.getLongMax() > longMax) {
             longMax = rectangulo.getLongMax();
@@ -266,11 +238,6 @@ public class Rectangulo {
         if (lon < longMin) {
             longMin = lon;
         }
-    }
-
-
-    public double getIncremento() {
-        return incremento;
     }
 
     public void setIncremento(double incremento) {

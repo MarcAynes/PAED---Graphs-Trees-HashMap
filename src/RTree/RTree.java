@@ -4,7 +4,7 @@ import Model.Post;
 import Utiles.Haversine;
 
 public class RTree {
-    private int min;
+    public static int min;
     private int max;
     private byte tipo; //Para saber si en el principio hay puntos o rectangulos (0 rectangulo i 1 punto)
     private int altura;
@@ -12,9 +12,9 @@ public class RTree {
     private int cantidad; //Cantidad en la raiz
     private int cantidadTotal;
 
-    public RTree (int min, int max) {
+    public RTree (int minAux, int max) {
         tipo = 1;
-        this.min = min;
+        min = minAux;
         this.max = max;
         cantidad = 0;
         altura = 0;
@@ -115,8 +115,12 @@ public class RTree {
                 raiz[1] = rectanguloDerecho;
                 cantidad = 2;
 
-                double areaAux2;
+                Rectangulo rectNoQuiero1 = unionRectangulosASplitear[indice1];
+                Rectangulo rectNoQuiero2 = unionRectangulosASplitear[indice2];
 
+                for (int i = 0; i < unionRectangulosASplitear.length; i++) {
+                    unionRectangulosASplitear[i].setIncremento(rectNoQuiero1.calcularIncrementoConRectangulo(unionRectangulosASplitear[i]));
+                }
 
                 /*
                  * Para saber donde poner cada rectangulo donde le pertenece, haremos varias cosas:
@@ -125,69 +129,69 @@ public class RTree {
                  *  3) Se añade el rectangulo alli donde se cumplan las minimas condiciones segun los dos criterios anteriores
                  */
                 for (int i = 0; i < unionRectangulosASplitear.length; i++) {
-                    if ((i != indice1) && (i != indice2)) {
+                    if ((unionRectangulosASplitear[i] != rectNoQuiero1) && (unionRectangulosASplitear[i] != rectNoQuiero2)) {
 
-                        double areaIzqSinConjunto = rectanguloIzquierdo.calculoAreaActual();
-                        double areaDerSinConjunto = rectanguloDerecho.calculoAreaActual();
-                        double incrementoIzq = rectanguloIzquierdo.calcularIncrementoConRectangulo(unionRectangulosASplitear[i]);
-                        double incrementoDer = rectanguloDerecho.calcularIncrementoConRectangulo(unionRectangulosASplitear[i]);
-                        double areaConjuntaIzq = incrementoIzq - areaIzqSinConjunto;
-                        double areaConjuntoDer = incrementoDer - areaDerSinConjunto;
+                        if (unionRectangulosASplitear.length - i - 1 + hijoDerecho.getCantidad() < min) {
+                            hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                            rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
+                        } else if (unionRectangulosASplitear.length - i - 1 + hijoIzquierdo.getCantidad() < min) {
+                            hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                            rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
+                        } else {
+                            double areaIzqSinConjunto = rectanguloIzquierdo.calculoAreaActual();
+                            double areaDerSinConjunto = rectanguloDerecho.calculoAreaActual();
+                            double incrementoIzq = rectanguloIzquierdo.calcularIncrementoConRectangulo(unionRectangulosASplitear[i]);
+                            double incrementoDer = rectanguloDerecho.calcularIncrementoConRectangulo(unionRectangulosASplitear[i]);
+                            double areaConjuntaIzq = incrementoIzq - areaIzqSinConjunto;
+                            double areaConjuntoDer = incrementoDer - areaDerSinConjunto;
 
-                        boolean procesoCorrecto;
-                        if (areaConjuntaIzq < areaConjuntoDer) {
-                            procesoCorrecto = hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
-                            if (!procesoCorrecto) {
-                                hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
-                                rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
-                            }
-                            else {
-                                rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
-                            }
-                        }
-                        else {
-                            if (areaConjuntaIzq > areaConjuntoDer) {
-                                procesoCorrecto = hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                            boolean procesoCorrecto;
+                            if (areaConjuntaIzq < areaConjuntoDer) {
+                                procesoCorrecto = hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
                                 if (!procesoCorrecto) {
-                                    hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                    hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                    rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
+                                } else {
                                     rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
                                 }
-                                else {
-                                    rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
-                                }
-                            }
-                            else {
-                                if (areaIzqSinConjunto < areaDerSinConjunto) {
-                                    procesoCorrecto = hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                            } else {
+                                if (areaConjuntaIzq > areaConjuntoDer) {
+                                    procesoCorrecto = hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
                                     if (!procesoCorrecto) {
-                                        hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                        hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                        rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
+                                    } else {
                                         rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
                                     }
-                                    else {
-                                        rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
-                                    }
-                                }
-                                else {
-                                    if (areaIzqSinConjunto > areaDerSinConjunto) {
-                                        procesoCorrecto = hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                } else {
+                                    if (areaIzqSinConjunto < areaDerSinConjunto) {
+                                        procesoCorrecto = hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
                                         if (!procesoCorrecto) {
-                                            hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
-                                            rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
-                                        } else {
-                                            rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
-                                        }
-                                    }
-                                    else {
-                                        if(hijoIzquierdo.getCantidad() <= hijoDerecho.getCantidad()){
-                                            hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
-                                            rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
-                                        }
-                                        else {
                                             hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
                                             rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
+                                        } else {
+                                            rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
+                                        }
+                                    } else {
+                                        if (areaIzqSinConjunto > areaDerSinConjunto) {
+                                            procesoCorrecto = hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                            if (!procesoCorrecto) {
+                                                hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                                rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
+                                            } else {
+                                                rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
+                                            }
+                                        } else {
+                                            if (hijoIzquierdo.getCantidad() <= hijoDerecho.getCantidad()) {
+                                                hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                                rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
+                                            } else {
+                                                hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
+                                                rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
+
+                                            }
 
                                         }
-
                                     }
                                 }
                             }
