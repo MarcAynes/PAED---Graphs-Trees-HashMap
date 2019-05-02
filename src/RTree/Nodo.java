@@ -63,7 +63,7 @@ public class Nodo {
         Rectangulo[] rectangulosGenerados = ((Rectangulo) valores[indice]).bajarArbol(altura-1,postAInsertar,this);
 
         // Caso ha habido split en hijo y nodo debe de splitearse para almacenar rectangulos
-        if(rectangulosGenerados != null) {
+        if(rectangulosGenerados.length != 1){
             //Creamos los dos rectangulos que in crementaran la altura del arbol
             Nodo hijoIzquierdo = new Nodo(valores.length, (byte) 0);
             Nodo hijoDerecho = new Nodo(valores.length, (byte) 0);
@@ -203,7 +203,7 @@ public class Nodo {
             return rectangulosSolucion;
         }
         else {
-            return null;
+            return rectangulosGenerados;
         }
 
     }

@@ -63,7 +63,7 @@ public class RTree {
             }
             Rectangulo [] rectangulos = ((Rectangulo)raiz[indice]).bajarArbol(altura-1,postAInsertar,this);
 
-            if (rectangulos != null) {
+            if (rectangulos.length != 1) {
                 //Creamos los dos rectangulos que in crementaran la altura del arbol
                 Nodo hijoIzquierdo = new Nodo(max,(byte) 0);
                 Nodo hijoDerecho = new Nodo(max,(byte) 0);
@@ -200,6 +200,10 @@ public class RTree {
                 }
                 altura++;
             }
+            else {
+                ((Rectangulo)raiz[indice]).actualizarValores(rectangulos[0]);
+            }
+
         }
         cantidadTotal++;
     }
