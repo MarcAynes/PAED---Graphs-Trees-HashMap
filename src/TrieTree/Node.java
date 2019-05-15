@@ -12,6 +12,7 @@ public class Node {
 
     public Node() {
         altura = 1;
+        value = 0;
 
         for (int i = 0; i < lletres.length; i++) {
             lletres = null;
