@@ -1,17 +1,29 @@
 package Model;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.List;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Post {
+    @Expose
     private int id;
+    @Expose
     private String [] liked_by;
+    @Expose
     private long published_when;
+    @Expose
     private String published_by;
+    @Expose
     private double [] location; //(latitud,longitud)
+    @Expose
     private String[] hashtags;
+
+    private boolean eliminado;
+
+    private double incremento;
 
     public Post(int id, double[] location) {
         this.id = id;
@@ -64,5 +76,21 @@ public class Post {
 
     public void setHashtags(String[] hashtags) {
         this.hashtags = hashtags;
+    }
+
+    public double getIncremento() {
+        return incremento;
+    }
+
+    public void setIncremento(double incremento) {
+        this.incremento = incremento;
+    }
+
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
     }
 }

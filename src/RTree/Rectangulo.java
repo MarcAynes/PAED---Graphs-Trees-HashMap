@@ -3,10 +3,15 @@ package RTree;
 import Model.Post;
 
 public class Rectangulo {
+    @Expose
     private Nodo hijo;
+    @Expose
     private double latMax;
+    @Expose
     private double latMin;
+    @Expose
     private double longMax;
+    @Expose
     private double longMin;
     private double incremento;
 
@@ -210,7 +215,7 @@ public class Rectangulo {
             latMax = rectangulo.getLatMax();
         }
         if(rectangulo.getLatMin() < latMin) {
-            latMin = getLatMin();
+            latMin = rectangulo.getLatMin();
         }
         if (rectangulo.getLongMax() > longMax) {
             longMax = rectangulo.getLongMax();
@@ -240,7 +245,20 @@ public class Rectangulo {
         }
     }
 
+    public Nodo getHijo() {
+        return hijo;
+    }
+
+    public void setHijo(Nodo hijo) {
+        this.hijo = hijo;
+    }
+
+    public double getIncremento() {
+        return incremento;
+    }
+
     public void setIncremento(double incremento) {
         this.incremento = incremento;
     }
+
 }

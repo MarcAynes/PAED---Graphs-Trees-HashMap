@@ -53,6 +53,7 @@ public class Main_2_LaVenganzaDelJamon {
         rTree.insertarElemento(p14);
         rTree.insertarElemento(p15);
         rTree.insertarElemento(p16);
-        System.out.println("Pepe manda en el barrio");
+        //System.out.println("Pepe manda en el barrio");
+        rTree.visualizacionRTree();
     }
 }

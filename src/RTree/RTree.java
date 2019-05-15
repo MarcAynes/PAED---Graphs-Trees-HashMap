@@ -2,14 +2,26 @@ package RTree;
 
 import Model.Post;
 import Utiles.Haversine;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+
+import java.io.*;
 
 public class RTree {
+    @Expose
     public static int min;
+    @Expose
     private int max;
+    @Expose
     private byte tipo; //Para saber si en el principio hay puntos o rectangulos (0 rectangulo i 1 punto)
+    @Expose
     private int altura;
+    @Expose
     private Object [] raiz;
+    @Expose
     private int cantidad; //Cantidad en la raiz
+    @Expose
     private int cantidadTotal;
 
     public RTree (int minAux, int max) {
@@ -122,6 +134,7 @@ public class RTree {
                     unionRectangulosASplitear[i].setIncremento(rectNoQuiero1.calcularIncrementoConRectangulo(unionRectangulosASplitear[i]));
                 }
 
+                int contadorAux = 0;
                 /*
                  * Para saber donde poner cada rectangulo donde le pertenece, haremos varias cosas:
                  *  1) Calcularemos el incremento
@@ -131,10 +144,10 @@ public class RTree {
                 for (int i = 0; i < unionRectangulosASplitear.length; i++) {
                     if ((unionRectangulosASplitear[i] != rectNoQuiero1) && (unionRectangulosASplitear[i] != rectNoQuiero2)) {
 
-                        if (unionRectangulosASplitear.length - i - 1 + hijoDerecho.getCantidad() < min) {
+                        if (unionRectangulosASplitear.length - contadorAux - 3  + hijoDerecho.getCantidad() < min) {
                             hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
                             rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
-                        } else if (unionRectangulosASplitear.length - i - 1 + hijoIzquierdo.getCantidad() < min) {
+                        } else if (unionRectangulosASplitear.length - contadorAux - 3  + hijoIzquierdo.getCantidad() < min) {
                             hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
                             rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
                         } else {
@@ -196,6 +209,7 @@ public class RTree {
                                 }
                             }
                         }
+                        contadorAux++;
                     }
                 }
                 altura++;
@@ -240,6 +254,19 @@ public class RTree {
         rectangulo_2.insertarPost(auxiliar[aux_2]);
 
 
+        Post postNoQuiero1 = auxiliar[aux_1];
+        Post postNoQuiero2 = auxiliar[aux_2];
+
+        for (int i = 0; i < auxiliar.length; i++) {
+            auxiliar[i].setIncremento(rectangulo_1.calcularIncremento(auxiliar[i]));
+        }
+
+
+        PollasEnAlmibar q = new PollasEnAlmibar();
+        auxiliar = q.quickSort(auxiliar,new ComparadorPosts(),0,auxiliar.length-1);
+
+
+
         double calcularAux;
         double calcularAux2;
 
@@ -253,58 +280,61 @@ public class RTree {
 
             * Cabe destacar que en caso que donde se ponga en un rectangulo que ya esta lleno, se intentará la inserción en el otro.
         */
-
+        int contadorAux = 0;
         for (int i = 0; i < auxiliar.length; i++) {
             //Comprobamos que no sea ninguno de los dos polos introducidos ya
-            if ((auxiliar[i] != auxiliar[aux_1])  && (auxiliar[i] != auxiliar[aux_2])) {
-                calcularAux = rectangulo_1.calcularIncremento(auxiliar[i]);
-                calcularAux2 = rectangulo_2.calcularIncremento(auxiliar[i]);
-                //Paso 1
-                if ( calcularAux < calcularAux2) {
-                    boolean resultado = rectangulo_1.insertarPost(auxiliar[i]);
-                    if (!resultado) {
-                        rectangulo_2.insertarPost(auxiliar[i]);
-                    }
-                }
-                else if (calcularAux > calcularAux2) {
-                    boolean resultado = rectangulo_2.insertarPost(auxiliar[i]);
-                    if (!resultado) {
-                        rectangulo_1.insertarPost(auxiliar[i]);
-                    }
-                }
-                else {
-                    calcularAux = rectangulo_1.calculoAreaActual();
-                    calcularAux2 = rectangulo_2.calculoAreaActual();
-                    //Paso 2
-                    if ( calcularAux < calcularAux2) {
+            if ((auxiliar[i] != postNoQuiero1) && (auxiliar[i] != postNoQuiero2)) {
+                if (auxiliar.length - contadorAux -3 + rectangulo_1.getHijo().getCantidad() < min) {
+                    rectangulo_1.insertarPost(auxiliar[i]);
+                } else if (auxiliar.length - contadorAux -3 + rectangulo_2.getHijo().getCantidad() < min) {
+                    rectangulo_2.insertarPost(auxiliar[i]);
+
+                } else {
+                    calcularAux = rectangulo_1.calcularIncremento(auxiliar[i]);
+                    calcularAux2 = rectangulo_2.calcularIncremento(auxiliar[i]);
+                    //Paso 1
+                    if (calcularAux < calcularAux2) {
                         boolean resultado = rectangulo_1.insertarPost(auxiliar[i]);
                         if (!resultado) {
                             rectangulo_2.insertarPost(auxiliar[i]);
                         }
-                    }
-                    else if (calcularAux > calcularAux2) {
+                    } else if (calcularAux > calcularAux2) {
                         boolean resultado = rectangulo_2.insertarPost(auxiliar[i]);
                         if (!resultado) {
                             rectangulo_1.insertarPost(auxiliar[i]);
                         }
-                    }
-                    else {
-                        //Paso 3
-                        if (rectangulo_1.devolverCantidad() < rectangulo_2.devolverCantidad()) {
+                    } else {
+                        calcularAux = rectangulo_1.calculoAreaActual();
+                        calcularAux2 = rectangulo_2.calculoAreaActual();
+                        //Paso 2
+                        if (calcularAux < calcularAux2) {
                             boolean resultado = rectangulo_1.insertarPost(auxiliar[i]);
                             if (!resultado) {
                                 rectangulo_2.insertarPost(auxiliar[i]);
                             }
-                        }
-                        else {
+                        } else if (calcularAux > calcularAux2) {
                             boolean resultado = rectangulo_2.insertarPost(auxiliar[i]);
                             if (!resultado) {
                                 rectangulo_1.insertarPost(auxiliar[i]);
                             }
+                        } else {
+                            //Paso 3
+                            if (rectangulo_1.devolverCantidad() < rectangulo_2.devolverCantidad()) {
+                                boolean resultado = rectangulo_1.insertarPost(auxiliar[i]);
+                                if (!resultado) {
+                                    rectangulo_2.insertarPost(auxiliar[i]);
+                                }
+                            } else {
+                                boolean resultado = rectangulo_2.insertarPost(auxiliar[i]);
+                                if (!resultado) {
+                                    rectangulo_1.insertarPost(auxiliar[i]);
+                                }
+                            }
                         }
-                    }
 
+                    }
                 }
+                contadorAux++;
             }
         }
         raiz [0] = rectangulo_1;
@@ -350,6 +380,28 @@ public class RTree {
     }
 
 
+    public void visualizacionRTree () {
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+
+        //convert the Java object to json
+        String jsonString = gson.toJson(this);
+        //Write JSON String to file
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter("results/prueba.json");
+            fileWriter.write(jsonString);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fileWriter != null) {
+                    fileWriter.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
 
@@ -412,6 +464,12 @@ public class RTree {
 
     public void setCantidadTotal(int cantidadTotal) {
         this.cantidadTotal = cantidadTotal;
+    }
+
+    public void eliminarPost ()
+
+    public void hacerJSONRtree () {
+
     }
 }
 
