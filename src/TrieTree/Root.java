@@ -1,11 +1,8 @@
 package TrieTree;
 
 public class Root {
-    public char[] abecedari = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-                                'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-                                's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-
-    public Node[] lletres = new Node[26];
+        //lletraes minuscula + numeros
+    public Node[] lletres = new Node[36];
 
     public Node pare;
     public int altura;
@@ -20,20 +17,22 @@ public class Root {
     }
 
     public void add(char[] paraula){
-        for(char aux:paraula){
-            if  (aux == paraula[0]){
 
-
+        if (paraula[0] - '0' > 9 ){
+            //numero
+            if (lletres[paraula[0] - '0'] == null){
+                lletres[paraula[0] - '0'] = new Node();
             }
+            lletres[paraula[0] - '0'].addLetter(paraula, 1);
+        }else{
+            //lletra
+            if (lletres[paraula[0] - 'a'] == null){
+                lletres[paraula[0] - 'a'] = new Node();
+            }
+            lletres[paraula[0] - 'a'].addLetter(paraula, 1);
         }
-    }
 
-    public char[] getAbecedari() {
-        return abecedari;
-    }
 
-    public void setAbecedari(char[] abecedari) {
-        this.abecedari = abecedari;
     }
 
     public Node getPare() {
