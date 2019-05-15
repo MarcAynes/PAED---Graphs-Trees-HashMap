@@ -2,11 +2,18 @@ package RTree;
 
 import Model.Post;
 import Utiles.Haversine;
+import com.google.gson.annotations.Expose;
+
+import java.util.ArrayList;
+
 import static RTree.RTree.min;
 
 public class Nodo {
+    @Expose
     private byte tipo; //Para saber dentro del nodo (0 rectangulo y 1 punto)
+    @Expose
     private Object [] valores;
+    @Expose
     private int cantidad;
 
     public Nodo(int max) {
@@ -125,6 +132,7 @@ public class Nodo {
             QuickSort q = new QuickSort();
             unionRectangulosASplitear = q.quickSort(unionRectangulosASplitear,new ComparadorRectangulo(),0,unionRectangulosASplitear.length-1);
 
+            int contadorAux = 0;
             /*
              * Para saber donde poner cada rectangulo donde le pertenece, haremos varias cosas:
              *  1) Calcularemos el incremento
@@ -133,10 +141,10 @@ public class Nodo {
              */
             for (int i = 0; i < unionRectangulosASplitear.length; i++) {
                 if ((unionRectangulosASplitear[i] != rectNoQuiero1) && (unionRectangulosASplitear[i] != rectNoQuiero2)) {
-                    if (unionRectangulosASplitear.length - i - 1 + hijoDerecho.getCantidad() < min) {
+                    if (unionRectangulosASplitear.length - contadorAux -3 + hijoDerecho.getCantidad() < min) {
                         hijoDerecho.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
                         rectanguloDerecho.actualizarValores(unionRectangulosASplitear[i]);
-                    } else if (unionRectangulosASplitear.length - i - 1 + hijoIzquierdo.getCantidad() < min) {
+                    } else if (unionRectangulosASplitear.length - contadorAux -3 + hijoIzquierdo.getCantidad() < min) {
                         hijoIzquierdo.agregarRectanguloIndividual(unionRectangulosASplitear[i]);
                         rectanguloIzquierdo.actualizarValores(unionRectangulosASplitear[i]);
                     }
@@ -200,6 +208,7 @@ public class Nodo {
                             }
                         }
                     }
+                    contadorAux++;
                 }
             }
 
@@ -244,8 +253,22 @@ public class Nodo {
         rectangulo_2.insertarPost(auxiliar[aux_2]);
 
 
+        Post postNoQuiero1 = auxiliar[aux_1];
+        Post postNoQuiero2 = auxiliar[aux_2];
+
+        for (int i = 0; i < auxiliar.length; i++) {
+            auxiliar[i].setIncremento(rectangulo_1.calcularIncremento(auxiliar[i]));
+        }
+
+        PollasEnAlmibar q = new PollasEnAlmibar();
+        auxiliar = q.quickSort(auxiliar,new ComparadorPosts(),0,auxiliar.length-1);
+
+
         double calcularAux;
         double calcularAux2;
+
+
+        int contadorAux = 0;
 
         /*Para los lectores retrasados del futuro:
             Paso 1: Insertar segun incremento de area (basicamente lo que se hace es comparar cual de las dos areas incrementa menos
@@ -260,24 +283,16 @@ public class Nodo {
 
         for (int i = 0; i < auxiliar.length; i++) {
             //Comprobamos que no sea ninguno de los dos polos introducidos ya
-            if ((auxiliar[i] != auxiliar[aux_1]) && (auxiliar[i] != auxiliar[aux_2])) {
-                calcularAux = rectangulo_1.calcularIncremento(auxiliar[i]);
-                calcularAux2 = rectangulo_2.calcularIncremento(auxiliar[i]);
-                //Paso 1
-                if (calcularAux < calcularAux2) {
-                    boolean resultado = rectangulo_1.insertarPost(auxiliar[i]);
-                    if (!resultado) {
-                        rectangulo_2.insertarPost(auxiliar[i]);
-                    }
-                } else if (calcularAux > calcularAux2) {
-                    boolean resultado = rectangulo_2.insertarPost(auxiliar[i]);
-                    if (!resultado) {
-                        rectangulo_1.insertarPost(auxiliar[i]);
-                    }
+            if ((auxiliar[i] != postNoQuiero1) && (auxiliar[i] != postNoQuiero2)) {
+                if (auxiliar.length - contadorAux -3  + rectangulo_1.getHijo().getCantidad() < min) {
+                    rectangulo_1.insertarPost(auxiliar[i]);
+                } else if (auxiliar.length - contadorAux -3  + rectangulo_2.getHijo().getCantidad() < min) {
+                    rectangulo_2.insertarPost(auxiliar[i]);
+
                 } else {
-                    calcularAux = rectangulo_1.calculoAreaActual();
-                    calcularAux2 = rectangulo_2.calculoAreaActual();
-                    //Paso 2
+                    calcularAux = rectangulo_1.calcularIncremento(auxiliar[i]);
+                    calcularAux2 = rectangulo_2.calcularIncremento(auxiliar[i]);
+                    //Paso 1
                     if (calcularAux < calcularAux2) {
                         boolean resultado = rectangulo_1.insertarPost(auxiliar[i]);
                         if (!resultado) {
@@ -289,21 +304,37 @@ public class Nodo {
                             rectangulo_1.insertarPost(auxiliar[i]);
                         }
                     } else {
-                        //Paso 3
-                        if (rectangulo_1.devolverCantidad() < rectangulo_2.devolverCantidad()) {
+                        calcularAux = rectangulo_1.calculoAreaActual();
+                        calcularAux2 = rectangulo_2.calculoAreaActual();
+                        //Paso 2
+                        if (calcularAux < calcularAux2) {
                             boolean resultado = rectangulo_1.insertarPost(auxiliar[i]);
                             if (!resultado) {
                                 rectangulo_2.insertarPost(auxiliar[i]);
                             }
-                        } else {
+                        } else if (calcularAux > calcularAux2) {
                             boolean resultado = rectangulo_2.insertarPost(auxiliar[i]);
                             if (!resultado) {
                                 rectangulo_1.insertarPost(auxiliar[i]);
                             }
+                        } else {
+                            //Paso 3
+                            if (rectangulo_1.devolverCantidad() < rectangulo_2.devolverCantidad()) {
+                                boolean resultado = rectangulo_1.insertarPost(auxiliar[i]);
+                                if (!resultado) {
+                                    rectangulo_2.insertarPost(auxiliar[i]);
+                                }
+                            } else {
+                                boolean resultado = rectangulo_2.insertarPost(auxiliar[i]);
+                                if (!resultado) {
+                                    rectangulo_1.insertarPost(auxiliar[i]);
+                                }
+                            }
                         }
-                    }
 
+                    }
                 }
+                contadorAux++;
             }
         }
         Rectangulo [] arrayRectangulos = new Rectangulo[2];
@@ -420,4 +451,36 @@ public class Nodo {
 
         return rectanguloAuxiliar.calculoAreaActual();
     }
+
+
+    public Post[] bajarNodo (double latitudMax, double longitudMax, double latitudMin, double longitudMin, int max) {
+        if (tipo == 0) {
+            int i = 0;
+            int contador = 0;
+            Post []  arrayAux;
+            Post [] arrayADevolver = new Post[valores.length * max];
+            while (i < valores.length) {
+                Rectangulo r = (Rectangulo)valores[i];
+                if (r.getLongMin() <= longitudMax && r.getLongMax() >= longitudMin && r.getLatMin() <= latitudMax && r.getLatMax() >= latitudMin) {
+                    //Seguimos bajando payo
+                    arrayAux = bajarNodo(latitudMax,longitudMax,latitudMin,longitudMin,max);
+                    int x = 0;
+                    while (x < arrayAux.length) {
+                        arrayADevolver [contador] = arrayAux[x];
+                        contador++;
+                        x++;
+                    }
+                }
+                i++;
+            }
+            return arrayADevolver;
+
+        }
+        else {
+            //TODO: En un auxiliar poner todos los que no hayan sido eliminados!!
+            return (Post[]) valores;
+        }
+    }
+
+
 }
