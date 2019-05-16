@@ -47,8 +47,35 @@ public class Node {
 
     }
 
-    public void search(char[] paraula, int posicio) {
+    public void search(char[] paraula, int posicio, int nombre) {
+        if (paraula.length >= posicio) {
+            if (paraula[0] - '0' > 9) {
+                //numero
+                if (lletres[paraula[0] - 'a' + 10] != null) {
+                    lletres[paraula[0] - 'a' + 10].search(paraula, 1, 0);
+                } else {
+                    System.out.println("no existeix cap paraula que comenci per " + paraula.toString());
+                }
 
+            } else {
+                //lletra
+                if (lletres[paraula[0] - '0'] != null) {
+                    lletres[paraula[0] - '0'].search(paraula, 1, 0);
+                } else {
+                    System.out.println("no existeix cap paraula que comenci per " + paraula.toString());
+                }
+
+            }
+        }else{
+            if (value >= 1) {
+                nombre++;
+                System.out.println(paraula.toString());
+            }
+
+            for (int i = 0; 36 > i && nombre <= 5; i++) {
+                if (lletra[])
+            }
+        }
     }
 
 

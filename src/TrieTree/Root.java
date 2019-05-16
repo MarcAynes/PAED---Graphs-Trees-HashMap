@@ -38,7 +38,7 @@ public class Root {
         if (paraula[0] - '0' > 9 ){
             //numero
             if (lletres[paraula[0] - 'a' + 10] != null){
-                lletres[paraula[0] - 'a' + 10].search(paraula, 1);
+                lletres[paraula[0] - 'a' + 10].search(paraula, 1, 0);
             }else{
                 System.out.println("no existeix cap paraula que comenci per " + paraula.toString());
             }
@@ -46,7 +46,7 @@ public class Root {
         }else{
             //lletra
             if (lletres[paraula[0] - '0'] != null){
-                lletres[paraula[0] - '0'].search(paraula, 1);
+                lletres[paraula[0] - '0'].search(paraula, 1, 0);
             }else{
                 System.out.println("no existeix cap paraula que comenci per " + paraula.toString());
             }
