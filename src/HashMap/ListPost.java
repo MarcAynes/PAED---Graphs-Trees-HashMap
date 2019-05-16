@@ -48,4 +48,12 @@ public class ListPost {
 
         return postsAux;
     }
+
+    public String getHashtag() {
+        return hashtag;
+    }
+
+    public void setHashtag(String hashtag) {
+        this.hashtag = hashtag;
+    }
 }
