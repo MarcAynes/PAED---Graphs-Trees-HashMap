@@ -4,16 +4,34 @@ import Model.Post;
 
 
 public class ListPost {
+    String hashtag;
     Post [] posts;
     int siguiente;
+
     public ListPost() {
         siguiente =0;
         posts = new Post[5];
+        hashtag = null;
     }
-    public void agregarPost (Post post) {
-        posts[siguiente++] = post;
-        if (siguiente == 5) {
-            siguiente= 0;
+    public boolean agregarPost (Post post,String hashtag) {
+        if (this.hashtag != null) {
+            if (this.hashtag.equals(hashtag)) {
+                posts[siguiente++] = post;
+                if (siguiente == 5) {
+                    siguiente = 0;
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
+        else {
+            this.hashtag = hashtag;
+            posts[siguiente++] = post;
+            if (siguiente == 5) {
+                siguiente = 0;
+            }
+            return true;
         }
     }
     public Post [] printarPosts (){
