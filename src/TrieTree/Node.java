@@ -14,39 +14,40 @@ public class Node {
         altura = 1;
         value = 0;
 
-        for (int i = 0; i < lletres.length; i++) {
-            lletres = null;
-        }
+        //for (int i = 0; i < lletres.length; i++) {
+          //  lletres = null;
+        //}
     }
 
-    public void addLetter(char[] lletra, int i) {
+    public void addLetter(char[] lletra, int i, Node aiudame) {
         altura = altura < lletra.length - i ? lletra.length-i : altura;
 
-        this.lletra = lletra[i];
-        if (lletra.length == i+1){
+        this.lletra = lletra[i-1];
+        pare = aiudame;
+        if (lletra.length == i){
             //cas trivial
             value++;
 
         }else{
             //cas no trivial
-            if (lletra[i+1] - '0' > 9){
+            if (lletra[i] - '0' > 9){
                 //paraula
-                if (lletres[lletra[i+1] - 'a'] == null){
-                    lletres[lletra[i+1] - 'a'] = new Node();
+                if (lletres[lletra[i] - 'a' + 10] == null){
+                    lletres[lletra[i] - 'a' + 10] = new Node();
                 }
-                lletres[lletra[i+1] - 'a'].addLetter(lletra, i+1);
+                lletres[lletra[i] - 'a' + 10].addLetter(lletra, i+1, this);
             }else{
                 //numero
-                if (lletres[lletra[i+1] - '0'] == null){
-                    lletres[lletra[i+1] - '0'] = new Node();
+                if (lletres[lletra[i] - '0'] == null){
+                    lletres[lletra[i] - '0'] = new Node();
                 }
-                lletres[lletra[i+1] - '0'].addLetter(lletra, i+1);
+                lletres[lletra[i] - '0'].addLetter(lletra, i+1, this);
             }
         }
 
     }
 
-    public void recorregut() {
+    public void search(char[] paraula, int posicio) {
 
     }
 

@@ -11,28 +11,47 @@ public class Root {
         pare = null;
         altura = 1;
 
-        for (int i = 0; i < lletres.length; i++) {
-            lletres = null;
-        }
+        //for (int i = 0; i < lletres.length; i++) {
+        //  lletres = null;
+        //}
     }
 
     public void add(char[] paraula){
 
         if (paraula[0] - '0' > 9 ){
             //numero
+            if (lletres[paraula[0] - 'a' + 10] == null){
+                lletres[paraula[0] - 'a' + 10] = new Node();
+            }
+            lletres[paraula[0] - 'a' + 10].addLetter(paraula, 1, null);
+        }else{
+            //lletra
             if (lletres[paraula[0] - '0'] == null){
                 lletres[paraula[0] - '0'] = new Node();
             }
-            lletres[paraula[0] - '0'].addLetter(paraula, 1);
-        }else{
-            //lletra
-            if (lletres[paraula[0] - 'a'] == null){
-                lletres[paraula[0] - 'a'] = new Node();
-            }
-            lletres[paraula[0] - 'a'].addLetter(paraula, 1);
+            lletres[paraula[0] - '0'].addLetter(paraula, 1, null);
         }
 
+    }
 
+    public void search(char[] paraula){
+        if (paraula[0] - '0' > 9 ){
+            //numero
+            if (lletres[paraula[0] - 'a' + 10] != null){
+                lletres[paraula[0] - 'a' + 10].search(paraula, 1);
+            }else{
+                System.out.println("no existeix cap paraula que comenci per " + paraula.toString());
+            }
+
+        }else{
+            //lletra
+            if (lletres[paraula[0] - '0'] != null){
+                lletres[paraula[0] - '0'].search(paraula, 1);
+            }else{
+                System.out.println("no existeix cap paraula que comenci per " + paraula.toString());
+            }
+
+        }
     }
 
     public Node getPare() {
