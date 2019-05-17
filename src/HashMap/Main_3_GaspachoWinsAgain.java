@@ -44,5 +44,6 @@ public class Main_3_GaspachoWinsAgain {
 
         System.out.println("POSTS QUE CONTIENE EL HASHTAG BUSCADO");
         hashMap.buscarPostsConHashTAG("pollasEnVinagre");
+        hashMap.pasarHashMapAJSON();
     }
 }

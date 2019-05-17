@@ -1,7 +1,12 @@
 package HashMap;
 
 import Model.Post;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.geometry.Pos;
+
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class HashMap {
     private ListPost [] hashMap;
@@ -31,16 +36,21 @@ public class HashMap {
         int id = hashFunction(hashtag,0);
         int i  = 0;
         int contador = 1;
-        while (!hashMap[id].getHashtag().equals(hashtag)) {
-            id = hashFunction(hashtag,contador);
-            contador++;
-        }
-        Post posts [] = hashMap[id].printarPosts();
-        for (int y = 0; y < posts.length;y++) {
-            if (posts[y] != null) {
-                System.out.println(posts[y].getId());
+        try {
+            while (!hashMap[id].getHashtag().equals(hashtag)) {
+                id = hashFunction(hashtag, contador);
+                contador++;
             }
+            Post posts[] = hashMap[id].printarPosts();
+            for (int y = 0; y < posts.length; y++) {
+                if (posts[y] != null) {
+                    System.out.println(posts[y].getId());
+                }
+            }
+        } catch (NullPointerException ex){
+            System.out.println("No existe este tag ;)");
         }
+
     }
     //Valor añadido es por si queremos hacer un reshash de todos los posts que tenemos
     private int hashFunction(String hashtag, int valorAnadido) {
@@ -51,4 +61,17 @@ public class HashMap {
         id = (id + valorAnadido)%2069;
         return (int) id;
     }
+    public void pasarHashMapAJSON () {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String s = gson.toJson(this);
+        try {
+            FileWriter fw = new FileWriter("files/hashmap.json");
+            fw.write(s);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
