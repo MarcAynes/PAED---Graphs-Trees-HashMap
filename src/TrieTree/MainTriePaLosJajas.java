@@ -40,6 +40,34 @@ public class MainTriePaLosJajas {
             root.search(paraula);
         }
 
+        for (;;){
+            char[] paraula = sc.next().toLowerCase().toCharArray();
+
+            if (paraula[0] == '-'){
+                break;
+            }
+
+            for (int j =0; j < paraula.length; j++){
+                paraula[j] = paraula[j] == 'ç' ? 'c': paraula[j];
+                paraula[j] = paraula[j] == 'ñ' ? 'n': paraula[j];
+            }
+            root.eliminaNode(paraula);
+        }
+
+        for (;;){
+            char[] paraula = sc.next().toLowerCase().toCharArray();
+
+            if (paraula[0] == '-'){
+                break;
+            }
+
+            for (int j =0; j < paraula.length; j++){
+                paraula[j] = paraula[j] == 'ç' ? 'c': paraula[j];
+                paraula[j] = paraula[j] == 'ñ' ? 'n': paraula[j];
+            }
+            root.search(paraula);
+        }
+
 
     }
 }

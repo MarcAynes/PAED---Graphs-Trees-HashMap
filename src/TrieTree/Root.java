@@ -1,6 +1,6 @@
 package TrieTree;
 
-public class Root {
+public class Root implements trie{
         //lletraes minuscula + numeros
     public Node[] lletres = new Node[36];
 
@@ -23,13 +23,13 @@ public class Root {
             if (lletres[paraula[0] - 'a' + 10] == null){
                 lletres[paraula[0] - 'a' + 10] = new Node();
             }
-            lletres[paraula[0] - 'a' + 10].addLetter(paraula, 1, null);
+            lletres[paraula[0] - 'a' + 10].addLetter(paraula, 1, this);
         }else{
             //lletra
             if (lletres[paraula[0] - '0'] == null){
                 lletres[paraula[0] - '0'] = new Node();
             }
-            lletres[paraula[0] - '0'].addLetter(paraula, 1, null);
+            lletres[paraula[0] - '0'].addLetter(paraula, 1, this);
         }
 
     }
@@ -40,7 +40,7 @@ public class Root {
             if (lletres[paraula[0] - 'a' + 10] != null){
                 lletres[paraula[0] - 'a' + 10].search(paraula, 0, 0);
             }else{
-                System.out.println("no existeix cap paraula que comenci per " + paraula.toString());
+                System.out.println("no existeix cap paraula que comenci per la inserida");
             }
 
         }else{
@@ -48,7 +48,27 @@ public class Root {
             if (lletres[paraula[0] - '0'] != null){
                 lletres[paraula[0] - '0'].search(paraula, 0, 0);
             }else{
-                System.out.println("no existeix cap paraula que comenci per " + paraula.toString());
+                System.out.println("no existeix cap paraula que comenci per la inserida");
+            }
+
+        }
+    }
+
+    public void eliminaNode(char[] paraula){
+        if (paraula[0] - '0' > 9 ){
+            //numero
+            if (lletres[paraula[0] - 'a' + 10] != null){
+                lletres[paraula[0] - 'a' + 10].elimina(paraula, 0);
+            }else{
+                System.out.println("no existeix cap paraula que comenci per ");
+            }
+
+        }else{
+            //lletra
+            if (lletres[paraula[0] - '0'] != null){
+                lletres[paraula[0] - '0'].elimina(paraula, 0);
+            }else{
+                System.out.println("no existeix cap paraula que comenci per ");
             }
 
         }
@@ -76,5 +96,15 @@ public class Root {
 
     public void setLletres(Node[] lletres) {
         this.lletres = lletres;
+    }
+
+    @Override
+    public void EliminaFill(Node fill) {
+        for (int i = 0; 36 > i; i++) {
+            if (lletres[i] != null && lletres[i].equals(fill)) {
+                lletres[i] = null;
+                break;
+            }
+        }
     }
 }
