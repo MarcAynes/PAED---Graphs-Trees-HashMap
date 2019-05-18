@@ -4,6 +4,8 @@ public class Node {
     public Node pare;
     public int altura;
 
+    private static final int nombreDeParaulesHaRetornar = 5;
+
     public char lletra;
     public int value;
 
@@ -14,9 +16,9 @@ public class Node {
         altura = 1;
         value = 0;
 
-        //for (int i = 0; i < lletres.length; i++) {
-          //  lletres = null;
-        //}
+        for (int i = 0; i < lletres.length; i++) {
+            lletres[i] = null;
+        }
     }
 
     public void addLetter(char[] lletra, int i, Node aiudame) {
@@ -47,35 +49,47 @@ public class Node {
 
     }
 
-    public void search(char[] paraula, int posicio, int nombre) {
-        if (paraula.length >= posicio) {
-            if (paraula[0] - '0' > 9) {
+    //paraula: array que ens han introduit
+    //nombre: nombre de paraules que hem retornat
+    public int search(char[] paraula, int posicio, int nombre) {
+        if (paraula.length > posicio+1) {
+            if (paraula[posicio+1] - '0' > 9) {
                 //numero
-                if (lletres[paraula[0] - 'a' + 10] != null) {
-                    lletres[paraula[0] - 'a' + 10].search(paraula, 1, 0);
+                if (lletres[paraula[posicio+1] - 'a' + 10] != null) {
+                    nombre = lletres[paraula[posicio+1] - 'a' + 10].search(paraula, posicio + 1, 1);
                 } else {
-                    System.out.println("no existeix cap paraula que comenci per " + paraula.toString());
+                    System.out.println("no existeix cap paraula que comenci per la inserida" );
                 }
 
             } else {
                 //lletra
-                if (lletres[paraula[0] - '0'] != null) {
-                    lletres[paraula[0] - '0'].search(paraula, 1, 0);
+                if (lletres[paraula[posicio+1] - '0'] != null) {
+                    nombre = lletres[paraula[posicio+1] - '0'].search(paraula, posicio + 1, 1);
                 } else {
-                    System.out.println("no existeix cap paraula que comenci per " + paraula.toString());
+                    System.out.println("no existeix cap paraula que comenci per la inserida");
                 }
 
             }
         }else{
+            char[] paraulaAux = new char[paraula.length + 1];
+            for (int a = 0; a < paraula.length; a++){
+                paraulaAux[a] = paraula[a];
+            }
             if (value >= 1) {
+                paraulaAux[paraulaAux.length-1] = ' ';
                 nombre++;
-                System.out.println(paraula.toString());
+                String printa = new String(paraulaAux);
+                System.out.println(printa);
             }
 
-            for (int i = 0; 36 > i && nombre <= 5; i++) {
-                if (lletra[])
+            for (int i = 0; 36 > i && nombre <= nombreDeParaulesHaRetornar; i++) {
+                if (lletres[i] != null){
+                    paraulaAux[paraula.length] = lletres[i].getLletra();
+                    nombre = lletres[i].search(paraulaAux, posicio+1, nombre);
+                }
             }
         }
+        return nombre;
     }
 
 
