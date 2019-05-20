@@ -74,6 +74,14 @@ public class Root implements trie{
         }
     }
 
+    public void mostrar(){
+        for (int i = 0; 36 > i; i++) {
+            if (lletres[i] != null) {
+                lletres[i].mostrar("");
+            }
+        }
+    }
+
     public Node getPare() {
         return pare;
     }

@@ -150,6 +150,32 @@ public class Node implements trie {
         }
     }
 
+    public void mostrar(String distancia){
+        System.out.printf("%s%c", distancia, lletra);
+        if (value > 0){
+            System.out.printf("\n");
+        }
+        int quantitat = 0;
+        for (int i = 0; 36 > i; i++) {
+            if (lletres[i] != null) {
+                quantitat++;
+            }
+        }
+
+        int lenghth = distancia.length();
+        distancia = "";
+        for (int i = 0 ; lenghth >= i && quantitat > 1; i++){
+            distancia += "-";
+        }
+
+        for (int i = 0; 36 > i; i++) {
+            if (lletres[i] != null) {
+                lletres[i].mostrar(distancia);
+            }
+        }
+
+    }
+
     public Object getPare() {
         return pare;
     }
