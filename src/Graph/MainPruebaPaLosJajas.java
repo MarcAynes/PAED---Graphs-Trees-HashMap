@@ -33,6 +33,8 @@ public class MainPruebaPaLosJajas {
         Graph graph = new Graph();
         graph.insertarJSON(users);
 
-        System.out.println("Aiuda");
+        graph.visualizacionGraph();
+
+
     }
 }

@@ -466,7 +466,7 @@ public class RTree {
         this.cantidadTotal = cantidadTotal;
     }
 
-    public void eliminarPost ()
+    //public void eliminarPost ()
 
     public void hacerJSONRtree () {
 

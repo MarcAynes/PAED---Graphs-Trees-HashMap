@@ -1,18 +1,20 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Node node = new Node(40);
-        ArbreAVL arbre = new ArbreAVL(node);
+        Scanner sc = new Scanner(System.in);
+        Node root = new Node(sc.nextInt());
+        ArbreAVL arbre = new ArbreAVL(root);
 
-        for (int i = 0; i < 10; i++){
-            Random rn = new Random();
-            Node aux = new Node(rn.nextInt(100));
+
+        for (;;){
+            int i = sc.nextInt();
+            Node aux = new Node(i);
             arbre.add(aux);
+            arbre.visualitza(2);
         }
-        arbre.visualitza(2);
-
     }
 }

@@ -2,27 +2,18 @@ public class ArbreAVL {
 
     private Node root;
 
-
-
-    public ArbreAVL(){
-
-        root = new Node(-1);
-        root.setAltura(0);
-    }
-
     public ArbreAVL(Node root){
 
         this.root = root;
-        root.setAltura(0);
+        root.setAltura(1);
     }
 
     public void add(Node node){
-
         if (root.getNumero() != -1) {
-            root.add(node);
+            root.add(node, this);
         }else{
             root = node;
-            root.setAltura(0);
+            root.setAltura(1);
         }
     }
 
@@ -34,8 +25,11 @@ public class ArbreAVL {
      */
 
     public void visualitza(int tipus){
-
         root.visualitza(tipus);
+    }
+
+    public void setRoot(Node a){
+        root = a;
     }
 
 

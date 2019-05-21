@@ -1,7 +1,6 @@
 package Model;
 
 import Graph.PosicionUser;
-import javafx.geometry.Pos;
 
 public class DynamicArrayUser {
     private PosicionUser[] valores;
@@ -17,7 +16,6 @@ public class DynamicArrayUser {
             insertarElemento(arrayJSONUsers[pepe]);
         }
     }
-
 
     public int insertarElemento (User elementoAInsertar) {
         if (cantidad == valores.length) {
@@ -88,6 +86,7 @@ public class DynamicArrayUser {
     public PosicionUser[] getValores() {
         return valores;
     }
+
 
     public void setValores(PosicionUser[] valores) {
         this.valores = valores;
