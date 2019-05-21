@@ -1,7 +1,7 @@
 package HashMap;
 
 import Model.Post;
-import RTree.PollasEnAlmibar;
+import RTree.QuickSortPosts;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -112,8 +112,8 @@ public class HashMap {
                     }
                 }
                 if (contador != 0) {
-                    PollasEnAlmibar pollasEnAlmibar = new PollasEnAlmibar();
-                    pollasEnAlmibar.quickSort(posts, new ComparatorTimestampsPost(), 0, contador - 1);
+                    QuickSortPosts quickSortPosts = new QuickSortPosts();
+                    quickSortPosts.quickSort(posts, new ComparatorTimestampsPost(), 0, contador - 1);
                     System.out.println("\n\nPosición " + j + "--Hashtag:" + hashMap[j].getHashtag() + "\nLos ultimos 5 posts:");
                     for (int k = 0; k < contador; k++) {
                         System.out.println((k + 1) + ". " + posts[k].getId());
