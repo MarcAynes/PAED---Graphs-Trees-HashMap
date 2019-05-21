@@ -11,7 +11,7 @@ public class Post {
     @Expose
     private int id;
     @Expose
-    private String [] liked_by;
+    private String[] liked_by;
     @Expose
     private long published_when;
     @Expose
