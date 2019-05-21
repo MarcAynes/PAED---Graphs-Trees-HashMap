@@ -517,6 +517,44 @@ public class Nodo {
             return false;
         }
     }
+    public void visualzacionRTreeTerminal (int altura) {
+        if (tipo ==  0) {
+            Rectangulo rectangulo;
+            int i = 0;
+            for (Object obj: valores) {
+                if (obj != null) {
+                    for (int y  =0; y < altura;y++) {
+                        System.out.print("\t");
+                    }
+                    rectangulo = (Rectangulo) obj;
+                    System.out.println("[Rectangulo " + i + "] --> Altura:" + altura);
+                    rectangulo.getHijo().visualzacionRTreeTerminal(altura + 1);
+                }
+                i++;
+            }
+        }
+        else {
+            int i = 0;
+            Post post;
+            System.out.print("\n");
+            for (Object obj: valores) {
+                if (obj != null) {
+                    for (int y = 0; y < altura;y++) {
+                        System.out.print("\t");
+                    }
+                    post = (Post) obj;
+                    System.out.println("[Post " + i + "] ---> Altura:" + altura);
+                    for (int y = 0; y < altura;y++) {
+                        System.out.print("\t");
+                    }
+                    System.out.println("Info del post: ID:" + post.getId());
+                }
+                i++;
+            }
+            System.out.print("\n");
+
+        }
+    }
 
 
 }
