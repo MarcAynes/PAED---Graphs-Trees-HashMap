@@ -82,6 +82,7 @@ public class Menu {
                 rTree = new RTree(3, 5);
                 graph = new Graph();
                 arbreAVL = new ArbreAVL(new AVLTree.Node(posts[0]));
+
                 for (Post p : posts) {
                     //Importación de ids al Trie
                     arbreTrieIds.add(String.valueOf(p.getId()).toCharArray());
