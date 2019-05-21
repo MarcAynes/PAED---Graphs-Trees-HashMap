@@ -73,6 +73,9 @@ public class Menu {
 
                 System.out.println("Importando estructuras...");
 
+                posts = importacio.getPost();
+                users = importacio.getUser();
+
                 arbreTrieIds = new ArbreTrie();
                 arbreTrieUsersNames = new ArbreTrie();
                 hashMap = new HashMap();
