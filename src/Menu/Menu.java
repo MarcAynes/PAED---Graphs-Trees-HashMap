@@ -86,7 +86,7 @@ public class Menu {
 
                 for (Post p : posts) {
                     //Importación de ids al Trie
-                    arbreTrieIds.add(String.valueOf(p.getId()).toCharArray());
+                    arbreTrieIds.add(String.valueOf(p.getId()).toLowerCase().toCharArray());
                     //Importación post al HashMap
                     hashMap.agregarPost(p);
                     if (p != posts[0]) {
