@@ -104,6 +104,8 @@ public class Menu {
                 //Importación de los usuarios al Grafo
                 graph.insertarJSON(users);
 
+                //Desactivamos el flag de que las estructuras estan vacías
+                estructuresBuides = false;
                 break;
 
             case 2:
