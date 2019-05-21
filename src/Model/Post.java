@@ -17,7 +17,7 @@ public class Post {
     @Expose
     private String published_by;
     @Expose
-    private double [] location; //(latitud,longitud)
+    private double [] location; //(latitud max 90,longitud max 180)
     @Expose
     private String[] hashtags;
 

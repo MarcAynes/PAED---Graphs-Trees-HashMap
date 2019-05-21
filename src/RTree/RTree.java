@@ -474,13 +474,49 @@ public class RTree {
 
     }
 
-    public void busquedaEnRtree (double latitud, double longitud, double radio) {
-        double limiteIzq = latitud - radio;
-        double limiteDer = latitud + radio;
-        double limiteSup = longitud + radio;
-        double limiteInf = longitud - radio;
+    public Post [] busquedaEnRtree (double latitud, double longitud, double radio) {
+        Post[] resultado = new Post[cantidadTotal];
+        int contador = 0;
+        double latitudMin = latitud - radio;
+        double latitudMax = latitud + radio;
+        double longitudMax = longitud + radio;
+        double longitudMin = longitud - radio;
 
+        if (latitudMin < -90) {
+            latitudMin = -90;
+        }
+        if (latitudMax > 90) {
+            latitudMax = 90;
+        }
+        if (longitudMin < -180) {
+            longitudMin = -180;
+        }
+        if (longitudMax > 180) {
+            longitudMax = 180;
+        }
 
+        if (tipo == 0) {
+            //Si soy rectangulo
+
+            for(Object pepe: raiz) {
+                contador = ((Rectangulo) pepe).getHijo().bajarNodoBusqueda(latitudMax, longitudMax, latitudMin, longitudMin, contador, resultado);
+
+            }
+
+        }
+        else {
+            //Si soy un punto
+            for(Object pincho : raiz) {
+                if (pincho != null) {
+                    Post post = (Post) pincho;
+                    if (!post.isEliminado() && post.getLocation()[0] >= latitudMin && post.getLocation()[0] <= latitudMax && post.getLocation()[1] >= longitudMin && post.getLocation()[1] <= longitudMax) {
+                        resultado[contador++] = post;
+                    }
+                }
+            }
+
+        }
+        return resultado;
     }
 }
 

@@ -12,29 +12,29 @@
               "tipo": 1,
               "valores": [
                 {
-                  "id": 14,
+                  "id": 4,
                   "published_when": 0,
                   "location": [
-                    90.0,
-                    180.0
+                    45.9,
+                    -169.9
                   ]
                 },
                 {
-                  "id": 12,
+                  "id": 1,
                   "published_when": 0,
                   "location": [
-                    89.87,
-                    160.87
+                    13.12,
+                    45.9
                   ]
                 },
                 null
               ],
               "cantidad": 2
             },
-            "latMax": 90.0,
-            "latMin": 89.87,
-            "longMax": 180.0,
-            "longMin": 160.87
+            "latMax": 45.9,
+            "latMin": 13.12,
+            "longMax": 45.9,
+            "longMin": -169.9
           },
           {
             "hijo": {
@@ -70,19 +70,19 @@
               "tipo": 1,
               "valores": [
                 {
+                  "id": 14,
+                  "published_when": 0,
+                  "location": [
+                    90.0,
+                    180.0
+                  ]
+                },
+                {
                   "id": 15,
                   "published_when": 0,
                   "location": [
                     45.0,
                     120.0
-                  ]
-                },
-                {
-                  "id": 5,
-                  "published_when": 0,
-                  "location": [
-                    87.9,
-                    100.9
                   ]
                 },
                 {
@@ -96,59 +96,23 @@
               ],
               "cantidad": 3
             },
-            "latMax": 87.9,
+            "latMax": 90.0,
             "latMin": 45.0,
-            "longMax": 121.0,
-            "longMin": 100.9
+            "longMax": 180.0,
+            "longMin": 120.0
           }
         ],
         "cantidad": 3
       },
       "latMax": 90.0,
-      "latMin": -3.14,
+      "latMin": -90.0,
       "longMax": 180.0,
-      "longMin": -169.9
+      "longMin": -180.0
     },
     {
       "hijo": {
         "tipo": 0,
         "valores": [
-          {
-            "hijo": {
-              "tipo": 1,
-              "valores": [
-                {
-                  "id": 9,
-                  "published_when": 0,
-                  "location": [
-                    -10.12,
-                    18.9
-                  ]
-                },
-                {
-                  "id": 8,
-                  "published_when": 0,
-                  "location": [
-                    10.12,
-                    18.9
-                  ]
-                },
-                {
-                  "id": 13,
-                  "published_when": 0,
-                  "location": [
-                    -90.0,
-                    -180.0
-                  ]
-                }
-              ],
-              "cantidad": 3
-            },
-            "latMax": 10.12,
-            "latMin": -90.0,
-            "longMax": 18.9,
-            "longMin": -180.0
-          },
           {
             "hijo": {
               "tipo": 1,
@@ -162,30 +126,66 @@
                   ]
                 },
                 {
-                  "id": 1,
+                  "id": 8,
                   "published_when": 0,
                   "location": [
-                    13.12,
-                    45.9
+                    10.12,
+                    18.9
+                  ]
+                },
+                {
+                  "id": 9,
+                  "published_when": 0,
+                  "location": [
+                    -10.12,
+                    18.9
+                  ]
+                }
+              ],
+              "cantidad": 3
+            },
+            "latMax": 10.12,
+            "latMin": -12.9,
+            "longMax": 18.9,
+            "longMin": 1.9
+          },
+          {
+            "hijo": {
+              "tipo": 1,
+              "valores": [
+                {
+                  "id": 5,
+                  "published_when": 0,
+                  "location": [
+                    87.9,
+                    100.9
+                  ]
+                },
+                {
+                  "id": 7,
+                  "published_when": 0,
+                  "location": [
+                    86.9,
+                    85.9
                   ]
                 },
                 null
               ],
               "cantidad": 2
             },
-            "latMax": 13.12,
-            "latMin": -12.9,
-            "longMax": 45.9,
-            "longMin": 1.9
+            "latMax": 87.9,
+            "latMin": 86.9,
+            "longMax": 100.9,
+            "longMin": 85.9
           },
           null
         ],
         "cantidad": 2
       },
-      "latMax": 13.12,
-      "latMin": -90.0,
-      "longMax": 45.9,
-      "longMin": -180.0
+      "latMax": 87.9,
+      "latMin": -12.9,
+      "longMax": 100.9,
+      "longMin": 1.9
     },
     {
       "hijo": {
@@ -196,11 +196,40 @@
               "tipo": 1,
               "valores": [
                 {
+                  "id": 13,
+                  "published_when": 0,
+                  "location": [
+                    -90.0,
+                    -180.0
+                  ]
+                },
+                {
                   "id": 10,
                   "published_when": 0,
                   "location": [
                     1.23,
                     1.9
+                  ]
+                },
+                null
+              ],
+              "cantidad": 2
+            },
+            "latMax": 1.23,
+            "latMin": -90.0,
+            "longMax": 1.9,
+            "longMin": -180.0
+          },
+          {
+            "hijo": {
+              "tipo": 1,
+              "valores": [
+                {
+                  "id": 12,
+                  "published_when": 0,
+                  "location": [
+                    89.87,
+                    160.87
                   ]
                 },
                 {
@@ -215,48 +244,19 @@
               ],
               "cantidad": 2
             },
-            "latMax": 19.34,
-            "latMin": 1.23,
-            "longMax": 90.76,
-            "longMin": 1.9
-          },
-          {
-            "hijo": {
-              "tipo": 1,
-              "valores": [
-                {
-                  "id": 4,
-                  "published_when": 0,
-                  "location": [
-                    45.9,
-                    -169.9
-                  ]
-                },
-                {
-                  "id": 7,
-                  "published_when": 0,
-                  "location": [
-                    86.9,
-                    -91.9
-                  ]
-                },
-                null
-              ],
-              "cantidad": 2
-            },
-            "latMax": 86.9,
-            "latMin": 45.9,
-            "longMax": -91.9,
-            "longMin": -169.9
+            "latMax": 89.87,
+            "latMin": 19.34,
+            "longMax": 160.87,
+            "longMin": 90.76
           },
           null
         ],
         "cantidad": 2
       },
-      "latMax": 86.9,
-      "latMin": 1.23,
-      "longMax": 90.76,
-      "longMin": -169.9
+      "latMax": 89.87,
+      "latMin": -90.0,
+      "longMax": 160.87,
+      "longMin": -180.0
     }
   ],
   "cantidad": 3,

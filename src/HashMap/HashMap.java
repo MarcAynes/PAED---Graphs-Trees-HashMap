@@ -32,6 +32,31 @@ public class HashMap {
         }
     }
 
+    public void eliminarPost(Post postAEliminar){
+        int y = 0;
+        while (y < postAEliminar.getHashtags().length) {
+            if (postAEliminar.getHashtags()[y] != null) {
+                int id = hashFunction(postAEliminar.getHashtags()[y], 0);
+                int i = 0;
+                int contador = 1;
+                try {
+                    while (!hashMap[id].getHashtag().equals(postAEliminar.getHashtags()[y])) {
+                        id = hashFunction(postAEliminar.getHashtags()[y], contador);
+                        contador++;
+                    }
+
+                } catch (NullPointerException ex) {
+                    System.out.println("No existe este tag ;)");
+                    break;
+                }
+
+                hashMap[id].eliminarPost(postAEliminar);
+                y++;
+
+            }
+        }
+    }
+
     public void buscarPostsConHashTAG (String hashtag) {
         int id = hashFunction(hashtag,0);
         int i  = 0;

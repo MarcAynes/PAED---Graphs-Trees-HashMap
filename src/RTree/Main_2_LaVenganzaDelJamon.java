@@ -16,7 +16,7 @@ public class Main_2_LaVenganzaDelJamon {
         Post p5 = new Post (5,location_5);
         double [] location_6 = {-12.90,1.90};
         Post p6 = new Post (6,location_6);
-        double [] location_7 = {86.90,-91.90};
+        double [] location_7 = {86.90,85.90};
         Post p7 = new Post (7,location_7);
         double [] location_8 = {10.12,18.90};
         Post p8 = new Post (8,location_8);
@@ -26,7 +26,7 @@ public class Main_2_LaVenganzaDelJamon {
         Post p10 = new Post (10,location_10);
         double [] location_11 = {19.34,90.76};
         Post p11 = new Post (11,location_11);
-        double [] location_12 = {89.87,160.87};
+        double [] location_12 = {89.87,60.87};
         Post p12 = new Post (12,location_12);
         double [] location_13 = {-90.0,-180.0};
         Post p13 = new Post (13,location_13);
@@ -53,7 +53,9 @@ public class Main_2_LaVenganzaDelJamon {
         rTree.insertarElemento(p14);
         rTree.insertarElemento(p15);
         rTree.insertarElemento(p16);
-        //System.out.println("Pepe manda en el barrio");
+
+        Post[] resultado = rTree.busquedaEnRtree(87.9, 69.9, 20.0);
+
         rTree.visualizacionRTree();
 
     }

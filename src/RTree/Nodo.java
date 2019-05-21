@@ -3,6 +3,7 @@ package RTree;
 import Model.Post;
 import Utiles.Haversine;
 import com.google.gson.annotations.Expose;
+import javafx.geometry.Pos;
 
 import java.util.ArrayList;
 
@@ -452,29 +453,34 @@ public class Nodo {
     }
 
 
-    public void bajarNodoBusqueda (double latitudMax, double longitudMax, double latitudMin, double longitudMin, int contador, Post[] arrayResultado) {
+    public int bajarNodoBusqueda (double latitudMax, double longitudMax, double latitudMin, double longitudMin, int contador, Post[] arrayResultado) {
         if (tipo == 0) {
             int i = 0;
 
             while (i < valores.length) {
-                Rectangulo r = (Rectangulo)valores[i];
-                if (r.getLongMin() <= longitudMax && r.getLongMax() >= longitudMin && r.getLatMin() <= latitudMax && r.getLatMax() >= latitudMin) {
-                    //Seguimos bajando payo
-                    bajarNodoBusqueda(latitudMax,longitudMax,latitudMin,longitudMin,contador, arrayResultado);
-
+                if (valores[i] != null) {
+                    Rectangulo r = (Rectangulo) valores[i];
+                    if (r.getLongMin() <= longitudMax && r.getLongMax() >= longitudMin && r.getLatMin() <= latitudMax && r.getLatMax() >= latitudMin) {
+                        //Seguimos bajando payo
+                        int nuevoContador = ((Rectangulo) valores[i]).getHijo().bajarNodoBusqueda(latitudMax, longitudMax, latitudMin, longitudMin, contador, arrayResultado);
+                        contador = nuevoContador;
+                    }
                 }
                 i++;
             }
 
         }
         else {
-            for(Post post: (Post[]) valores) {
-                if(!post.isEliminado()){
-                    arrayResultado[contador++] = post;
+            for(Object mochilo: valores) {
+                if (mochilo != null) {
+                    Post post = (Post) mochilo;
+                    if (!post.isEliminado() && post.getLocation()[0] >= latitudMin && post.getLocation()[0] <= latitudMax && post.getLocation()[1] >= longitudMin && post.getLocation()[1] <= longitudMax) {
+                        arrayResultado[contador++] = post;
+                    }
                 }
-
             }
         }
+        return contador;
     }
 
 

@@ -166,18 +166,29 @@
       "posts": [
         {
           "id": 4,
-          "published_when": 0,
+          "published_when": 12,
           "hashtags": [
-            "PEPEGUINSAJAIN",
+            "pollasEnVinagre",
             "AMIJOS"
-          ]
+          ],
+          "eliminado": false,
+          "incremento": 0.0
         },
         null,
         null,
         null,
         null
       ],
-      "siguiente": 1
+      "siguiente": 1,
+      "minimo": 0,
+      "timetagMinimo": 0,
+      "postsBackup": {
+        "valores": [
+          null,
+          null
+        ],
+        "cantidad": 0
+      }
     },
     null,
     null,
@@ -211,18 +222,29 @@
       "posts": [
         {
           "id": 3,
-          "published_when": 0,
+          "published_when": 777,
           "hashtags": [
-            "donramon",
+            "pollasEnVinagre",
             "donramonyperchita"
-          ]
+          ],
+          "eliminado": false,
+          "incremento": 0.0
         },
         null,
         null,
         null,
         null
       ],
-      "siguiente": 1
+      "siguiente": 1,
+      "minimo": 0,
+      "timetagMinimo": 0,
+      "postsBackup": {
+        "valores": [
+          null,
+          null
+        ],
+        "cantidad": 0
+      }
     },
     null,
     null,
@@ -344,24 +366,6 @@
     null,
     null,
     null,
-    {
-      "hashtag": "donramon",
-      "posts": [
-        {
-          "id": 3,
-          "published_when": 0,
-          "hashtags": [
-            "donramon",
-            "donramonyperchita"
-          ]
-        },
-        null,
-        null,
-        null,
-        null
-      ],
-      "siguiente": 1
-    },
     null,
     null,
     null,
@@ -372,24 +376,8 @@
     null,
     null,
     null,
-    {
-      "hashtag": "tortillas",
-      "posts": [
-        {
-          "id": 7,
-          "published_when": 0,
-          "hashtags": [
-            "tortillas",
-            "pollasEnVinagre"
-          ]
-        },
-        null,
-        null,
-        null,
-        null
-      ],
-      "siguiente": 1
-    },
+    null,
+    null,
     null,
     null,
     null,
@@ -469,19 +457,30 @@
       "posts": [
         {
           "id": 2,
-          "published_when": 0,
+          "published_when": 69,
           "hashtags": [
             "pollasEnVinagre",
             "cocinadePollas",
             "pollasConAlmibarIncluido"
-          ]
+          ],
+          "eliminado": false,
+          "incremento": 0.0
         },
         null,
         null,
         null,
         null
       ],
-      "siguiente": 1
+      "siguiente": 1,
+      "minimo": 0,
+      "timetagMinimo": 0,
+      "postsBackup": {
+        "valores": [
+          null,
+          null
+        ],
+        "cantidad": 0
+      }
     },
     null,
     null,
@@ -500,19 +499,30 @@
       "posts": [
         {
           "id": 5,
-          "published_when": 0,
+          "published_when": 121,
           "hashtags": [
-            "pinjiunos",
+            "pollasEnVinagre",
             "sonpinjuinos",
             "sonomokop"
-          ]
+          ],
+          "eliminado": false,
+          "incremento": 0.0
         },
         null,
         null,
         null,
         null
       ],
-      "siguiente": 1
+      "siguiente": 1,
+      "minimo": 0,
+      "timetagMinimo": 0,
+      "postsBackup": {
+        "valores": [
+          null,
+          null
+        ],
+        "cantidad": 0
+      }
     },
     null,
     null,
@@ -1200,24 +1210,7 @@
     null,
     null,
     null,
-    {
-      "hashtag": "PEPEGUINSAJAIN",
-      "posts": [
-        {
-          "id": 4,
-          "published_when": 0,
-          "hashtags": [
-            "PEPEGUINSAJAIN",
-            "AMIJOS"
-          ]
-        },
-        null,
-        null,
-        null,
-        null
-      ],
-      "siguiente": 1
-    },
+    null,
     null,
     null,
     null,
@@ -1395,19 +1388,30 @@
       "posts": [
         {
           "id": 2,
-          "published_when": 0,
+          "published_when": 69,
           "hashtags": [
             "pollasEnVinagre",
             "cocinadePollas",
             "pollasConAlmibarIncluido"
-          ]
+          ],
+          "eliminado": false,
+          "incremento": 0.0
         },
         null,
         null,
         null,
         null
       ],
-      "siguiente": 1
+      "siguiente": 1,
+      "minimo": 0,
+      "timetagMinimo": 0,
+      "postsBackup": {
+        "valores": [
+          null,
+          null
+        ],
+        "cantidad": 0
+      }
     },
     null,
     null,
@@ -1471,37 +1475,59 @@
       "posts": [
         {
           "id": 1,
-          "published_when": 0,
+          "published_when": 123,
           "hashtags": [
             "pollasEnVinagre",
             "pollasEnAlmibar",
             "pollasConTomate"
-          ]
+          ],
+          "eliminado": false,
+          "incremento": 0.0
         },
         null,
         null,
         null,
         null
       ],
-      "siguiente": 1
+      "siguiente": 1,
+      "minimo": 0,
+      "timetagMinimo": 0,
+      "postsBackup": {
+        "valores": [
+          null,
+          null
+        ],
+        "cantidad": 0
+      }
     },
     {
       "hashtag": "pokomonos",
       "posts": [
         {
           "id": 6,
-          "published_when": 0,
+          "published_when": 1,
           "hashtags": [
-            "pokochu",
+            "pollasEnVinagre",
             "pokomonos"
-          ]
+          ],
+          "eliminado": false,
+          "incremento": 0.0
         },
         null,
         null,
         null,
         null
       ],
-      "siguiente": 1
+      "siguiente": 1,
+      "minimo": 0,
+      "timetagMinimo": 0,
+      "postsBackup": {
+        "valores": [
+          null,
+          null
+        ],
+        "cantidad": 0
+      }
     },
     null,
     null,
@@ -1522,19 +1548,30 @@
       "posts": [
         {
           "id": 5,
-          "published_when": 0,
+          "published_when": 121,
           "hashtags": [
-            "pinjiunos",
+            "pollasEnVinagre",
             "sonpinjuinos",
             "sonomokop"
-          ]
+          ],
+          "eliminado": false,
+          "incremento": 0.0
         },
         null,
         null,
         null,
         null
       ],
-      "siguiente": 1
+      "siguiente": 1,
+      "minimo": 0,
+      "timetagMinimo": 0,
+      "postsBackup": {
+        "valores": [
+          null,
+          null
+        ],
+        "cantidad": 0
+      }
     },
     null,
     null,
@@ -1622,25 +1659,7 @@
     null,
     null,
     null,
-    {
-      "hashtag": "pinjiunos",
-      "posts": [
-        {
-          "id": 5,
-          "published_when": 0,
-          "hashtags": [
-            "pinjiunos",
-            "sonpinjuinos",
-            "sonomokop"
-          ]
-        },
-        null,
-        null,
-        null,
-        null
-      ],
-      "siguiente": 1
-    },
+    null,
     null,
     null,
     null,
@@ -1751,19 +1770,30 @@
       "posts": [
         {
           "id": 1,
-          "published_when": 0,
+          "published_when": 123,
           "hashtags": [
             "pollasEnVinagre",
             "pollasEnAlmibar",
             "pollasConTomate"
-          ]
+          ],
+          "eliminado": false,
+          "incremento": 0.0
         },
         null,
         null,
         null,
         null
       ],
-      "siguiente": 1
+      "siguiente": 1,
+      "minimo": 0,
+      "timetagMinimo": 0,
+      "postsBackup": {
+        "valores": [
+          null,
+          null
+        ],
+        "cantidad": 0
+      }
     },
     null,
     null,
@@ -1814,74 +1844,118 @@
       "posts": [
         {
           "id": 1,
-          "published_when": 0,
+          "published_when": 123,
           "hashtags": [
             "pollasEnVinagre",
             "pollasEnAlmibar",
             "pollasConTomate"
-          ]
+          ],
+          "eliminado": false,
+          "incremento": 0.0
         },
         {
           "id": 2,
-          "published_when": 0,
+          "published_when": 69,
           "hashtags": [
             "pollasEnVinagre",
             "cocinadePollas",
             "pollasConAlmibarIncluido"
-          ]
+          ],
+          "eliminado": false,
+          "incremento": 0.0
         },
         {
-          "id": 7,
-          "published_when": 0,
+          "id": 3,
+          "published_when": 777,
           "hashtags": [
-            "tortillas",
+            "pollasEnVinagre",
+            "donramonyperchita"
+          ],
+          "eliminado": false,
+          "incremento": 0.0
+        },
+        {
+          "id": 8,
+          "published_when": 999,
+          "hashtags": [
             "pollasEnVinagre"
-          ]
+          ],
+          "eliminado": false,
+          "incremento": 0.0
         },
-        null,
-        null
-      ],
-      "siguiente": 3
-    },
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    {
-      "hashtag": "pokochu",
-      "posts": [
         {
-          "id": 6,
-          "published_when": 0,
+          "id": 5,
+          "published_when": 121,
           "hashtags": [
-            "pokochu",
-            "pokomonos"
-          ]
-        },
-        null,
-        null,
-        null,
-        null
+            "pollasEnVinagre",
+            "sonpinjuinos",
+            "sonomokop"
+          ],
+          "eliminado": false,
+          "incremento": 0.0
+        }
       ],
-      "siguiente": 1
+      "siguiente": 5,
+      "minimo": 1,
+      "timetagMinimo": 69,
+      "postsBackup": {
+        "valores": [
+          {
+            "id": 4,
+            "published_when": 12,
+            "hashtags": [
+              "pollasEnVinagre",
+              "AMIJOS"
+            ],
+            "eliminado": false,
+            "incremento": 0.0
+          },
+          {
+            "id": 7,
+            "published_when": 8,
+            "hashtags": [
+              "pollasEnVinagre"
+            ],
+            "eliminado": false,
+            "incremento": 0.0
+          },
+          {
+            "id": 6,
+            "published_when": 1,
+            "hashtags": [
+              "pollasEnVinagre",
+              "pokomonos"
+            ],
+            "eliminado": false,
+            "incremento": 0.0
+          },
+          null
+        ],
+        "cantidad": 3
+      }
     },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
     null,
     null,
     null,
