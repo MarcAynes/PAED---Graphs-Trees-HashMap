@@ -60,7 +60,8 @@ public class Main_2_LaVenganzaDelJamon {
 
         rTree.eliminacionEnRtree(p10);
 
-        System.out.println("Jaja si soy llo el shocu");
+        //System.out.println("Jaja si soy llo el shocu");
 
+        rTree.visualizacionRTreeTerminal();
     }
 }

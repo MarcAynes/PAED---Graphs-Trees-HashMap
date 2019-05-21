@@ -552,6 +552,31 @@ public class RTree {
 
         }
     }
+
+    public void visualizacionRTreeTerminal () {
+        if (tipo == 0) {
+            int i = 0;
+            for (Object o: raiz) {
+                if (o != null) {
+                    Rectangulo rectangulo = (Rectangulo) o;
+                    System.out.println("\n[Rectangulo "+  i +"] --> Altura:0\n");
+                    rectangulo.getHijo().visualzacionRTreeTerminal(1);
+                }
+                i++;
+            }
+        }
+        else {
+            for (Object obj: raiz) {
+                int i = 0;
+                if (obj != null) {
+                    Post post = (Post) obj;
+                    System.out.println("[Post " + i + "] --> Altura:0");
+                    System.out.println("Info del post: ID:" + post.getId());
+                    i++;
+                }
+            }
+        }
+    }
 }
 
 
