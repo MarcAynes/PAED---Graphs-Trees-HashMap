@@ -35,13 +35,13 @@ public class Root implements trie{
 
     }
 
-    public void search(char[] paraula, int nombreDeParaulesAMostrar){
+    public Return search(char[] paraula, int nombreDeParaulesAMostrar, Return retorna){
         nombreDeParaulesAMostrar--;
 
         if (paraula[0] - '0' > 9 ){
             //numero
             if (lletres[paraula[0] - 'a' + 10] != null){
-                lletres[paraula[0] - 'a' + 10].search(paraula, 0, 0, nombreDeParaulesAMostrar);
+                retorna = lletres[paraula[0] - 'a' + 10].search(paraula, 0, nombreDeParaulesAMostrar, retorna);
             }else{
                 System.out.println("no existeix cap paraula que comenci per la inserida");
             }
@@ -49,12 +49,13 @@ public class Root implements trie{
         }else{
             //lletra
             if (lletres[paraula[0] - '0'] != null){
-                lletres[paraula[0] - '0'].search(paraula, 0, 0, nombreDeParaulesAMostrar);
+                retorna = lletres[paraula[0] - '0'].search(paraula, 0, nombreDeParaulesAMostrar, retorna);
             }else{
                 System.out.println("no existeix cap paraula que comenci per la inserida");
             }
 
         }
+        return retorna;
     }
 
     public void eliminaNode(char[] paraula){

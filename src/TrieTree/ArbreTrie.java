@@ -19,14 +19,14 @@ public class ArbreTrie {
         root.add(paraula);
     }
 
-    public void search(char[] paraula){
+    public Return search(char[] paraula, int nombreDeParaulesAMostrar, Return retorna){
 
-        root.search(paraula);
+        retorna = root.search(paraula, nombreDeParaulesAMostrar, retorna);
+        return retorna;
     }
 
     public void eliminarParaula(char[] paraula){
-        root.search(paraula);
-
+       root.eliminaNode(paraula);
     }
 
     public void printarTrie(){
