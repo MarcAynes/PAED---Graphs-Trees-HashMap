@@ -263,7 +263,7 @@ public class RTree {
         }
 
 
-        PollasEnAlmibar q = new PollasEnAlmibar();
+        QuickSortPosts q = new QuickSortPosts();
         auxiliar = q.quickSort(auxiliar,new ComparadorPosts(),0,auxiliar.length-1);
 
 

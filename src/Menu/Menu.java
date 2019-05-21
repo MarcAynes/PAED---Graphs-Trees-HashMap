@@ -8,6 +8,7 @@ import Model.Post;
 import Model.User;
 import RTree.RTree;
 import TrieTree.ArbreTrie;
+import TrieTree.Return;
 import TrieTree.Root;
 
 import java.io.FileWriter;
@@ -292,17 +293,40 @@ public class Menu {
 
             case 6:
                 if (!estructuresBuides) {
-                    System.out.println("Búsqueda de información\n Que tipo de información quieres borrar?");
+                    System.out.println("Búsqueda de información\n Que tipo de información quieres buscar?");
                     System.out.println("1. Usuario\n" +
                             "2. Post\n" +
                             "3. Según Hashtag\n" +
                             "4. Según Ubicación");
 
+                    //TODO: Preguntar al Pernia si els 5 posts a buscar dins del hasmap son els 5 ultims inserits o publicats (timestamp)
+
+                    //TODO: Hacer busqueda trie
+                    Scanner sc = new Scanner(System.in);
+                    switch (sc.nextInt()) {
+                        case 1:
+                            Return r = new Return();
+                            r.setNombre(nombreDeParaulesHaRetornar);
+
+                            arbreTrieUsersNames.search(sc.next().toCharArray(), nombreDeParaulesHaRetornar, r);
+                            break;
+                        case 2:
+                            break;
+
+                        case 3:
+                            break;
+
+                        case 4:
+                            break;
+
+                        default:
+                            System.out.println("Opción incorrecta");
+                            break;
+                    }
 
                 } else {
                     System.out.println("Estruturas vacías");
                 }
-                break;
 
             case 7:
                 System.out.println("Limitar memória para autocompletar.\n" +

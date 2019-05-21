@@ -1,5 +1,7 @@
 /colors
 .idea/workspace.xml
+.idea/*
+.out/*
 
 # Mac
 .DS_Store

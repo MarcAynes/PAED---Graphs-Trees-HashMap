@@ -5,7 +5,6 @@ import Utiles.Haversine;
 import com.google.gson.annotations.Expose;
 
 
-import java.util.ArrayList;
 
 import static RTree.RTree.min;
 
@@ -261,7 +260,7 @@ public class Nodo {
             auxiliar[i].setIncremento(rectangulo_1.calcularIncremento(auxiliar[i]));
         }
 
-        PollasEnAlmibar q = new PollasEnAlmibar();
+        QuickSortPosts q = new QuickSortPosts();
         auxiliar = q.quickSort(auxiliar,new ComparadorPosts(),0,auxiliar.length-1);
 
 

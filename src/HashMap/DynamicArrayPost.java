@@ -1,9 +1,7 @@
 package HashMap;
 
-import Graph.PosicionUser;
 import Model.Post;
-import Model.User;
-import RTree.PollasEnAlmibar;
+import RTree.QuickSortPosts;
 
 public class DynamicArrayPost {
     private Post[] valores;
@@ -23,8 +21,8 @@ public class DynamicArrayPost {
         valores [cantidad] = elementoAInsertar;
         cantidad++;
 
-        PollasEnAlmibar pollasEnAlmibar = new PollasEnAlmibar();
-        pollasEnAlmibar.quickSort(valores,new ComparatorTimestampsPost(),0,cantidad-1);
+        QuickSortPosts quickSortPosts = new QuickSortPosts();
+        quickSortPosts.quickSort(valores,new ComparatorTimestampsPost(),0,cantidad-1);
     }
 
     private void ampliarArray () {
@@ -41,8 +39,8 @@ public class DynamicArrayPost {
                 valores [cantidad-1] = null;
                 cantidad--;
 
-                PollasEnAlmibar pollasEnAlmibar = new PollasEnAlmibar();
-                pollasEnAlmibar.quickSort(valores,new ComparatorTimestampsPost(),0,cantidad-1);
+                QuickSortPosts quickSortPosts = new QuickSortPosts();
+                quickSortPosts.quickSort(valores,new ComparatorTimestampsPost(),0,cantidad-1);
 
                 return true;
             }

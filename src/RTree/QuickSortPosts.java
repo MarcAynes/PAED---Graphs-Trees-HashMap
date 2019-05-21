@@ -2,7 +2,7 @@ package RTree;
 
 import Model.Post;
 
-public class PollasEnAlmibar {
+public class QuickSortPosts {
 
     /**
      * Quicksort per ordenar un arraylist de posts
