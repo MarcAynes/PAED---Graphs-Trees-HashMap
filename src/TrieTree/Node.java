@@ -52,12 +52,12 @@ public class Node implements trie {
     //paraula: array que ens han introduit
     //nombre: nombre de paraules que hem retornat
     //posicio: posicioactual de la array
-    public int search(char[] paraula, int posicio, int nombre, int nombreDeParaulesHaRetornar) {
+    public Return search(char[] paraula, int posicio, int nombreDeParaulesHaRetornar, Return retorna) {
         if (paraula.length > posicio + 1) {
             if (paraula[posicio + 1] - '0' > 9) {
                 //lletra
                 if (lletres[paraula[posicio + 1] - 'a' + 10] != null) {
-                    nombre = lletres[paraula[posicio + 1] - 'a' + 10].search(paraula, posicio + 1, 1, nombreDeParaulesHaRetornar);
+                    retorna = lletres[paraula[posicio + 1] - 'a' + 10].search(paraula, posicio + 1,  nombreDeParaulesHaRetornar, retorna);
                 } else {
                     System.out.println("no existeix cap paraula que comenci per la inserida");
                 }
@@ -65,7 +65,7 @@ public class Node implements trie {
             } else {
                 //numero
                 if (lletres[paraula[posicio + 1] - '0'] != null) {
-                    nombre = lletres[paraula[posicio + 1] - '0'].search(paraula, posicio + 1, 1, nombreDeParaulesHaRetornar);
+                    retorna = lletres[paraula[posicio + 1] - '0'].search(paraula, posicio + 1,  nombreDeParaulesHaRetornar, retorna);
                 } else {
                     System.out.println("no existeix cap paraula que comenci per la inserida");
                 }
@@ -78,19 +78,24 @@ public class Node implements trie {
             }
             if (value >= 1) {
                 paraulaAux[paraulaAux.length - 1] = ' ';
-                nombre++;
+                retorna.nombre++;
                 String printa = new String(paraulaAux);
-                System.out.println(printa);
+                char[][] p = retorna.frases;
+                retorna.frases = new char[p.length+1][];
+
+                for (int a = 0; a < retorna.frases.length; a++) {
+                    retorna.frases[a] = p[a];
+                }
             }
 
-            for (int i = 0; 36 > i && nombre <= nombreDeParaulesHaRetornar; i++) {
+            for (int i = 0; 36 > i && retorna.nombre <= nombreDeParaulesHaRetornar; i++) {
                 if (lletres[i] != null) {
                     paraulaAux[paraula.length] = lletres[i].getLletra();
-                    nombre = lletres[i].search(paraulaAux, posicio + 1, nombre, nombreDeParaulesHaRetornar);
+                    retorna = lletres[i].search(paraulaAux, posicio + 1, nombreDeParaulesHaRetornar, retorna);
                 }
             }
         }
-        return nombre;
+        return retorna;
     }
 
     public Boolean elimina(char[] paraula, int posicio) {

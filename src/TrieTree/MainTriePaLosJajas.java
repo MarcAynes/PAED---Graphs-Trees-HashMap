@@ -39,7 +39,11 @@ public class MainTriePaLosJajas {
                 paraula[j] = paraula[j] == 'ç' ? 'c': paraula[j];
                 paraula[j] = paraula[j] == 'ñ' ? 'n': paraula[j];
             }
-            root.search(paraula);
+            Return ret = root.search(paraula, 5, new Return());
+
+            for (char[] p : ret.frases){
+
+            }
         }
 
         for (;;){
@@ -67,7 +71,7 @@ public class MainTriePaLosJajas {
                 paraula[j] = paraula[j] == 'ç' ? 'c': paraula[j];
                 paraula[j] = paraula[j] == 'ñ' ? 'n': paraula[j];
             }
-            root.search(paraula);
+            //root.search(paraula);
         }
 
 
