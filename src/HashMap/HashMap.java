@@ -13,6 +13,7 @@ public class HashMap {
     public HashMap() {
         this.hashMap = new ListPost[2069];
     }
+
     public void agregarPost (Post post) {
         if (post.getHashtags() != null) {
             for (String hashtag : post.getHashtags()) {

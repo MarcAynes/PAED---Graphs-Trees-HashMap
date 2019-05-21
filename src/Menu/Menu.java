@@ -19,7 +19,8 @@ public class Menu {
     public User[] users;
 
     public ArbreAVL arbreAVL;
-    public ArbreTrie arbreTrie;
+    public ArbreTrie arbreTrieIds;
+    public ArbreTrie arbreTrieUsersNames;
     public HashMap hashMap;
     public RTree rTree;
     public Graph graph;
@@ -61,20 +62,42 @@ public class Menu {
     }
 
     public void funcionalidad(int opcio) {
+
+
         switch (opcio) {
             case 1:
-                int estructura;
-
                 System.out.println("Importación de fichero");
                 Importacio importacio = new Importacio();
 
                 System.out.println("Importando estructuras...");
 
-                estructura = entradaTerminal();
+                arbreTrieIds = new ArbreTrie();
+                arbreTrieUsersNames = new ArbreTrie();
+                hashMap = new HashMap();
+                rTree = new RTree(3, 5);
+                graph = new Graph();
+                arbreAVL = new ArbreAVL(new AVLTree.Node(posts[0]));
 
                 for (Post p : posts) {
-
+                    //Importación de ids al Trie
+                    arbreTrieIds.add(String.valueOf(p.getId()).toCharArray());
+                    //Importación post al HashMap
+                    hashMap.agregarPost(p);
+                    if (p != posts[0]) {
+                        //Importación post al AVL
+                        arbreAVL.add(new AVLTree.Node(p));
+                    }
+                    //Importación post al RTree
+                    rTree.insertarElemento(p);
                 }
+
+                for (User u : users) {
+                    //Importación de los usernames al Trie
+                    arbreTrieUsersNames.add(u.getUsername().toCharArray());
+                }
+
+                //Importación de los usuarios al Grafo
+                graph.insertarJSON(users);
 
                 break;
 
