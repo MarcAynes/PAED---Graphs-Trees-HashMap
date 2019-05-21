@@ -77,21 +77,26 @@ public class Node implements trie {
                 paraulaAux[a] = paraula[a];
             }
             if (value >= 1) {
-                paraulaAux[paraulaAux.length - 1] = ' ';
                 retorna.nombre++;
-                String printa = new String(paraulaAux);
-                char[][] p = retorna.frases;
-                retorna.frases = new char[p.length+1][];
-
-                for (int a = 0; a < retorna.frases.length; a++) {
-                    retorna.frases[a] = p[a];
+                if (retorna.frases != null) {
+                    char[][] p = retorna.frases;
+                    retorna.frases = new char[p.length + 1][];
+                    for (int a = 0; a < retorna.frases.length-1; a++) {
+                        retorna.frases[a] = p[a];
+                    }
+                    retorna.frases[retorna.frases.length-1] = paraula;
+                }else{
+                    retorna.frases = new char[1][];
+                    retorna.frases[0] = paraula;
                 }
+
+
             }
 
             for (int i = 0; 36 > i && retorna.nombre <= nombreDeParaulesHaRetornar; i++) {
                 if (lletres[i] != null) {
                     paraulaAux[paraula.length] = lletres[i].getLletra();
-                    retorna = lletres[i].search(paraulaAux, posicio + 1, nombreDeParaulesHaRetornar, retorna);
+                    retorna = lletres[i].search(paraulaAux.clone(), posicio + 1, nombreDeParaulesHaRetornar, retorna);
                 }
             }
         }

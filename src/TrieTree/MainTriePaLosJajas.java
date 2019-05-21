@@ -42,7 +42,8 @@ public class MainTriePaLosJajas {
             Return ret = root.search(paraula, 5, new Return());
 
             for (char[] p : ret.frases){
-
+                String printa = new String(p);
+                System.out.println(printa);
             }
         }
 
@@ -71,7 +72,11 @@ public class MainTriePaLosJajas {
                 paraula[j] = paraula[j] == 'ç' ? 'c': paraula[j];
                 paraula[j] = paraula[j] == 'ñ' ? 'n': paraula[j];
             }
-            //root.search(paraula);
+            Return ret = root.search(paraula, 5, new Return());
+            for (char[] p : ret.frases){
+                String printa = new String(p);
+                System.out.println(printa);
+            }
         }
 
 
