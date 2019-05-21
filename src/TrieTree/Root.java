@@ -1,5 +1,7 @@
 package TrieTree;
 
+import java.io.PrintWriter;
+
 public class Root implements trie{
         //lletraes minuscula + numeros
     public Node[] lletres = new Node[36];
@@ -78,10 +80,10 @@ public class Root implements trie{
         }
     }
 
-    public void mostrar(){
+    public void mostrar(PrintWriter pw){
         for (int i = 0; 36 > i; i++) {
             if (lletres[i] != null) {
-                lletres[i].mostrar("");
+                lletres[i].mostrar("", pw);
             }
         }
     }

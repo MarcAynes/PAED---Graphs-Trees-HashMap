@@ -1,5 +1,7 @@
 package TrieTree;
 
+import java.io.PrintWriter;
+
 public class ArbreTrie {
     Root root;
 
@@ -29,8 +31,8 @@ public class ArbreTrie {
        root.eliminaNode(paraula);
     }
 
-    public void printarTrie(){
-        root.mostrar();
+    public void printarTrie(PrintWriter pw){
+        root.mostrar(pw);
     }
 
 }

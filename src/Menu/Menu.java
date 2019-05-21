@@ -10,6 +10,9 @@ import RTree.RTree;
 import TrieTree.ArbreTrie;
 import TrieTree.Root;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Menu {
@@ -121,6 +124,16 @@ public class Menu {
 
                     switch (scStruct.nextInt()) {
                         case 1:
+                            FileWriter fichero = null;
+                            PrintWriter pw = null;
+                            try {
+                                fichero = new FileWriter("files/trie.txt");
+                                pw = new PrintWriter(fichero);
+                                arbreTrieUsersNames.printarTrie(pw);
+                                fichero.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             break;
                         case 2:
                             break;

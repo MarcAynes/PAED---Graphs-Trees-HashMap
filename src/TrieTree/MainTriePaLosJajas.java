@@ -26,7 +26,7 @@ public class MainTriePaLosJajas {
             root.add(paraula);
         }
 
-        root.mostrar();
+        //root.mostrar();
 
         for (;;){
             char[] paraula = sc.next().toLowerCase().toCharArray();

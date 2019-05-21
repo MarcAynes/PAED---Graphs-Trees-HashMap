@@ -1,5 +1,7 @@
 package TrieTree;
 
+import java.io.PrintWriter;
+
 public class Node implements trie {
     public Object pare;
     public int altura;
@@ -158,9 +160,11 @@ public class Node implements trie {
         }
     }
 
-    public void mostrar(String distancia){
+    public void mostrar(String distancia, PrintWriter pw){
+        pw.printf("%s%c", distancia, lletra);
         System.out.printf("%s%c", distancia, lletra);
         if (value > 0){
+            pw.printf("\n");
             System.out.printf("\n");
         }
         int quantitat = 0;
@@ -178,7 +182,7 @@ public class Node implements trie {
 
         for (int i = 0; 36 > i; i++) {
             if (lletres[i] != null) {
-                lletres[i].mostrar(distancia);
+                lletres[i].mostrar(distancia, pw);
             }
         }
 
