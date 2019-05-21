@@ -82,6 +82,7 @@ public class Menu {
                 rTree = new RTree(3, 5);
                 graph = new Graph();
                 arbreAVL = new ArbreAVL(new AVLTree.Node(posts[0]));
+
                 for (Post p : posts) {
                     //Importación de ids al Trie
                     arbreTrieIds.add(String.valueOf(p.getId()).toLowerCase().toCharArray());
@@ -103,6 +104,8 @@ public class Menu {
                 //Importación de los usuarios al Grafo
                 graph.insertarJSON(users);
 
+                //Desactivamos el flag de que las estructuras estan vacías
+                estructuresBuides = false;
                 break;
 
             case 2:

@@ -14,7 +14,12 @@ public class Rectangulo {
     private double longMax;
     @Expose
     private double longMin;
+
+    @Expose
+    private boolean eliminado;
+
     private double incremento;
+
 
     public Rectangulo(int max) {
         this.latMax = -91;
@@ -289,4 +294,11 @@ public class Rectangulo {
         this.incremento = incremento;
     }
 
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
+    }
 }

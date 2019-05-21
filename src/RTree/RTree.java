@@ -24,6 +24,7 @@ public class RTree {
     @Expose
     private int cantidadTotal;
 
+
     public RTree (int minAux, int max) {
         tipo = 1;
         min = minAux;
@@ -578,6 +579,5 @@ public class RTree {
         }
     }
 }
-
 
 
