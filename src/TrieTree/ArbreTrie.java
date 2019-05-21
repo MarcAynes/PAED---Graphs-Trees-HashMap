@@ -11,7 +11,6 @@ public class ArbreTrie {
     public ArbreTrie(){
 
         Root root = new Root();
-
         this.root = root;
     }
 
