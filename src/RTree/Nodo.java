@@ -5,7 +5,6 @@ import Utiles.Haversine;
 import com.google.gson.annotations.Expose;
 
 
-import java.util.ArrayList;
 
 import static RTree.RTree.min;
 

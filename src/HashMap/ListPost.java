@@ -124,4 +124,11 @@ public class ListPost {
         this.hashtag = hashtag;
     }
 
+    public Post[] getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Post[] posts) {
+        this.posts = posts;
+    }
 }
