@@ -62,5 +62,6 @@ public class Main_3_GaspachoWinsAgain {
         hashMap.eliminarPost(post3);
 
         System.out.println("Haha si soy llo el chocu");
+        
     }
 }

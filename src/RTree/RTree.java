@@ -85,7 +85,7 @@ public class RTree {
 
 
                 Rectangulo [] unionRectangulosASplitear = new Rectangulo[max+1];
-                /* Para la gente con perdida de orina:
+                /*
                     Lo que hacemos aqui es coger los rectangulos nuevos que han nacido del split y añadirlos a un array auxiliar
                     Cabe destacar que el rectangulo origen del split se elimina (basicamente no se añade)
                  */
@@ -270,7 +270,7 @@ public class RTree {
         double calcularAux;
         double calcularAux2;
 
-        /*Para los lectores retrasados del futuro:
+        /*
             Paso 1: Insertar segun incremento de area (basicamente lo que se hace es comparar cual de las dos areas incrementa menos
                 ,donde se incremente menos ahi irá el post). (*)
             Paso 2: Si los dos incrementos de las areas son iguales, se mira cuál de las dos areas es menor en este momento y una vez hecho
@@ -497,9 +497,10 @@ public class RTree {
 
         if (tipo == 0) {
             //Si soy rectangulo
-
             for(Object pepe: raiz) {
-                contador = ((Rectangulo) pepe).getHijo().bajarNodoBusqueda(latitudMax, longitudMax, latitudMin, longitudMin, contador, resultado);
+                if (pepe != null) {
+                    contador = ((Rectangulo) pepe).getHijo().bajarNodoBusqueda(latitudMax, longitudMax, latitudMin, longitudMin, contador, resultado);
+                }
 
             }
 
@@ -517,6 +518,39 @@ public class RTree {
 
         }
         return resultado;
+    }
+    public void eliminacionEnRtree (Post postAEliminar) {
+
+        double lat = postAEliminar.getLocation() [0];
+        double lon = postAEliminar.getLocation() [1];
+
+        if (tipo == 0) {
+            //Si soy rectangulo
+
+            for(Object pepe: raiz) {
+                Rectangulo rectangulo = (Rectangulo)pepe;
+                if (rectangulo.getLatMin() <= lat && rectangulo.getLatMax() >= lat && rectangulo.getLongMin() <= lon && rectangulo.getLongMax() >= lon) {
+                    boolean b = rectangulo.getHijo().bajarNodoEliminacion(postAEliminar);
+                    if (b) {
+                        break;
+                    }
+                }
+            }
+
+        }
+        else {
+            //Si soy un punto
+            for(Object pincho : raiz) {
+                if (pincho != null) {
+                    Post post = (Post) pincho;
+                    if (post.getId() == postAEliminar.getId()) {
+                        post.setEliminado(true);
+                        break;
+                    }
+                }
+            }
+
+        }
     }
 }
 

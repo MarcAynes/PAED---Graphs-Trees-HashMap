@@ -3,7 +3,7 @@ package RTree;
 import Model.Post;
 import Utiles.Haversine;
 import com.google.gson.annotations.Expose;
-import javafx.geometry.Pos;
+
 
 import java.util.ArrayList;
 
@@ -481,6 +481,41 @@ public class Nodo {
             }
         }
         return contador;
+    }
+
+    public boolean bajarNodoEliminacion (Post post) {
+        if (tipo == 0) {
+            int i = 0;
+            boolean eliminado = false;
+            double lat = post.getLocation()[0];
+            double lon = post.getLocation()[1];
+            while (i < valores.length) {
+                if (valores[i] != null) {
+                    if (((Rectangulo) valores [i]).getLongMin() <= lon && ((Rectangulo) valores[i]).getLongMax() >= lon
+                    && ((Rectangulo) valores[i]).getLatMin() <= lat && ((Rectangulo) valores[i]).getLatMax() >= lat){
+                        eliminado = ((Rectangulo) valores[i]).getHijo().bajarNodoEliminacion(post);
+                        if (eliminado) {
+                            break;
+                        }
+                    }
+                }
+                i++;
+            }
+            return eliminado;
+
+        }
+        else {
+            for(Object mochilo: valores) {
+                if (mochilo != null) {
+                    Post p = (Post) mochilo;
+                    if (p.getId() == post.getId()) {
+                        p.setEliminado(true);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 
 
