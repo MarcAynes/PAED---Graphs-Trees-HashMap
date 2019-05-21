@@ -126,11 +126,10 @@ public class Menu {
                             "4. Tabla Hash\n" +
                             "5. Graph");
                     Scanner scStruct = new Scanner(System.in);
-
+                    FileWriter fichero = null;
+                    PrintWriter pw = null;
                     switch (scStruct.nextInt()) {
                         case 1:
-                            FileWriter fichero = null;
-                            PrintWriter pw = null;
                             try {
                                 fichero = new FileWriter("files/trie.txt");
                                 pw = new PrintWriter(fichero);
@@ -143,6 +142,14 @@ public class Menu {
                         case 2:
                             break;
                         case 3:
+                            try {
+                                fichero = new FileWriter("files/AVL.txt");
+                                pw = new PrintWriter(fichero);
+                                arbreAVL.visualitza(2, pw);
+                                fichero.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             break;
                         case 4:
                             break;

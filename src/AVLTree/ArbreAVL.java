@@ -1,5 +1,7 @@
 package AVLTree;
 
+import java.io.PrintWriter;
+
 public class ArbreAVL {
 
     private Node root;
@@ -30,8 +32,8 @@ public class ArbreAVL {
 
      */
 
-    public void visualitza(int tipus){
-        root.visualitza(tipus);
+    public void visualitza(int tipus, PrintWriter pw){
+        root.visualitza(tipus, pw);
     }
 
     public void setRoot(Node a){

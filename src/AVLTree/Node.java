@@ -2,6 +2,8 @@ package AVLTree;
 
 import Model.Post;
 
+import java.io.PrintWriter;
+
 public class Node {
     private int numero;
     private Post post;
@@ -253,39 +255,44 @@ public class Node {
                 2: InOrdre
                 3: PostOrdre
      */
-    public void visualitza(int tipus){
+    public void visualitza(int tipus, PrintWriter pw){
         if  (tipus == 1){
-            printNode();
+            printNode(pw);
         }
 
         if (fillEsquerra != null){
-            fillEsquerra.visualitza(tipus);
+            fillEsquerra.visualitza(tipus, pw);
         }
 
         if (tipus == 2) {
-            printNode();
+            printNode(pw);
         }
 
         if (fillDret != null){
-            fillDret.visualitza(tipus);
+            fillDret.visualitza(tipus, pw);
         }
 
         if (tipus == 3){
-            printNode();
+            printNode(pw);
         }
     }
 
-    public void printNode() {
+    public void printNode(PrintWriter pw) {
         for (int i = 0; i < altura; i++){
+            pw.print("|---");
             System.out.print("|---");
         }
+        pw.print(">");
         System.out.print(">");
 
         if (pare == null) {
+            pw.println("Root AVLTree.Node: " + numero + ", Altura: " + altura);
             System.out.println("Root AVLTree.Node: " + numero + ", Altura: " + altura);
         } else if (pare.numero < numero) {
+            pw.println("Right AVLTree.Node: " + numero + ", Altura: " + altura);
             System.out.println("Right AVLTree.Node: " + numero + ", Altura: " + altura);
         } else if (pare.numero >= numero){
+            pw.println("Left AVLTree.Node: " + numero + ", Altura: " + altura);
             System.out.println("Left AVLTree.Node: " + numero + ", Altura: " + altura);
         }
     }

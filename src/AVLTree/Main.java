@@ -18,7 +18,7 @@ public class Main {
         arbre.add(new Node(18));
         arbre.add(new Node(35));
         arbre.add(new Node(51));
-        arbre.visualitza(2);
+        //arbre.visualitza(2);
 
         Scanner sc = new Scanner(System.in);
 
@@ -26,7 +26,7 @@ public class Main {
             int i = sc.nextInt();
             Node aux = new Node(i);
             arbre.delete(aux);
-            arbre.visualitza(2);
+            //arbre.visualitza(2);
         }
     }
 }
