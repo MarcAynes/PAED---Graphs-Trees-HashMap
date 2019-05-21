@@ -466,9 +466,20 @@ public class RTree {
         this.cantidadTotal = cantidadTotal;
     }
 
-    public void eliminarPost ()
+    public void eliminarPost (){
+
+    }
 
     public void hacerJSONRtree () {
+
+    }
+
+    public void busquedaEnRtree (double latitud, double longitud, double radio) {
+        double limiteIzq = latitud - radio;
+        double limiteDer = latitud + radio;
+        double limiteSup = longitud + radio;
+        double limiteInf = longitud - radio;
+
 
     }
 }

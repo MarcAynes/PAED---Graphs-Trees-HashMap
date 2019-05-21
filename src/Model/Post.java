@@ -21,6 +21,19 @@ public class Post {
     @Expose
     private String[] hashtags;
 
+    private boolean eliminado;
+
+    private double incremento;
+
+    public Post() {
+
+    }
+
+    public Post(int id, double[] location) {
+        this.id = id;
+        this.location = location;
+    }
+
     public int getId() {
         return id;
     }
@@ -48,15 +61,6 @@ public class Post {
     public String getPublished_by() {
         return published_by;
     }
-    private boolean eliminado;
-
-    private double incremento;
-
-    public Post(int id, double[] location) {
-        this.id = id;
-        this.location = location;
-    }
-
 
     public void setPublished_by(String published_by) {
         this.published_by = published_by;

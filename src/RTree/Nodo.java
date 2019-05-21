@@ -452,32 +452,28 @@ public class Nodo {
     }
 
 
-    public Post[] bajarNodo (double latitudMax, double longitudMax, double latitudMin, double longitudMin, int max) {
+    public void bajarNodoBusqueda (double latitudMax, double longitudMax, double latitudMin, double longitudMin, int contador, Post[] arrayResultado) {
         if (tipo == 0) {
             int i = 0;
-            int contador = 0;
-            Post []  arrayAux;
-            Post [] arrayADevolver = new Post[valores.length * max];
+
             while (i < valores.length) {
                 Rectangulo r = (Rectangulo)valores[i];
                 if (r.getLongMin() <= longitudMax && r.getLongMax() >= longitudMin && r.getLatMin() <= latitudMax && r.getLatMax() >= latitudMin) {
                     //Seguimos bajando payo
-                    arrayAux = bajarNodo(latitudMax,longitudMax,latitudMin,longitudMin,max);
-                    int x = 0;
-                    while (x < arrayAux.length) {
-                        arrayADevolver [contador] = arrayAux[x];
-                        contador++;
-                        x++;
-                    }
+                    bajarNodoBusqueda(latitudMax,longitudMax,latitudMin,longitudMin,contador, arrayResultado);
+
                 }
                 i++;
             }
-            return arrayADevolver;
 
         }
         else {
-            //TODO: En un auxiliar poner todos los que no hayan sido eliminados!!
-            return (Post[]) valores;
+            for(Post post: (Post[]) valores) {
+                if(!post.isEliminado()){
+                    arrayResultado[contador++] = post;
+                }
+
+            }
         }
     }
 
