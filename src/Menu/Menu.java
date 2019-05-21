@@ -292,6 +292,8 @@ public class Menu {
                 break;
 
             case 6:
+                String insert_int_trie;
+
                 if (!estructuresBuides) {
                     System.out.println("Búsqueda de información\n Que tipo de información quieres buscar?");
                     System.out.println("1. Usuario\n" +
@@ -308,7 +310,23 @@ public class Menu {
                             Return r = new Return();
                             r.setNombre(nombreDeParaulesHaRetornar);
 
-                            arbreTrieUsersNames.search(sc.next().toCharArray(), nombreDeParaulesHaRetornar, r);
+                            String word;
+
+                            do{
+                                word = sc.next();
+
+                                System.out.println("Posibles sugerencias");
+                                r = arbreTrieUsersNames.search(sc.next().toCharArray(), nombreDeParaulesHaRetornar, r);
+
+                                for (char[] palabra : r.getFrases()) {
+                                    System.out.println(palabra);
+                                }
+
+
+                                insert_int_trie = sc.next();
+                            } while (insert_int_trie.equals("Y"));
+
+
                             break;
                         case 2:
                             break;
