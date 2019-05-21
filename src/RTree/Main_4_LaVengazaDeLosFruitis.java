@@ -2,8 +2,9 @@ package RTree;
 
 import Model.Post;
 
-public class Main_2_LaVenganzaDelJamon {
+public class Main_4_LaVengazaDeLosFruitis {
     public static void main(String[] args) {
+        RTreeNoOptimizado rTree = new RTreeNoOptimizado();
         double [] location = {13.12,45.90};
         Post p = new Post(1,location);
         double [] location_2 = {-3.14,69.90};
@@ -12,7 +13,7 @@ public class Main_2_LaVenganzaDelJamon {
         Post p3 = new Post (3,location_3);
         double [] location_4 = {45.90,-169.90};
         Post p4 = new Post (4,location_4);
-        double [] location_5 = {89.99,77.90};
+        double [] location_5 = {89.90,77.90};
         Post p5 = new Post (5,location_5);
         double [] location_6 = {-12.90,1.90};
         Post p6 = new Post (6,location_6);
@@ -36,7 +37,6 @@ public class Main_2_LaVenganzaDelJamon {
         Post p15 = new Post (15,location_15);
         double [] location_16 = {46.15,121.0};
         Post p16 = new Post (16,location_16);
-        RTree rTree = new RTree(2,3);
         rTree.insertarElemento(p);
         rTree.insertarElemento(p2);
         rTree.insertarElemento(p3);
@@ -54,24 +54,11 @@ public class Main_2_LaVenganzaDelJamon {
         rTree.insertarElemento(p15);
         rTree.insertarElemento(p16);
 
-        Post[] resultado = rTree.busquedaEnRtree(87.9, 69.9, 20.0);
-
+        Post [] resultado = rTree.buscarPotsDentroRadio(87.9, 69.9, 20.0);
         for (int i = 0; i < resultado.length; i++) {
             if (resultado[i] != null) {
                 System.out.println(resultado[i].getId());
             }
         }
-
-
-        rTree.visualizacionRTree();
-
-        rTree.eliminacionEnRtree(p10);
-        rTree.eliminacionEnRtree(p4);
-        rTree.eliminacionEnRtree(p5);
-        rTree.eliminacionEnRtree(p13);
-        rTree.eliminacionEnRtree(p11);
-        //System.out.println("Jaja si soy llo el shocu");
-
-        rTree.visualizacionRTreeTerminal();
     }
 }

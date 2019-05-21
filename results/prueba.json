@@ -12,6 +12,36 @@
               "tipo": 1,
               "valores": [
                 {
+                  "id": 2,
+                  "published_when": 0,
+                  "location": [
+                    -3.14,
+                    69.9
+                  ]
+                },
+                {
+                  "id": 3,
+                  "published_when": 0,
+                  "location": [
+                    69.9,
+                    69.9
+                  ]
+                },
+                null
+              ],
+              "cantidad": 2
+            },
+            "latMax": 69.9,
+            "latMin": -3.14,
+            "longMax": 69.9,
+            "longMin": 69.9,
+            "eliminado": false
+          },
+          {
+            "hijo": {
+              "tipo": 1,
+              "valores": [
+                {
                   "id": 4,
                   "published_when": 0,
                   "location": [
@@ -20,11 +50,11 @@
                   ]
                 },
                 {
-                  "id": 5,
+                  "id": 10,
                   "published_when": 0,
                   "location": [
-                    87.9,
-                    -91.9
+                    1.23,
+                    1.9
                   ]
                 },
                 {
@@ -38,81 +68,15 @@
               ],
               "cantidad": 3
             },
-            "latMax": 87.9,
+            "latMax": 45.9,
             "latMin": -90.0,
-            "longMax": -91.9,
+            "longMax": 1.9,
             "longMin": -180.0,
             "eliminado": false
           },
-          {
-            "hijo": {
-              "tipo": 1,
-              "valores": [
-                {
-                  "id": 3,
-                  "published_when": 0,
-                  "location": [
-                    69.9,
-                    69.9
-                  ]
-                },
-                {
-                  "id": 2,
-                  "published_when": 0,
-                  "location": [
-                    -3.14,
-                    69.9
-                  ]
-                },
-                {
-                  "id": 12,
-                  "published_when": 0,
-                  "location": [
-                    89.87,
-                    60.87
-                  ]
-                }
-              ],
-              "cantidad": 3
-            },
-            "latMax": 89.87,
-            "latMin": -3.14,
-            "longMax": 69.9,
-            "longMin": 60.87,
-            "eliminado": false
-          },
-          {
-            "hijo": {
-              "tipo": 1,
-              "valores": [
-                {
-                  "id": 10,
-                  "published_when": 0,
-                  "location": [
-                    1.23,
-                    1.9
-                  ]
-                },
-                {
-                  "id": 11,
-                  "published_when": 0,
-                  "location": [
-                    1.25,
-                    1.9
-                  ]
-                },
-                null
-              ],
-              "cantidad": 2
-            },
-            "latMax": 1.25,
-            "latMin": 1.23,
-            "longMax": 1.9,
-            "longMin": 1.9,
-            "eliminado": false
-          }
+          null
         ],
-        "cantidad": 3
+        "cantidad": 2
       },
       "latMax": 89.87,
       "latMin": -90.0,
@@ -124,36 +88,6 @@
       "hijo": {
         "tipo": 0,
         "valores": [
-          {
-            "hijo": {
-              "tipo": 1,
-              "valores": [
-                {
-                  "id": 8,
-                  "published_when": 0,
-                  "location": [
-                    10.12,
-                    18.9
-                  ]
-                },
-                {
-                  "id": 7,
-                  "published_when": 0,
-                  "location": [
-                    86.9,
-                    15.9
-                  ]
-                },
-                null
-              ],
-              "cantidad": 2
-            },
-            "latMax": 86.9,
-            "latMin": 10.12,
-            "longMax": 18.9,
-            "longMin": 15.9,
-            "eliminado": false
-          },
           {
             "hijo": {
               "tipo": 1,
@@ -174,16 +108,9 @@
                     45.9
                   ]
                 },
-                {
-                  "id": 9,
-                  "published_when": 0,
-                  "location": [
-                    -10.12,
-                    18.9
-                  ]
-                }
+                null
               ],
-              "cantidad": 3
+              "cantidad": 2
             },
             "latMax": 13.12,
             "latMin": -12.9,
@@ -196,11 +123,19 @@
               "tipo": 1,
               "valores": [
                 {
-                  "id": 15,
+                  "id": 5,
                   "published_when": 0,
                   "location": [
-                    45.0,
-                    120.0
+                    89.99,
+                    77.9
+                  ]
+                },
+                {
+                  "id": 7,
+                  "published_when": 0,
+                  "location": [
+                    86.9,
+                    15.9
                   ]
                 },
                 {
@@ -210,7 +145,20 @@
                     90.0,
                     180.0
                   ]
-                },
+                }
+              ],
+              "cantidad": 3
+            },
+            "latMax": 90.0,
+            "latMin": 86.9,
+            "longMax": 180.0,
+            "longMin": 15.9,
+            "eliminado": false
+          },
+          {
+            "hijo": {
+              "tipo": 1,
+              "valores": [
                 {
                   "id": 16,
                   "published_when": 0,
@@ -218,13 +166,22 @@
                     46.15,
                     121.0
                   ]
-                }
+                },
+                {
+                  "id": 15,
+                  "published_when": 0,
+                  "location": [
+                    45.0,
+                    120.0
+                  ]
+                },
+                null
               ],
-              "cantidad": 3
+              "cantidad": 2
             },
-            "latMax": 90.0,
+            "latMax": 46.15,
             "latMin": 45.0,
-            "longMax": 180.0,
+            "longMax": 121.0,
             "longMin": 120.0,
             "eliminado": false
           }
@@ -237,8 +194,81 @@
       "longMin": 1.9,
       "eliminado": false
     },
-    null
+    {
+      "hijo": {
+        "tipo": 0,
+        "valores": [
+          {
+            "hijo": {
+              "tipo": 1,
+              "valores": [
+                {
+                  "id": 12,
+                  "published_when": 0,
+                  "location": [
+                    89.87,
+                    60.87
+                  ]
+                },
+                {
+                  "id": 8,
+                  "published_when": 0,
+                  "location": [
+                    10.12,
+                    18.9
+                  ]
+                },
+                null
+              ],
+              "cantidad": 2
+            },
+            "latMax": 89.87,
+            "latMin": 10.12,
+            "longMax": 60.87,
+            "longMin": 18.9,
+            "eliminado": false
+          },
+          {
+            "hijo": {
+              "tipo": 1,
+              "valores": [
+                {
+                  "id": 9,
+                  "published_when": 0,
+                  "location": [
+                    -10.12,
+                    18.9
+                  ]
+                },
+                {
+                  "id": 11,
+                  "published_when": 0,
+                  "location": [
+                    1.25,
+                    1.9
+                  ]
+                },
+                null
+              ],
+              "cantidad": 2
+            },
+            "latMax": 1.25,
+            "latMin": -10.12,
+            "longMax": 18.9,
+            "longMin": 1.9,
+            "eliminado": false
+          },
+          null
+        ],
+        "cantidad": 2
+      },
+      "latMax": 89.87,
+      "latMin": -10.12,
+      "longMax": 60.87,
+      "longMin": 1.9,
+      "eliminado": false
+    }
   ],
-  "cantidad": 2,
+  "cantidad": 3,
   "cantidadTotal": 16
 }
