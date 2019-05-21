@@ -492,9 +492,39 @@ public class Nodo {
             while (i < valores.length) {
                 if (valores[i] != null) {
                     if (((Rectangulo) valores [i]).getLongMin() <= lon && ((Rectangulo) valores[i]).getLongMax() >= lon
-                    && ((Rectangulo) valores[i]).getLatMin() <= lat && ((Rectangulo) valores[i]).getLatMax() >= lat){
+                            && ((Rectangulo) valores[i]).getLatMin() <= lat && ((Rectangulo) valores[i]).getLatMax() >= lat){
                         eliminado = ((Rectangulo) valores[i]).getHijo().bajarNodoEliminacion(post);
                         if (eliminado) {
+                            int contador= 0;
+                            int contador_2=0;
+                            if (((Rectangulo) valores [i]).getHijo().tipo == 0) {
+                                for (int j = 0; j < ((Rectangulo) valores[i]).getHijo().valores.length; j++) {
+                                    if (((Rectangulo) valores[i]).getHijo().valores[j] != null) {
+                                        Rectangulo rec1 = (Rectangulo) valores[j];
+                                        if (rec1.isEliminado()) {
+                                            contador++;
+                                        }
+                                        contador_2++;
+                                    }
+                                }
+                                if (contador == contador_2) {
+                                    ((Rectangulo)valores[i]).setEliminado(true);
+                                }
+                            }
+                            else {
+                                for (int j = 0; j < ((Rectangulo) valores[i]).getHijo().valores.length;j++) {
+                                    if (((Rectangulo) valores[i]).getHijo().valores[j] != null) {
+                                        Post post1 = ((Post) ((Rectangulo) valores[i]).getHijo().valores[j]);
+                                        if (post1.isEliminado()) {
+                                            contador++;
+                                        }
+                                        contador_2++;
+                                    }
+                                }
+                                if (contador == contador_2) {
+                                    ((Rectangulo)valores[i]).setEliminado(true);
+                                }
+                            }
                             break;
                         }
                     }
@@ -523,14 +553,17 @@ public class Nodo {
             int i = 0;
             for (Object obj: valores) {
                 if (obj != null) {
-                    for (int y  =0; y < altura;y++) {
-                        System.out.print("\t");
+                    if (!((Rectangulo) obj).isEliminado()) {
+                        for (int y = 0; y < altura; y++) {
+                            System.out.print("\t");
+                        }
+                        rectangulo = (Rectangulo) obj;
+                        System.out.println("[Rectangulo " + i + "] --> Altura:" + altura);
+                        rectangulo.getHijo().visualzacionRTreeTerminal(altura + 1);
+                        i++;
                     }
-                    rectangulo = (Rectangulo) obj;
-                    System.out.println("[Rectangulo " + i + "] --> Altura:" + altura);
-                    rectangulo.getHijo().visualzacionRTreeTerminal(altura + 1);
                 }
-                i++;
+
             }
         }
         else {
@@ -539,17 +572,19 @@ public class Nodo {
             System.out.print("\n");
             for (Object obj: valores) {
                 if (obj != null) {
-                    for (int y = 0; y < altura;y++) {
-                        System.out.print("\t");
-                    }
                     post = (Post) obj;
-                    System.out.println("[Post " + i + "] ---> Altura:" + altura);
-                    for (int y = 0; y < altura;y++) {
-                        System.out.print("\t");
+                    if (!post.isEliminado()) {
+                        for (int y = 0; y < altura; y++) {
+                            System.out.print("\t");
+                        }
+                        System.out.println("[Post " + i + "] ---> Altura:" + altura);
+                        for (int y = 0; y < altura; y++) {
+                            System.out.print("\t");
+                        }
+                        System.out.println("Info del post: ID:" + post.getId());
+                        i++;
                     }
-                    System.out.println("Info del post: ID:" + post.getId());
                 }
-                i++;
             }
             System.out.print("\n");
 
