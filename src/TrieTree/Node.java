@@ -4,7 +4,7 @@ public class Node implements trie {
     public Object pare;
     public int altura;
 
-    private static final int nombreDeParaulesHaRetornar = 5;
+
 
     public char lletra;
     public int value;
@@ -52,12 +52,12 @@ public class Node implements trie {
     //paraula: array que ens han introduit
     //nombre: nombre de paraules que hem retornat
     //posicio: posicioactual de la array
-    public int search(char[] paraula, int posicio, int nombre) {
+    public int search(char[] paraula, int posicio, int nombre, int nombreDeParaulesHaRetornar) {
         if (paraula.length > posicio + 1) {
             if (paraula[posicio + 1] - '0' > 9) {
                 //lletra
                 if (lletres[paraula[posicio + 1] - 'a' + 10] != null) {
-                    nombre = lletres[paraula[posicio + 1] - 'a' + 10].search(paraula, posicio + 1, 1);
+                    nombre = lletres[paraula[posicio + 1] - 'a' + 10].search(paraula, posicio + 1, 1, nombreDeParaulesHaRetornar);
                 } else {
                     System.out.println("no existeix cap paraula que comenci per la inserida");
                 }
@@ -65,7 +65,7 @@ public class Node implements trie {
             } else {
                 //numero
                 if (lletres[paraula[posicio + 1] - '0'] != null) {
-                    nombre = lletres[paraula[posicio + 1] - '0'].search(paraula, posicio + 1, 1);
+                    nombre = lletres[paraula[posicio + 1] - '0'].search(paraula, posicio + 1, 1, nombreDeParaulesHaRetornar);
                 } else {
                     System.out.println("no existeix cap paraula que comenci per la inserida");
                 }
@@ -86,7 +86,7 @@ public class Node implements trie {
             for (int i = 0; 36 > i && nombre <= nombreDeParaulesHaRetornar; i++) {
                 if (lletres[i] != null) {
                     paraulaAux[paraula.length] = lletres[i].getLletra();
-                    nombre = lletres[i].search(paraulaAux, posicio + 1, nombre);
+                    nombre = lletres[i].search(paraulaAux, posicio + 1, nombre, nombreDeParaulesHaRetornar);
                 }
             }
         }
