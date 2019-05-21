@@ -1,7 +1,5 @@
 package TrieTree;
 
-import sun.plugin2.main.client.MessagePassingOneWayJSObject;
-
 public class Node implements trie {
     public Object pare;
     public int altura;

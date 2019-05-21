@@ -1,24 +1,51 @@
 package Menu;
 
+import AVLTree.ArbreAVL;
+import Graph.Graph;
+import HashMap.HashMap;
+import Model.Post;
+import Model.User;
+import RTree.RTree;
+import TrieTree.ArbreTrie;
+import TrieTree.Node;
+import TrieTree.Root;
+
 import java.util.Scanner;
 
 public class Menu {
+    public int nombreDeParaulesHaRetornar;
+
+    public Post[] posts;
+    public User[] users;
+
+    public ArbreAVL arbreAVL;
+    public ArbreTrie arbreTrie;
+    public HashMap hashMap;
+    public RTree rTree;
+    public Graph graph;
+
+    public Node nodeTrie;
 
     public Menu() {
         int opcion;
+        nombreDeParaulesHaRetornar = 5;
 
         System.out.println("Bienvenid@!");
         do {
             opcionesPosibles();
-            opcion = seleccionarOpcion();
+            System.out.println("Opción:");
+            opcion = entradaTerminal();
             funcionalidad(opcion);
 
         } while (opcion != 8);
+
+
+
     }
 
     public void opcionesPosibles() {
         System.out.println("Menu:\n" +
-                "\t1. Importación de fichero\n" +
+                "\t1. Importación de ficheros\n" +
                 "\t2. Exportación de ficheros\n" +
                 "\t3. Visualización de una estructura\n" +
                 "\t4. Inserción de información\n" +
@@ -28,8 +55,7 @@ public class Menu {
                 "\t8. Salir");
     }
 
-    public int seleccionarOpcion() {
-        System.out.println("Opción:");
+    public int entradaTerminal() {
         Scanner sc = new Scanner(System.in);
         return sc.nextInt();
     }
@@ -37,7 +63,19 @@ public class Menu {
     public void funcionalidad(int opcio) {
         switch (opcio) {
             case 1:
+                int estructura;
+
                 System.out.println("Importación de fichero");
+                Importacio importacio = new Importacio();
+
+                System.out.println("Importando estructuras...");
+
+                estructura = entradaTerminal();
+
+                for (Post p : posts) {
+
+                }
+
                 break;
 
             case 2:
@@ -61,7 +99,12 @@ public class Menu {
                 break;
 
             case 7:
-                System.out.println("Limitar memória para autocompletar");
+                System.out.println("Limitar memória para autocompletar.\n" +
+                        "Actualamente el límite se encuentre en [" + nombreDeParaulesHaRetornar + "] palabras\n" +
+                        "Que nuevo límite de palabras quieres establecer?");
+                nombreDeParaulesHaRetornar = entradaTerminal();
+                System.out.println("Procesando petición...");
+                System.out.println("El límite de palabras se ha actualizado a [" + nombreDeParaulesHaRetornar + "");
                 break;
 
             case 8:
@@ -70,8 +113,10 @@ public class Menu {
 
             default:
                 System.out.println("Opción incorrecta!");
-                 break;
+                break;
         }
     }
 
+
 }
+

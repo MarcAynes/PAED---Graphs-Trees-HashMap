@@ -3,7 +3,6 @@ package HashMap;
 import Model.Post;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import javafx.geometry.Pos;
 
 import java.io.FileWriter;
 import java.io.IOException;
