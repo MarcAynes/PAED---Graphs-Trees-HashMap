@@ -1,7 +1,10 @@
 package AVLTree;
 
+import Model.Post;
+
 public class Node {
     private int numero;
+    private Post post;
 
     //profunditat d'aquest node sent 0 el node root i altura + 1 conforme anem baixant per cada fill
     private int altura;
@@ -20,8 +23,16 @@ public class Node {
     private Node fillDret;
     private Node fillEsquerra;
 
-    public Node(int numero){
-        this.numero = numero;
+    public Node(Post post){
+
+        this.post = post;
+        this.numero = post.getId();
+        pare = null;
+        altura = 1;
+    }
+
+    public Node(int i){
+        this.numero =i;
         pare = null;
         altura = 1;
     }
