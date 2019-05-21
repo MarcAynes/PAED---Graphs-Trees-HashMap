@@ -29,15 +29,15 @@ public class Nodo {
     }
 
     public Rectangulo [] insertarPost (Post postAInsertar, Rectangulo yoSoyTuRectangulo) {
-            if (cantidad == valores.length) {
-                Rectangulo [] rectangulos = splitPost(postAInsertar);
-                return rectangulos;
-            } else {
-                valores[cantidad] = postAInsertar;
-                cantidad++;
-                yoSoyTuRectangulo.actualizarValoresConPost(postAInsertar);
-                return null;
-            }
+        if (cantidad == valores.length) {
+            Rectangulo [] rectangulos = splitPost(postAInsertar);
+            return rectangulos;
+        } else {
+            valores[cantidad] = postAInsertar;
+            cantidad++;
+            yoSoyTuRectangulo.actualizarValoresConPost(postAInsertar);
+            return null;
+        }
     }
 
 
@@ -70,7 +70,7 @@ public class Nodo {
         Rectangulo[] rectangulosGenerados = ((Rectangulo) valores[indice]).bajarArbol(altura-1,postAInsertar,this);
 
         // Caso ha habido split en hijo y nodo debe de splitearse para almacenar rectangulos
-        if(rectangulosGenerados != null) {
+        if(rectangulosGenerados.length != 1){
             //Creamos los dos rectangulos que in crementaran la altura del arbol
             Nodo hijoIzquierdo = new Nodo(valores.length, (byte) 0);
             Nodo hijoDerecho = new Nodo(valores.length, (byte) 0);
@@ -215,7 +215,7 @@ public class Nodo {
             return rectangulosSolucion;
         }
         else {
-            return null;
+            return rectangulosGenerados;
         }
 
     }
@@ -277,7 +277,6 @@ public class Nodo {
                 esto, se inserta donde sea menor.(*)
             Paso 3: En caso de que las dos areas sean iguales, se pasará a mirar la cantidad, donde haya menos post alli se insertará el
                 post.(*)
-
             * Cabe destacar que en caso que donde se ponga en un rectangulo que ya esta lleno, se intentará la inserción en el otro.
         */
 
@@ -343,7 +342,7 @@ public class Nodo {
         return arrayRectangulos;
     }
 
-        public byte getTipo() {
+    public byte getTipo() {
         return tipo;
     }
 
