@@ -319,8 +319,14 @@ public class Node implements Cloneable {
             pAux2[i] = post2[i];
         }
 
-        for (int i = 0; pAux.length > i; i++){
-            pAux2[i+post2.length] = pAux[i];
+        if (post2 != null) {
+            for (int i = 0; pAux.length > i; i++) {
+                pAux2[i + post2.length] = pAux[i];
+            }
+        }else{
+            for (int i = 0; pAux.length > i; i++) {
+                pAux2[i] = pAux[i];
+            }
         }
         return pAux2;
     }
