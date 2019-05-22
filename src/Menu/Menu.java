@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Scanner;
+import Graph.PosicionUser;
 
 public class Menu {
     public int nombreDeParaulesHaRetornar;
@@ -155,8 +156,7 @@ public class Menu {
                             break;
 
                         case 2:
-
-                            //TODO: exportacion datos para futura informacion (usuarios y posts)
+                            //Exportación posts
                             try {
                                 fichero = new FileWriter("files/posts.json");
                                 pw = new PrintWriter(fichero);
@@ -169,7 +169,24 @@ public class Menu {
                                 System.out.println("error exportar posts");
                             }
 
-                            //TODO: Falta exportació de usuarios amb el graph!
+                            //Exportación usuarios
+                            User [] usuarios = null;
+                            PosicionUser[] pu = graph.getUsers().getValores();
+                            for (int o = 0; o < pu.length; o++) {
+                                usuarios[o] = pu[o].getUsuario();
+                            }
+
+                            try {
+                                fichero = new FileWriter("files/users.json");
+                                pw = new PrintWriter(fichero);
+                                Post[] p = arbreAVL.returnPosts();
+
+                                Gson gson = new Gson();
+                                gson.toJson(p, fichero);
+
+                            } catch (IOException e) {
+                                System.out.println("error exportar posts");
+                            }
 
                             break;
                     }
@@ -425,7 +442,6 @@ public class Menu {
                             int opcioT;
                             boolean getOut = false;
 
-                            //TODO: Si em retorna el Trie un char[][] de length == 0, NO FER RES, ja que no hi ha cap paraula que coincideixi
                             word = sc.next();
                             do{
                                 System.out.println("Posibles sugerencias");
