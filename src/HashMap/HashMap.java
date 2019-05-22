@@ -72,7 +72,7 @@ public class HashMap {
             Post posts[] = hashMap[id].printarPosts();
             for (int y = 0; y < posts.length; y++) {
                 if (posts[y] != null) {
-                    System.out.println(posts[y].getId());
+                    printPost(posts[y]);
                 }
             }
         } catch (NullPointerException ex){
@@ -124,7 +124,6 @@ public class HashMap {
                         printPost(posts[k]);
                         pepe++;
                     }
-                    //TODO: que coño es esto
                     for (int g= 0; g < hashMap[j].getPostsBackup().getValores().length; g++) {
                         if (hashMap[j].getPostsBackup().getValores()[g] != null) {
                             System.out.println("\n" + (pepe + 1) + ". ");

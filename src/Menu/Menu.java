@@ -39,11 +39,12 @@ public class Menu {
 
         System.out.println("Bienvenid@!");
         do {
+            Scanner scOp = new Scanner(System.in);
             opcionesPosibles();
             System.out.println("Opción:");
-            opcion = entradaTerminal();
+            opcion = scOp.nextInt();
             funcionalidad(opcion);
-
+            scOp.close();
         } while (opcion != 8);
     }
 
@@ -57,11 +58,6 @@ public class Menu {
                 "\t6. Búsqueda de información\n" +
                 "\t7. Limitar memória para autocompletar\n" +
                 "\t8. Salir");
-    }
-
-    public int entradaTerminal() {
-        Scanner sc = new Scanner(System.in);
-        return sc.nextInt();
     }
 
     public void funcionalidad(int opcio) {
@@ -152,7 +148,7 @@ public class Menu {
                     rTree.exportacionVisualizacionRTree();
 
                     //Graph
-                    //TODO: exportación grafo
+                    graph.guardarEnJSON();
 
 
                 }else {
@@ -172,7 +168,6 @@ public class Menu {
 
                     switch (scStruct.nextInt()) {
                         case 1:
-                            //TODO: Revisar esta visualizacion
                             arbreTrieUsersNames.printarTrie();
                             break;
 
@@ -328,7 +323,7 @@ public class Menu {
                             "2. Post");
 
                     if (scBr.nextInt() == 1) {
-                        //TODO: Si user s'essborra, borrar els seus post
+                        //TODO: Si user s'essborra, borrar els seus post, tb likes?
                         System.out.println("Nombre de usuario a borrar: ");
                         String name = scBr.next();
 
@@ -377,7 +372,7 @@ public class Menu {
 
                             //TODO: Si em retorna el Trie un char[][] de length == 0, NO FER RES, ja que no hi ha cap paraula que coincideixi
 
-                            //TODO: Si un post no te hashtags no mostris cap hashtag, sino nulpointer!
+                            //TODO: Si un post no te hashtags no mostris cap hashtag, sino nullpointer!
                             word = sc.next();
                             do{
                                 System.out.println("Posibles sugerencias");
@@ -434,14 +429,13 @@ public class Menu {
                             break;
 
                         case 3:
-                            //TODO: Preguntar al Pernia si els 5 posts a buscar dins del hasmap son els 5 ultims inserits o publicats (timestamp)
+                            //TODO: Preguntar al Pernia si els 5 posts a buscar dins del hashmap son els 5 ultims inserits o publicats (timestamp)
                             System.out.print("Hashtag específico a buscar: ");
                             hashMap.buscarPostsConHashTAG(sc.next());
                             break;
 
                         case 4:
                             //TODO: Revisar
-
                             double latitud, longitud, radio = 0;
                             System.out.println("Latitud: ");
                             latitud = sc.nextDouble();
@@ -477,14 +471,17 @@ public class Menu {
                 } else {
                     System.out.println("Estruturas vacías");
                 }
+                break;
 
             case 7:
+                Scanner scLimit = new Scanner(System.in);
                 System.out.println("Limitar memória para autocompletar.\n" +
                         "Actualmente el límite se encuentre en [" + nombreDeParaulesHaRetornar + "] palabras\n" +
                         "Que nuevo límite de palabras quieres establecer?");
-                nombreDeParaulesHaRetornar = entradaTerminal();
+                nombreDeParaulesHaRetornar = scLimit.nextInt();
                 System.out.println("Procesando petición...");
                 System.out.println("El límite de palabras se ha actualizado a [" + nombreDeParaulesHaRetornar + "]");
+                scLimit.close();
                 break;
 
             case 8:
