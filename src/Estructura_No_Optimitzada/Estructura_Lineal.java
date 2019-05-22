@@ -3,6 +3,9 @@ package Estructura_No_Optimitzada;
 import Model.Post;
 import Model.User;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 public class Estructura_Lineal {
     public Post[] posts;
     public User[] users;
@@ -64,6 +67,7 @@ public class Estructura_Lineal {
         for (User user : users) {
             if (user.getUsername().equals(name)) {
                 printUser(user);
+                break;
             }
         }
     }
@@ -72,6 +76,7 @@ public class Estructura_Lineal {
         for (Post p : posts) {
             if (p.getId() == id) {
                 printPost(p);
+                break;
             }
         }
     }
@@ -139,15 +144,19 @@ public class Estructura_Lineal {
 
     //Utils
     private void printPost(Post p) {
-        double[] location = p.getLocation();
-        System.out.print("id: " + p.getId()
-                + "\npublished_by: " + p.getPublished_by()
-                + "\npublished_when: " + p.getPublished_when()
-                + "\nLocation(latitud, longitud: )" + location[0] + ", " + location[1]
-                + "\nHashtags: ");
+        double[] localizacion = p.getLocation();
 
-        for (String h : p.getHashtags()) {
-            System.out.print(h + ", ");
+        Timestamp stamp = new Timestamp(p.getPublished_when());
+        Date date = new Date(stamp.getTime());
+
+        System.out.print("Post id: " + p.getId() +
+                "\n Publicado por: " + p.getPublished_by() +
+                "\n Fecha creación: " + date +
+                "\n Localización (latitud, longitud): " + localizacion[0] + ", " + localizacion[1] +
+                "\n Hashtags: ");
+
+        for (String hashtag : p.getHashtags()) {
+            System.out.print(hashtag + ", ");
         }
     }
 

@@ -7,6 +7,8 @@ import com.google.gson.GsonBuilder;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class HashMap {
     private ListPost [] hashMap;
@@ -117,9 +119,11 @@ public class HashMap {
                     System.out.println("\n\nPosición " + j + "--Hashtag:" + hashMap[j].getHashtag() + "\nPosts:");
                     int pepe = 0;
                     for (int k = 0; k < contador; k++) {
-                        System.out.println((pepe+1) + ". " + posts[k].getId());
+                        System.out.println((pepe+1) + ". " );
+                        printPost(posts[k]);
                         pepe++;
                     }
+                    //TODO: que coño es esto
                     for (int g= 0; g < hashMap[j].getPostsBackup().getValores().length; g++) {
                         if (hashMap[j].getPostsBackup().getValores()[g] != null) {
                             System.out.println((pepe + 1) + ". " + hashMap[j].getPostsBackup().getValores()[g].getId());
@@ -131,6 +135,22 @@ public class HashMap {
         }
     }
 
+    //Utils
+    private void printPost(Post p) {
+        double[] localizacion = p.getLocation();
 
+        Timestamp stamp = new Timestamp(p.getPublished_when());
+        Date date = new Date(stamp.getTime());
+
+        System.out.print("Post id: " + p.getId() +
+                "\n Publicado por: " + p.getPublished_by() +
+                "\n Fecha creación: " + date +
+                "\n Localización (latitud, longitud): " + localizacion[0] + ", " + localizacion[1] +
+                "\n Hashtags: ");
+
+        for (String hashtag : p.getHashtags()) {
+            System.out.print(hashtag + ", ");
+        }
+    }
 
 }

@@ -9,11 +9,12 @@ import Model.User;
 import RTree.RTree;
 import TrieTree.ArbreTrie;
 import TrieTree.Return;
-import TrieTree.Root;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Menu {
@@ -164,7 +165,7 @@ public class Menu {
                             break;
 
                         case 4:
-                            //TODO: falta visualizacion de todo el hashmap
+                            hashMap.hashMapVisualizacion();
                             break;
 
                         case 5:
@@ -349,12 +350,10 @@ public class Menu {
                                         System.out.println("Cargar la información de el usuario [" + palabras[opcioT - 1] + "] [Y/N]");
                                         if (sc.next().equals("Y")) {
                                             getOut = true;
+
                                             User user = graph.buscarUsuario(palabras[opcioT - 1].toString());
 
-                                            System.out.println("Nombre de usuario: " + user.getUsername() +
-                                                    "\nFecha de creación: " + user.getCreation() +
-                                                    "\nUsuarios que sigue:\n[" + user.getTo_follow().toString() + "]\n" +
-                                                    "Número de posts: ......");
+                                            printUser(user);
                                             //TODO: falta obtener el numero de posts del usuario buscado, se podria hacer
                                             // con una variable incremental recorriendo el AVL
                                         }
@@ -366,10 +365,7 @@ public class Menu {
 
                                             User user = graph.buscarUsuario(word);
 
-                                            System.out.println("Nombre de usuario: " + user.getUsername() +
-                                                    "\nFecha de creación: " + user.getCreation() +
-                                                    "\nUsuarios que sigue:\n[" + user.getTo_follow().toString() + "]\n" +
-                                                    "Número de posts: ......");
+                                            printUser(user);
                                             //TODO: falta obtener el numero de posts del usuario buscado, se podria hacer
                                             // con una variable incremental recorriendo el AVL
                                         }
@@ -409,17 +405,7 @@ public class Menu {
 
                                 for (Post p : postInRatio) {
                                     System.out.println("\n[POST " + i_p + 1 + "]");
-                                    double[] localizacion = p.getLocation();
-                                    //TODO: passar timestamp a data normal
-                                    System.out.print("Post id: " + p.getId() +
-                                            "\n Publicado por: " + p.getPublished_by() +
-                                            "\n Fecha creación: " + p.getPublished_when() +
-                                            "\n Localización (latitud, longitud): " + localizacion[0] + ", " + localizacion[1] +
-                                            "\n Hashtags: ");
-
-                                    for (String hashtag : p.getHashtags()) {
-                                        System.out.print(hashtag + ", ");
-                                    }
+                                    printPost(p);
                                 }
 
                             } else {
@@ -453,6 +439,34 @@ public class Menu {
             default:
                 System.out.println("Opción incorrecta!");
                 break;
+        }
+    }
+
+    //Utils
+    private void printPost(Post p) {
+        double[] localizacion = p.getLocation();
+
+        Timestamp stamp = new Timestamp(p.getPublished_when());
+        Date date = new Date(stamp.getTime());
+
+        System.out.print("Post id: " + p.getId() +
+                "\n Publicado por: " + p.getPublished_by() +
+                "\n Fecha creación: " + date +
+                "\n Localización (latitud, longitud): " + localizacion[0] + ", " + localizacion[1] +
+                "\n Hashtags: ");
+
+        for (String hashtag : p.getHashtags()) {
+            System.out.print(hashtag + ", ");
+        }
+    }
+
+    private void printUser(User u) {
+        System.out.print("Username: " + u.getUsername()
+                + "\nFecha creación: " + u.getCreation()
+                + "\nUsuarios que sigue: ");
+
+        for (String fll : u.getTo_follow()) {
+            System.out.print(fll + ", ");
         }
     }
 
