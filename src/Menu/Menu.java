@@ -117,39 +117,55 @@ public class Menu {
                     PrintWriter pw = null;
 
                     //Tries
-                    try {
-                        fichero = new FileWriter("files/trie_posts.txt");
-                        pw = new PrintWriter(fichero);
-                        arbreTrieIds.exportarTrie(pw);
-                        fichero.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    System.out.println("1. Exportar ficheros de visualizacion");
+                    System.out.println("2. Exportar ficheros de datos");
+                    int i = entradaTerminal();
+                    switch (i) {
+                        case 1:
+                            try {
+                                fichero = new FileWriter("files/trie_posts.txt");
+                                pw = new PrintWriter(fichero);
+                                arbreTrieIds.exportarTrie(pw);
+                                fichero.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            try {
+                                fichero = new FileWriter("files/trie_users.txt");
+                                pw = new PrintWriter(fichero);
+                                arbreTrieUsersNames.exportarTrie(pw);
+                                fichero.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            //AVL Tree
+                            try {
+                                fichero = new FileWriter("files/AVL.txt");
+                                pw = new PrintWriter(fichero);
+                                arbreAVL.exporta(2, pw);
+                                fichero.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            //HashMap
+                            hashMap.pasarHashMapAJSON();
+
+                            //RTree
+                            rTree.exportacionVisualizacionRTree();
+
+                            break;
+
+                        case 2:
+
+                            //TODO: exportacion datos para futura informacion (usuarios y posts)
+
+                            break;
+
+
                     }
-
-                    try {
-                        fichero = new FileWriter("files/trie_users.txt");
-                        pw = new PrintWriter(fichero);
-                        arbreTrieUsersNames.exportarTrie(pw);
-                        fichero.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    //AVL Tree
-                    try {
-                        fichero = new FileWriter("files/AVL.txt");
-                        pw = new PrintWriter(fichero);
-                        arbreAVL.exporta(2, pw);
-                        fichero.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    //HashMap
-                    hashMap.pasarHashMapAJSON();
-
-                    //RTree
-                    rTree.exportacionVisualizacionRTree();
 
                     //Graph
                     //TODO: exportación grafo

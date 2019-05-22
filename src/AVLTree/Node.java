@@ -277,6 +277,54 @@ public class Node implements Cloneable {
         }
     }
 
+    public Post[] returnPosts(){
+
+        Post[] post = null;
+        Post[] post2 = null;
+        if (fillEsquerra != null){
+            post = fillEsquerra.returnPosts();
+        }
+
+        Post[] pAux = null;
+
+        if  (post != null){
+             pAux = new Post[post.length+1];
+        }else{
+            pAux = new Post[1];
+        }
+
+        for (int i = 0; post != null && post.length > i; i++ ){
+            pAux[i] = post[i];
+        }
+
+        if  (post != null){
+            pAux[post.length] = this.post;
+        }else{
+            pAux[0] = this.post;
+        }
+
+        if (fillDret != null){
+            post2 = fillDret.returnPosts();
+        }
+
+        Post[] pAux2 = null;
+
+        if  (post2 != null){
+            pAux2 = new Post[post2.length+1 + pAux.length];
+        }else{
+            pAux2 = new Post[pAux.length];
+        }
+
+        for (int i = 0; post2 != null && post2.length> i; i++ ){
+            pAux2[i] = post2[i];
+        }
+
+        for (int i = 0; pAux.length > i; i++){
+            pAux2[i+post2.length] = pAux[i];
+        }
+        return pAux2;
+    }
+
     public Post cerca(int numero){
 
         if (numero == this.numero){

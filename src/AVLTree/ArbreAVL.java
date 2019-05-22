@@ -50,5 +50,9 @@ public class ArbreAVL {
         root = a;
     }
 
+    public Post[] returnPosts(){
+        return root.returnPosts();
+    }
+
 
 }
