@@ -436,7 +436,7 @@ public class Menu {
                                 char[][] palabras = r.getFrases();
 
                                 //Si no ha encontrado ninguna palabra, el Trie ya avisa que no coincide ninguna con el valor buscado
-                                if (palabras.length > 0) {
+                                if (palabras != null) {
                                     for (char[] palabra : palabras) {
                                         System.out.println(j + ". " + palabra);
                                         j++;
@@ -467,6 +467,8 @@ public class Menu {
                                             printUser(user);
                                             //TODO: falta obtener el numero de posts del usuario buscado, se podria hacer
                                             // con una variable incremental recorriendo el AVL
+                                        } else {
+                                            word += sc.next();
                                         }
                                     }
                                 } else {
