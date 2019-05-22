@@ -2,6 +2,7 @@ package Menu;
 
 import AVLTree.ArbreAVL;
 import AVLTree.Node;
+import Estructura_No_Optimitzada.Estructura_Lineal;
 import Graph.Graph;
 import HashMap.HashMap;
 import Model.Post;
@@ -450,7 +451,12 @@ public class Menu {
                             word = sc.next();
                             do{
                                 System.out.println("Posibles sugerencias");
+                                long StartTime2;
+                                long EndTime2;
+                                StartTime2 = System.nanoTime();
                                 r = arbreTrieUsersNames.search(word.toLowerCase().toCharArray(), nombreDeParaulesHaRetornar, r);
+                                EndTime2 = System.nanoTime();
+                                System.out.println("tiempo de ejecucion: " + ((float) (EndTime2 - StartTime2))/1000000 + "ms");
 
                                 int j = 0;
                                 char[][] palabras = r.getFrases();
@@ -504,7 +510,15 @@ public class Menu {
                         case 2:
                             System.out.print("Id publicación (hay" + posts.length + "publicaciones): ");
                             try {
-                                printPost(arbreAVL.cerca(sc.nextInt()));
+                                int oa = sc.nextInt();
+                                long StartTime2;
+                                long EndTime2;
+                                StartTime2 = System.nanoTime();
+                                printPost(arbreAVL.cerca(oa));
+                                EndTime2 = System.nanoTime();
+                                System.out.println();
+                                System.out.println("tiempo de ejecucion: " + ((float) (EndTime2 - StartTime2))/1000000 + "ms");
+
                             } catch (NullPointerException e) {
                                 System.out.println("No existe este post dentro de el AVL Tree");
                             }
