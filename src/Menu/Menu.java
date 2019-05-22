@@ -9,6 +9,7 @@ import Model.User;
 import RTree.RTree;
 import TrieTree.ArbreTrie;
 import TrieTree.Return;
+import com.google.gson.Gson;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -154,6 +155,20 @@ public class Menu {
                             break;
 
                         case 2:
+
+                            //TODO: exportacion datos para futura informacion (usuarios y posts)
+                            try {
+                                fichero = new FileWriter("files/posts.json");
+                                pw = new PrintWriter(fichero);
+                                Post[] p = arbreAVL.returnPosts();
+
+                                Gson gson = new Gson();
+                                gson.toJson(p, fichero);
+
+                            } catch (IOException e) {
+                                System.out.println("error exportar posts");
+                            }
+
                             //TODO: Falta exportació de usuarios amb el graph!
 
                             break;
