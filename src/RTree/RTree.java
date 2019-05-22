@@ -381,7 +381,7 @@ public class RTree {
     }
 
 
-    public void visualizacionRTree () {
+    public void exportacionVisualizacionRTree () {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 
         //convert the Java object to json

@@ -65,8 +65,6 @@ public class Menu {
 
     public void funcionalidad(int opcio) {
 
-    //TODO: Si em retorna el Trie un char[][] de length == 0, NO FER RES, ja que no hi ha cap paraula que coincideixi
-
         switch (opcio) {
             case 1:
                 System.out.println("Importación de fichero");
@@ -110,8 +108,31 @@ public class Menu {
                 break;
 
             case 2:
+                //TODO: Preguntar pernia si la visualitzacio de l'estat de l'estructura a de ser en JSON (creiem que no)
                 if (!estructuresBuides) {
                     System.out.println("Exportación de ficheros");
+
+                    FileWriter fichero = null;
+                    PrintWriter pw = null;
+
+                    try {
+                        fichero = new FileWriter("files/trie.txt");
+                        pw = new PrintWriter(fichero);
+                        arbreTrieUsersNames.exportarTrie(pw);
+                        fichero.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        fichero = new FileWriter("files/AVL.txt");
+                        pw = new PrintWriter(fichero);
+                        arbreAVL.exporta(2, pw);
+                        fichero.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
 
                 }else {
                     System.out.println("Estructuras vacías, prueba de inserir o importar préviamente algo");
@@ -127,34 +148,27 @@ public class Menu {
                             "4. Tabla Hash\n" +
                             "5. Graph");
                     Scanner scStruct = new Scanner(System.in);
-                    FileWriter fichero = null;
-                    PrintWriter pw = null;
+
                     switch (scStruct.nextInt()) {
                         case 1:
-                            try {
-                                fichero = new FileWriter("files/trie.txt");
-                                pw = new PrintWriter(fichero);
-                                arbreTrieUsersNames.printarTrie(pw);
-                                fichero.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            arbreTrieUsersNames.printarTrie();
                             break;
+
                         case 2:
+                            rTree.visualizacionRTreeTerminal();
                             break;
+
                         case 3:
-                            try {
-                                fichero = new FileWriter("files/AVL.txt");
-                                pw = new PrintWriter(fichero);
-                                arbreAVL.visualitza(2, pw);
-                                fichero.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            //Visualización en preorden
+                            arbreAVL.visualitza();
                             break;
+
                         case 4:
+                            //TODO: falta visualizacion de todo el hashmap
                             break;
+
                         case 5:
+                            graph.visualizacionGraph();
                             break;
                     }
 
@@ -292,8 +306,6 @@ public class Menu {
                 break;
 
             case 6:
-                String insert_int_trie;
-
                 if (!estructuresBuides) {
                     System.out.println("Búsqueda de información\n Que tipo de información quieres buscar?");
                     System.out.println("1. Usuario\n" +
@@ -301,40 +313,117 @@ public class Menu {
                             "3. Según Hashtag\n" +
                             "4. Según Ubicación");
 
-                    //TODO: Preguntar al Pernia si els 5 posts a buscar dins del hasmap son els 5 ultims inserits o publicats (timestamp)
-
-                    //TODO: Hacer busqueda trie
                     Scanner sc = new Scanner(System.in);
                     switch (sc.nextInt()) {
                         case 1:
                             Return r = new Return();
                             r.setNombre(nombreDeParaulesHaRetornar);
 
-                            String word;
+                            String word = null;
+                            int opcioT;
+                            boolean getOut = false;
 
+                            //TODO: Si em retorna el Trie un char[][] de length == 0, NO FER RES, ja que no hi ha cap paraula que coincideixi
                             do{
-                                word = sc.next();
+                                word += sc.next();
 
                                 System.out.println("Posibles sugerencias");
-                                r = arbreTrieUsersNames.search(sc.next().toCharArray(), nombreDeParaulesHaRetornar, r);
+                                r = arbreTrieUsersNames.search(word.toLowerCase().toCharArray(), nombreDeParaulesHaRetornar, r);
 
-                                for (char[] palabra : r.getFrases()) {
-                                    System.out.println(palabra);
+                                int j = 0;
+                                char[][] palabras = r.getFrases();
+
+                                //Si no ha encontrado ninguna palabra, el Trie ya avisa que no coincide ninguna con el valor buscado
+                                if (palabras.length > 0) {
+                                    for (char[] palabra : palabras) {
+                                        System.out.println(j + ". " + palabra);
+                                        j++;
+                                    }
+
+                                    System.out.println(r.getFrases().length + 1 + "Ninguna de las sugeridas");
+                                    opcioT = sc.nextInt();
+
+                                    if (r.getFrases().length + 1 != opcioT) {
+                                        System.out.println("Cargar la información de el usuario [" + palabras[opcioT - 1] + "] [Y/N]");
+                                        if (sc.next().equals("Y")) {
+                                            getOut = true;
+                                            User user = graph.buscarUsuario(palabras[opcioT - 1].toString());
+
+                                            System.out.println("Nombre de usuario: " + user.getUsername() +
+                                                    "\nFecha de creación: " + user.getCreation() +
+                                                    "\nUsuarios que sigue:\n[" + user.getTo_follow().toString() + "]\n" +
+                                                    "Número de posts: ......");
+                                            //TODO: falta obtener el numero de posts del usuario buscado, se podria hacer
+                                            // con una variable incremental recorriendo el AVL
+                                        }
+
+                                    } else {
+                                        System.out.println("Cargar la información de el usuario [" + word + "] [Y/N]");
+                                        if (sc.next().equals("Y")) {
+                                            getOut = true;
+
+                                            User user = graph.buscarUsuario(word);
+
+                                            System.out.println("Nombre de usuario: " + user.getUsername() +
+                                                    "\nFecha de creación: " + user.getCreation() +
+                                                    "\nUsuarios que sigue:\n[" + user.getTo_follow().toString() + "]\n" +
+                                                    "Número de posts: ......");
+                                            //TODO: falta obtener el numero de posts del usuario buscado, se podria hacer
+                                            // con una variable incremental recorriendo el AVL
+                                        }
+                                    }
+                                } else {
+                                    getOut = true;
                                 }
 
-
-                                insert_int_trie = sc.next();
-                            } while (insert_int_trie.equals("Y"));
-
-
+                            } while (!getOut);
                             break;
+
                         case 2:
+                            System.out.print("Id publicación (hay" + posts.length + "publicaciones): ");
+                            //TODO: falta la cerca d'un post en concret per id dins de l'AVL i printar tots els atributs del post
                             break;
 
                         case 3:
+                            //TODO: Preguntar al Pernia si els 5 posts a buscar dins del hasmap son els 5 ultims inserits o publicats (timestamp)
+                            System.out.print("Hashtag específico a buscar: ");
+                            hashMap.buscarPostsConHashTAG(sc.next());
                             break;
 
                         case 4:
+                            double latitud, longitud, radio = 0;
+                            System.out.println("Latitud: ");
+                            latitud = sc.nextDouble();
+                            System.out.println("Longitud: ");
+                            longitud = sc.nextDouble();
+                            System.out.println("Radio máximo: ");
+                            radio = sc.nextDouble();
+
+                            Post[] postInRatio = rTree.busquedaEnRtree(latitud, longitud, radio);
+
+                            if (postInRatio.length > 0) {
+                                System.out.println("Se ha encontrado " + postInRatio.length + "posts dentro de un radio máximo [" + radio + "km]");
+                                int i_p = 0;
+
+                                for (Post p : postInRatio) {
+                                    System.out.println("\n[POST " + i_p + 1 + "]");
+                                    double[] localizacion = p.getLocation();
+                                    //TODO: passar timestamp a data normal
+                                    System.out.print("Post id: " + p.getId() +
+                                            "\n Publicado por: " + p.getPublished_by() +
+                                            "\n Fecha creación: " + p.getPublished_when() +
+                                            "\n Localización (latitud, longitud): " + localizacion[0] + ", " + localizacion[1] +
+                                            "\n Hashtags: ");
+
+                                    for (String hashtag : p.getHashtags()) {
+                                        System.out.print(hashtag + ", ");
+                                    }
+                                }
+
+                            } else {
+                                System.out.println("No se ha encontrado ningún post!");
+                            }
+
                             break;
 
                         default:

@@ -32,8 +32,12 @@ public class ArbreAVL {
 
      */
 
-    public void visualitza(int tipus, PrintWriter pw){
+    public void exporta(int tipus, PrintWriter pw){
         root.visualitza(tipus, pw);
+    }
+
+    public void visualitza(){
+        root.visualitzaPerTerminal();
     }
 
     public void setRoot(Node a){

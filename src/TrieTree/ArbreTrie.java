@@ -31,8 +31,12 @@ public class ArbreTrie {
        root.eliminaNode(paraula);
     }
 
-    public void printarTrie(PrintWriter pw){
+    public void exportarTrie(PrintWriter pw){
         root.mostrar(pw);
+    }
+
+    public void printarTrie() {
+        root.mostrarPerTerminal();
     }
 
 }

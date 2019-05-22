@@ -257,7 +257,7 @@ public class Node {
      */
     public void visualitza(int tipus, PrintWriter pw){
         if  (tipus == 1){
-            printNode(pw);
+            exportNode(pw);
         }
 
         if (fillEsquerra != null){
@@ -265,7 +265,7 @@ public class Node {
         }
 
         if (tipus == 2) {
-            printNode(pw);
+            exportNode(pw);
         }
 
         if (fillDret != null){
@@ -273,11 +273,24 @@ public class Node {
         }
 
         if (tipus == 3){
-            printNode(pw);
+            exportNode(pw);
         }
     }
 
-    public void printNode(PrintWriter pw) {
+    public void visualitzaPerTerminal() {
+        if (fillEsquerra != null){
+            fillEsquerra.visualitzaPerTerminal();
+        }
+
+        printNode();
+
+        if (fillDret != null){
+            fillDret.visualitzaPerTerminal();
+        }
+
+    }
+
+    public void exportNode(PrintWriter pw) {
         for (int i = 0; i < altura; i++){
             pw.print("|---");
             System.out.print("|---");
@@ -293,6 +306,21 @@ public class Node {
             System.out.println("Right AVLTree.Node: " + numero + ", Altura: " + altura);
         } else if (pare.numero >= numero){
             pw.println("Left AVLTree.Node: " + numero + ", Altura: " + altura);
+            System.out.println("Left AVLTree.Node: " + numero + ", Altura: " + altura);
+        }
+    }
+
+    public void printNode() {
+        for (int i = 0; i < altura; i++){
+            System.out.print("|---");
+        }
+        System.out.print(">");
+
+        if (pare == null) {
+            System.out.println("Root AVLTree.Node: " + numero + ", Altura: " + altura);
+        } else if (pare.numero < numero) {
+            System.out.println("Right AVLTree.Node: " + numero + ", Altura: " + altura);
+        } else if (pare.numero >= numero){
             System.out.println("Left AVLTree.Node: " + numero + ", Altura: " + altura);
         }
     }
