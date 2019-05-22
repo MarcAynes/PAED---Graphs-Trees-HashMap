@@ -63,7 +63,7 @@ public class Main_2_LaVenganzaDelJamon {
         }
 
 
-        rTree.visualizacionRTree();
+        //rTree.visualizacionRTree();
 
         rTree.eliminacionEnRtree(p10);
         rTree.eliminacionEnRtree(p4);

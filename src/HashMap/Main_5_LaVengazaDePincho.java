@@ -56,6 +56,12 @@ public class Main_5_LaVengazaDePincho {
         hashMap.agregarPost(post8);
 
 
+        Post [] posts = hashMap.buscar5postConHashtag("pollasEnVinagre");
+
+        for (int i  =0; i < posts.length;i++) {
+            System.out.println(posts[i].getId());
+        }
+
         System.out.println("Haha si soy llo el chocu");
 
         /*System.out.println("Haha si soy llo el chocu");

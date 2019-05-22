@@ -1,6 +1,7 @@
 package HashMap;
 
 import Model.Post;
+import RTree.QuickSortPosts;
 
 public class HashMapNoOptimizado {
     private Hashtag[] arrayHashtags;
@@ -37,5 +38,21 @@ public class HashMapNoOptimizado {
             }
         }
         return -1;
+    }
+
+    public Post[] buscar5postConHashtag (String hashtag) {
+        int id = buscarPosicionHashtag(hashtag);
+        Post [] resultat = new Post[5];
+        if (id != -1) {
+            int i  =0;
+            Post [] posts = arrayHashtags[id].getArrayPosts();
+            QuickSortPosts quickSortPosts = new QuickSortPosts();
+            quickSortPosts.quickSort(posts,new ComparatorTimestampsPost(),0,arrayHashtags[id].getCantidad()-1);
+            while (i < 5 && i  < arrayHashtags[id].getCantidad()) {
+                resultat[i] = posts[i];
+                i++;
+            }
+        }
+        return resultat;
     }
 }

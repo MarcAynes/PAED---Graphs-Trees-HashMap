@@ -56,6 +56,8 @@ public class Main_3_GaspachoWinsAgain {
         hashMap.agregarPost(post8);
         System.out.println("Haha si soy llo el chocu");
 
+        hashMap.buscarPostsConHashTAG("pollasEnVinagre");
+
         System.out.println("POSTS QUE CONTIENE EL HASHTAG BUSCADO");
         hashMap.buscarPostsConHashTAG("pollasEnVinagre");
         hashMap.pasarHashMapAJSON();
