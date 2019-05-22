@@ -119,7 +119,7 @@ public class Graph {
                     User user_actual = users.buscarUserPorId(i);
                     fw.write("\"username\": \"" + user_actual.getUsername() +"\",");
                     fw.write("\"creation\":" + user_actual.getCreation() + ",");
-                    fw.write("\"toFollow\":[");
+                    fw.write("\"to_follow\":[");
                     Integer [] resultados = vinculaciones.devolverVinculacionesUsuario(i);
                     int totalamijos =0 ;
                     for (int w = 0; w < resultados.length;w++) {
