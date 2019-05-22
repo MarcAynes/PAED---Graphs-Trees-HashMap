@@ -48,7 +48,7 @@ public class Menu {
     }
 
     public void opcionesPosibles() {
-        System.out.println("Menu:\n" +
+        System.out.println("\nMenu:\n" +
                 "\t1. Importación de ficheros\n" +
                 "\t2. Exportación de ficheros\n" +
                 "\t3. Visualización de una estructura\n" +
@@ -116,8 +116,18 @@ public class Menu {
                     FileWriter fichero = null;
                     PrintWriter pw = null;
 
+                    //Tries
                     try {
-                        fichero = new FileWriter("files/trie.txt");
+                        fichero = new FileWriter("files/trie_posts.txt");
+                        pw = new PrintWriter(fichero);
+                        arbreTrieIds.exportarTrie(pw);
+                        fichero.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        fichero = new FileWriter("files/trie_users.txt");
                         pw = new PrintWriter(fichero);
                         arbreTrieUsersNames.exportarTrie(pw);
                         fichero.close();
@@ -125,6 +135,7 @@ public class Menu {
                         e.printStackTrace();
                     }
 
+                    //AVL Tree
                     try {
                         fichero = new FileWriter("files/AVL.txt");
                         pw = new PrintWriter(fichero);
@@ -134,7 +145,14 @@ public class Menu {
                         e.printStackTrace();
                     }
 
+                    //HashMap
+                    hashMap.pasarHashMapAJSON();
 
+                    //RTree
+                    rTree.exportacionVisualizacionRTree();
+
+                    //Graph
+                    //TODO: exportación grafo
 
 
                 }else {
@@ -154,6 +172,7 @@ public class Menu {
 
                     switch (scStruct.nextInt()) {
                         case 1:
+                            //TODO: Revisar esta visualizacion
                             arbreTrieUsersNames.printarTrie();
                             break;
 
@@ -167,7 +186,6 @@ public class Menu {
                             break;
 
                         case 4:
-                            //TODO: Revisar esta visualizacion
                             hashMap.hashMapVisualizacion();
                             break;
 
@@ -340,6 +358,7 @@ public class Menu {
 
             case 6:
                 if (!estructuresBuides) {
+                    //TODO: Revisar
                     System.out.println("Búsqueda de información\n Que tipo de información quieres buscar?");
                     System.out.println("1. Usuario\n" +
                             "2. Post\n" +
@@ -357,9 +376,10 @@ public class Menu {
                             boolean getOut = false;
 
                             //TODO: Si em retorna el Trie un char[][] de length == 0, NO FER RES, ja que no hi ha cap paraula que coincideixi
-                            do{
-                                word += sc.next();
 
+                            //TODO: Si un post no te hashtags no mostris cap hashtag, sino nulpointer!
+                            word = sc.next();
+                            do{
                                 System.out.println("Posibles sugerencias");
                                 r = arbreTrieUsersNames.search(word.toLowerCase().toCharArray(), nombreDeParaulesHaRetornar, r);
 
@@ -402,6 +422,7 @@ public class Menu {
                                     }
                                 } else {
                                     getOut = true;
+
                                 }
 
                             } while (!getOut);
@@ -419,6 +440,8 @@ public class Menu {
                             break;
 
                         case 4:
+                            //TODO: Revisar
+
                             double latitud, longitud, radio = 0;
                             System.out.println("Latitud: ");
                             latitud = sc.nextDouble();
@@ -461,7 +484,7 @@ public class Menu {
                         "Que nuevo límite de palabras quieres establecer?");
                 nombreDeParaulesHaRetornar = entradaTerminal();
                 System.out.println("Procesando petición...");
-                System.out.println("El límite de palabras se ha actualizado a [" + nombreDeParaulesHaRetornar + "");
+                System.out.println("El límite de palabras se ha actualizado a [" + nombreDeParaulesHaRetornar + "]");
                 break;
 
             case 8:
