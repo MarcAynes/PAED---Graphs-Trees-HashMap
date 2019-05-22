@@ -60,4 +60,17 @@ public class RTreeNoOptimizado {
         }
         return resultado;
     }
+    public void eliminarPost (Post post) {
+        for (int i = 0; i < arrayPosts.length;i++) {
+            if (arrayPosts[i] != null) {
+                if (arrayPosts[i].getId() == post.getId()) {
+                    arrayPosts[i] = null;
+                    arrayPosts[i] = arrayPosts [cantidad-1];
+                    arrayPosts[--cantidad] = null;
+                    break;
+                }
+            }
+        }
+    }
+
 }

@@ -60,5 +60,8 @@ public class Main_4_LaVengazaDeLosFruitis {
                 System.out.println(resultado[i].getId());
             }
         }
+
+        rTree.eliminarPost(p12);
+        System.out.println("jaja si soy llo");
     }
 }
