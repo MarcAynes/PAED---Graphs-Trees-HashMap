@@ -4,7 +4,7 @@ import Model.Post;
 
 import java.io.PrintWriter;
 
-public class Node {
+public class Node implements Cloneable {
     private int numero;
     private Post post;
 
@@ -274,6 +274,27 @@ public class Node {
 
         if (tipus == 3){
             exportNode(pw);
+        }
+    }
+
+    public Post cerca(int numero){
+
+        if (numero == this.numero){
+            return this.post;
+        }else{
+            if  (this.numero > numero){
+                if  (fillEsquerra != null) {
+                    return this.fillEsquerra.cerca(numero);
+                }else{
+                    return null;
+                }
+            }else{
+                if  (fillEsquerra != null) {
+                    return this.fillDret.cerca(numero);
+                }else{
+                    return null;
+                }
+            }
         }
     }
 
