@@ -109,7 +109,7 @@ public class Menu {
                 estructuresBuides = false;
                 break;
 
-            case 2:
+            case 2: //Done
                 if (!estructuresBuides) {
                     System.out.println("Exportación de ficheros");
 
@@ -157,10 +157,14 @@ public class Menu {
                             //RTree
                             rTree.exportacionVisualizacionRTree();
 
+                            //Graph
+                            graph.guardarEnJSON();
+
                             break;
 
                         case 2:
                             //Exportación posts
+
                             try {
                                 fichero = new FileWriter("files/posts.json");
                                 pw = new PrintWriter(fichero);
@@ -174,19 +178,14 @@ public class Menu {
                             }
 
                             //Exportación usuarios
-                            User [] usuarios = null;
-                            PosicionUser[] pu = graph.getUsers().getValores();
-                            for (int o = 0; o < pu.length; o++) {
-                                usuarios[o] = pu[o].getUsuario();
-                            }
+                            graph.hacerJSONUsuarios();
 
                             try {
                                 fichero = new FileWriter("files/users.json");
                                 pw = new PrintWriter(fichero);
-                                Post[] p = arbreAVL.returnPosts();
 
                                 Gson gson = new Gson();
-                                gson.toJson(p, fichero);
+                                gson.toJson(users, fichero);
 
                             } catch (IOException e) {
                                 System.out.println("error exportar posts");
@@ -386,11 +385,11 @@ public class Menu {
                         System.out.println("Error, este usuario no existe dentro del sistema");
                     }
 
-
+                    estructuresBuides = false;
                 }
                 break;
 
-            case 5: //TODO: Acabar
+            case 5: //TODO: ACABAR ESTO
                 if (!estructuresBuides) {
                     Scanner scBr = new Scanner(System.in);
 
@@ -399,12 +398,22 @@ public class Menu {
                             "2. Post");
 
                     if (scBr.nextInt() == 1) {
-                        //TODO: Si user s'esborra, borrar els seus post, tb likes?
+                        //TODO: Si user s'esborra, borrar els seus post
+                        posts = arbreAVL.returnPosts();
+
                         System.out.println("Nombre de usuario a borrar: ");
                         String name = scBr.next();
 
-                        graph.eliminarUsuario(name);
+                        int post_num_delete = 0;
+                        for (int pi = 0; pi < posts.length; pi++) {
+                            if (posts[pi] != null && posts[pi].getPublished_by().equals(name)) {
+                                delete_posts_fromAllStructures(posts[pi]);
+                            }
+                        }
+
                         arbreTrieUsersNames.eliminarParaula(name.toLowerCase().toCharArray());
+                        graph.eliminarUsuario(name);
+
 
                     } else {
                         System.out.println("Id de el post a borrar: ");
@@ -412,25 +421,15 @@ public class Menu {
                         Post postABorrar = new Post();
                         postABorrar.setId(idPost);
 
-                        //Eliminación AVL
-                        arbreAVL.delete(new Node(postABorrar));
-
-                        //Eliminación RTree
-                        rTree.eliminacionEnRtree(postABorrar);
-
-                        //Eliminación en Trie
-                        arbreTrieIds.eliminarParaula(String.valueOf(idPost).toCharArray());
-
-                        //Eliminación
+                        delete_posts_fromAllStructures(postABorrar);
                     }
 
-                    scBr.close();
                 } else {
                     System.out.println("Estructuras vacías, prueba de inserir o importar préviamente algo");
                 }
                 break;
 
-            case 6: //TODO: Revisar
+            case 6: //Done
                 if (!estructuresBuides) {
                     System.out.println("Búsqueda de información\n Que tipo de información quieres buscar?");
                     System.out.println("1. Usuario\n" +
@@ -440,7 +439,7 @@ public class Menu {
 
                     Scanner sc = new Scanner(System.in);
                     switch (sc.nextInt()) {
-                        case 1: //TODO: Revisar
+                        case 1:
                             Return r = new Return();
 
                             String word = null;
@@ -474,24 +473,26 @@ public class Menu {
 
                                             User user = graph.buscarUsuario(mostrar);
 
+                                            posts = arbreAVL.returnPosts();
+                                            Post[] postsOfUser = new Post[posts.length];
+
+                                            int num_post = 0;
+                                            for (int pi = 0; pi < posts.length; pi++) {
+                                                if (posts[pi] != null && posts[pi].getPublished_by().equals(user.getUsername())) {
+                                                    postsOfUser[num_post] = posts[pi];
+                                                    num_post++;
+                                                }
+                                            }
+
                                             printUser(user);
-                                            //TODO: falta obtener el numero de posts del usuario buscado, se podria hacer
-                                            // con una variable incremental recorriendo el AVL
+                                            System.out.println("\nNúmero de posts: ");
+                                            System.out.println(num_post);
+
                                         }
 
                                     } else {
-                                        /*System.out.println("Cargar la información de el usuario [" + word + "] [Y/N]");
-                                        if (sc.next().equals("Y")) {
-                                            getOut = true;
+                                        word += sc.next();
 
-                                            User user = graph.buscarUsuario(word);
-
-                                            printUser(user);
-                                            //TODO: falta obtener el numero de posts del usuario buscado, se podria hacer
-                                            // con una variable incremental recorriendo el AVL
-                                        } else {*/
-                                            word += sc.next();
-                                        //}
                                     }
                                 } else {
                                     getOut = true;
@@ -610,5 +611,23 @@ public class Menu {
         }
     }
 
+    public void delete_posts_fromAllStructures(Post postABorrar){
+        //Eliminación AVL
+        //arbreAVL.delete(new Node(postABorrar)); -> Está implementado, únicamente que no ha habído tiempo de adpatrlo al menú
+
+        //Eliminación RTree
+        if (postABorrar.getLocation() != null) {
+            rTree.eliminacionEnRtree(postABorrar);
+        }
+
+        //Eliminación en Trie
+        arbreTrieIds.eliminarParaula(String.valueOf(postABorrar.getId()).toCharArray());
+
+
+        //Eliminación Hashmap
+        if (postABorrar.getHashtags() != null) {
+            hashMap.eliminarPost(postABorrar);
+        }
+    }
 }
 

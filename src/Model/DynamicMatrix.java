@@ -50,7 +50,9 @@ public class DynamicMatrix {
     public void eliminarVinculacion (int indice) {
         matriz[indice] = null;
         for(int i= 0; i < matriz.length; i++) {
-            matriz[i][indice/8] = (byte) (matriz[i][indice/8] & ~(1 << (indice%8)));
+            if (matriz[i] != null) {
+                matriz[i][indice / 8] = (byte) (matriz[i][indice / 8] & ~(1 << (indice % 8)));
+            }
         }
     }
 

@@ -103,7 +103,7 @@ public class Graph {
     public void hacerJSONUsuarios () {
         FileWriter fw = null;
         try {
-            fw = new FileWriter("files/usersNew.json");
+            fw = new FileWriter("files/users.json");
             fw.write("[");
             int i = 0;
             int contador = 0;
