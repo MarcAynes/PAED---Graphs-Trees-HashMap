@@ -38,13 +38,12 @@ public class Menu {
         nombreDeParaulesHaRetornar = 5;
 
         System.out.println("Bienvenid@!");
+        Scanner scOp = new Scanner(System.in);
         do {
-            Scanner scOp = new Scanner(System.in);
             opcionesPosibles();
             System.out.println("Opción:");
             opcion = scOp.nextInt();
             funcionalidad(opcion);
-            scOp.close();
         } while (opcion != 8);
     }
 
@@ -194,7 +193,7 @@ public class Menu {
                 }
                 break;
 
-            case 4:
+            case 4: //TODO:  Revisar
                 int i = 0;
                 String[][] matriz;
 
@@ -247,12 +246,17 @@ public class Menu {
                 } else {
                     Post post = new Post();
 
-                    post.setId(posts.length + 1);
-                    System.out.println("Publicación  de el post:");
+                    if (posts != null) {
+                        post.setId(posts.length + 1);
+                    } else {
+                        post.setId(1);
+                    }
+
+                    System.out.println("Fecha de publicación:");
                     post.setPublished_when(scIn.nextInt());
                     System.out.println("Publicado por:");
                     post.setPublished_by(scIn.next());
-                    double[] localizacion = null;
+                    double[] localizacion = new double[2];
                     System.out.println("Latitud publicación:");
                     localizacion[0] = scIn.nextDouble();
                     System.out.println("Longitud publicación:");
@@ -260,39 +264,54 @@ public class Menu {
                     post.setLocation(localizacion);
 
                     System.out.println("Hashtags de la publicación [Y/N]:");
-                    matriz = new String[posts.length][];
+                    if (posts != null) {
+                        matriz = new String[posts.length][];
+                    } else {
+                        matriz = new String[1][];
+                    }
 
                     while (scIn.next().equals("Y")) {
                         matriz[i][scIn.next().length()] = scIn.next();
                         System.out.println("Hashtags de la publicación [Y/N]:");
                     }
 
-                    for (String[] hashtag : matriz) {
-                        post.setHashtags(hashtag);
+                    if (matriz.length > 0) {
+                        for (String[] hashtag : matriz) {
+                            post.setHashtags(hashtag);
+                        }
                     }
 
                     System.out.println("Ha dado alguien like? [Y/N]:");
-                    matriz = new String[posts.length][];
+                    if (posts != null) {
+                        matriz = new String[posts.length][];
+                    } else {
+                        matriz = new String[1][];
+                    }
 
                     while (scIn.next().equals("Y")) {
                         matriz[i][scIn.next().length()] = scIn.next();
                         System.out.println("Ha dado alguien like? [Y/N]:");
                     }
 
-                    for (String[] user_like : matriz) {
-                        post.setLiked_by(user_like);
+                    if (matriz.length > 0) {
+                        for (String[] user_like : matriz) {
+                            post.setLiked_by(user_like);
+                        }
                     }
 
                     if (arbreTrieIds == null) {
                         arbreTrieIds = new ArbreTrie();
 
-                    } else if (hashMap == null) {
+                    }
+                    if (hashMap == null) {
                         hashMap = new HashMap();
 
-                    } else if (rTree == null) {
+                    }
+                    if (rTree == null) {
                         rTree = new RTree(3, 5);
 
-                    } else if (arbreAVL == null) {
+                    }
+                    if (arbreAVL == null) {
                         arbreAVL = new ArbreAVL(new AVLTree.Node(post));
 
                     } else {
@@ -304,16 +323,20 @@ public class Menu {
                     arbreTrieIds.add(String.valueOf(post.getId()).toCharArray());
 
                     //Inserción Hashmap
-                    hashMap.agregarPost(post);
+                    if (post.getHashtags() != null) {
+                        hashMap.agregarPost(post);
+                    } else {
+                        System.out.println("-----> No se puede inserir dentro del Hashmap ya que esta publicación no tiene hashtags");
+                    }
 
                     //Inserción RTree
                     rTree.insertarElemento(post);
 
-                    scIn.close();
+                    //scIn.close();
                 }
                 break;
 
-            case 5:
+            case 5: //TODO: Acabar
 
                 if (!estructuresBuides) {
                     Scanner scBr = new Scanner(System.in);
@@ -351,9 +374,8 @@ public class Menu {
                 }
                 break;
 
-            case 6:
+            case 6: //TODO: Revisar
                 if (!estructuresBuides) {
-                    //TODO: Revisar
                     System.out.println("Búsqueda de información\n Que tipo de información quieres buscar?");
                     System.out.println("1. Usuario\n" +
                             "2. Post\n" +
@@ -426,6 +448,11 @@ public class Menu {
                         case 2:
                             System.out.print("Id publicación (hay" + posts.length + "publicaciones): ");
                             //TODO: falta la cerca d'un post en concret per id dins de l'AVL i printar tots els atributs del post
+                            try {
+                                //printPost(arbreAVL.cerca());
+                            } catch (NullPointerException e) {
+                                System.out.println("No existe este post dentro de el AVL Tree");
+                            }
                             break;
 
                         case 3:
