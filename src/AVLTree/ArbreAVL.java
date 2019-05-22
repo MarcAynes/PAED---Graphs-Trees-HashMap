@@ -1,5 +1,7 @@
 package AVLTree;
 
+import Model.Post;
+
 import java.io.PrintWriter;
 
 public class ArbreAVL {
@@ -38,6 +40,10 @@ public class ArbreAVL {
 
     public void visualitza(){
         root.visualitzaPerTerminal();
+    }
+
+    public Post cerca(int numero){
+        return root.cerca(numero);
     }
 
     public void setRoot(Node a){
