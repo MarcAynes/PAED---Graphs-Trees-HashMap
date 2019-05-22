@@ -300,6 +300,8 @@ public class Menu {
                     System.out.println("Borrar información\n Que tipo de información quieres inserir?");
                     System.out.println("1. Usuario\n" +
                             "2. Post");
+
+                    //TODO: Si user s'essborra, borrar els seus post
                 } else {
                     System.out.println("Estructuras vacías, prueba de inserir o importar préviamente algo");
                 }
