@@ -62,7 +62,7 @@ public class Menu {
     public void funcionalidad(int opcio) {
 
         switch (opcio) {
-            case 1:
+            case 1: //Done
                 System.out.println("Importación de fichero");
                 Importacio importacio = new Importacio();
 
@@ -154,9 +154,6 @@ public class Menu {
                             break;
 
                         case 2:
-
-                            //TODO: exportacion datos para futura informacion (usuarios y posts)
-
                             //TODO: Falta exportació de usuarios amb el graph!
 
                             break;
@@ -171,7 +168,7 @@ public class Menu {
                 }
                 break;
 
-            case 3:
+            case 3: //Done
                 if (!estructuresBuides) {
                     System.out.println("Visualización de una estructura\n Que estructura desea visualizar?");
                     System.out.println("1. Trie\n" +
@@ -272,86 +269,93 @@ public class Menu {
                     post.setPublished_when(scIn.nextInt());
                     System.out.println("Publicado por:");
                     post.setPublished_by(scIn.next());
-                    double[] localizacion = new double[2];
-                    System.out.println("Latitud publicación:");
-                    localizacion[0] = scIn.nextDouble();
-                    System.out.println("Longitud publicación:");
-                    localizacion[1] = scIn.nextDouble();
-                    post.setLocation(localizacion);
 
-                    System.out.println("Hashtags de la publicación [Y/N]:");
-                    if (posts != null) {
-                        matriz = new String[posts.length][];
-                    } else {
-                        matriz = new String[1][];
-                    }
+                    if (graph.buscarUsuario(post.getPublished_by()) != null) {
+                        double[] localizacion = new double[2];
+                        System.out.println("Latitud publicación:");
+                        localizacion[0] = scIn.nextDouble();
+                        System.out.println("Longitud publicación:");
+                        localizacion[1] = scIn.nextDouble();
+                        post.setLocation(localizacion);
 
-                    while (scIn.next().equals("Y")) {
-                        matriz[i][scIn.next().length()] = scIn.next();
                         System.out.println("Hashtags de la publicación [Y/N]:");
-                    }
-
-                    if (matriz.length > 0) {
-                        for (String[] hashtag : matriz) {
-                            post.setHashtags(hashtag);
+                        if (posts != null) {
+                            matriz = new String[posts.length][];
+                        } else {
+                            matriz = new String[1][];
                         }
-                    }
 
-                    System.out.println("Ha dado alguien like? [Y/N]:");
-                    if (posts != null) {
-                        matriz = new String[posts.length][];
-                    } else {
-                        matriz = new String[1][];
-                    }
+                        while (scIn.next().equals("Y")) {
+                            matriz[i][scIn.next().length()] = scIn.next();
+                            System.out.println("Hashtags de la publicación [Y/N]:");
+                        }
 
-                    while (scIn.next().equals("Y")) {
-                        matriz[i][scIn.next().length()] = scIn.next();
+                        if (matriz.length > 0) {
+                            for (String[] hashtag : matriz) {
+                                post.setHashtags(hashtag);
+                            }
+                        }
+
                         System.out.println("Ha dado alguien like? [Y/N]:");
-                    }
-
-                    if (matriz.length > 0) {
-                        for (String[] user_like : matriz) {
-                            post.setLiked_by(user_like);
+                        if (posts != null) {
+                            matriz = new String[posts.length][];
+                        } else {
+                            matriz = new String[1][];
                         }
-                    }
 
-                    if (arbreTrieIds == null) {
-                        arbreTrieIds = new ArbreTrie();
+                        while (scIn.next().equals("Y")) {
+                            matriz[i][scIn.next().length()] = scIn.next();
+                            System.out.println("Ha dado alguien like? [Y/N]:");
+                        }
 
-                    }
-                    if (hashMap == null) {
-                        hashMap = new HashMap();
+                        if (matriz.length > 0) {
+                            for (String[] user_like : matriz) {
+                                post.setLiked_by(user_like);
+                            }
+                        }
 
-                    }
-                    if (rTree == null) {
-                        rTree = new RTree(3, 5);
+                        if (arbreTrieIds == null) {
+                            arbreTrieIds = new ArbreTrie();
 
-                    }
-                    if (arbreAVL == null) {
-                        arbreAVL = new ArbreAVL(new AVLTree.Node(post));
+                        }
+                        if (hashMap == null) {
+                            hashMap = new HashMap();
+
+                        }
+                        if (rTree == null) {
+                            rTree = new RTree(3, 5);
+
+                        }
+                        if (arbreAVL == null) {
+                            arbreAVL = new ArbreAVL(new AVLTree.Node(post));
+
+                        } else {
+                            //Inserción AVL Tree
+                            arbreAVL.add(new Node(post));
+                        }
+
+                        //Inserción Trie of IDs
+                        arbreTrieIds.add(String.valueOf(post.getId()).toCharArray());
+
+                        //Inserción Hashmap
+                        if (post.getHashtags() != null) {
+                            hashMap.agregarPost(post);
+                        } else {
+                            System.out.println("-----> No se puede inserir dentro del Hashmap ya que esta publicación no tiene hashtags");
+                        }
+
+                        //Inserción RTree
+                        rTree.insertarElemento(post);
 
                     } else {
-                        //Inserción AVL Tree
-                        arbreAVL.add(new Node(post));
+                        System.out.println("Error, este usuario no existe dentro del sistema");
                     }
 
-                    //Inserción Trie of IDs
-                    arbreTrieIds.add(String.valueOf(post.getId()).toCharArray());
 
-                    //Inserción Hashmap
-                    if (post.getHashtags() != null) {
-                        hashMap.agregarPost(post);
-                    } else {
-                        System.out.println("-----> No se puede inserir dentro del Hashmap ya que esta publicación no tiene hashtags");
-                    }
-
-                    //Inserción RTree
-                    rTree.insertarElemento(post);
                 }
                 break;
 
             case 5: //TODO: Acabar
-
                 if (!estructuresBuides) {
                     Scanner scBr = new Scanner(System.in);
 
@@ -401,7 +405,7 @@ public class Menu {
 
                     Scanner sc = new Scanner(System.in);
                     switch (sc.nextInt()) {
-                        case 1:
+                        case 1: //TODO: Revisar
                             Return r = new Return();
                             r.setNombre(nombreDeParaulesHaRetornar);
 
@@ -410,8 +414,6 @@ public class Menu {
                             boolean getOut = false;
 
                             //TODO: Si em retorna el Trie un char[][] de length == 0, NO FER RES, ja que no hi ha cap paraula que coincideixi
-
-                            //TODO: Si un post no te hashtags no mostris cap hashtag, sino nullpointer!
                             word = sc.next();
                             do{
                                 System.out.println("Posibles sugerencias");
@@ -464,16 +466,14 @@ public class Menu {
 
                         case 2:
                             System.out.print("Id publicación (hay" + posts.length + "publicaciones): ");
-                            //TODO: falta la cerca d'un post en concret per id dins de l'AVL i printar tots els atributs del post
                             try {
-                                //printPost(arbreAVL.cerca());
+                                printPost(arbreAVL.cerca(sc.nextInt()));
                             } catch (NullPointerException e) {
                                 System.out.println("No existe este post dentro de el AVL Tree");
                             }
                             break;
 
                         case 3:
-                            //TODO: Preguntar al Pernia si els 5 posts a buscar dins del hashmap son els 5 ultims inserits o publicats (timestamp)
                             System.out.print("Hashtag específico a buscar: ");
                             hashMap.buscarPostsConHashTAG(sc.next());
                             break;
@@ -517,7 +517,7 @@ public class Menu {
                 }
                 break;
 
-            case 7:
+            case 7: //Done
                 Scanner scLimit = new Scanner(System.in);
                 System.out.println("Limitar memória para autocompletar.\n" +
                         "Actualmente el límite se encuentre en [" + nombreDeParaulesHaRetornar + "] palabras\n" +
@@ -528,11 +528,11 @@ public class Menu {
                 scLimit.close();
                 break;
 
-            case 8:
+            case 8: //Done
                 System.out.println("Hasta pronto!");
                 break;
 
-            default:
+            default: //Done
                 System.out.println("Opción incorrecta!");
                 break;
         }
