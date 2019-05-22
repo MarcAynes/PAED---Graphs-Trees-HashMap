@@ -104,7 +104,6 @@ public class Menu {
                 break;
 
             case 2:
-                //TODO: Preguntar pernia si la visualitzacio de l'estat de l'estructura a de ser en JSON (creiem que no)
                 if (!estructuresBuides) {
                     System.out.println("Exportación de ficheros");
 
@@ -114,7 +113,8 @@ public class Menu {
                     //Tries
                     System.out.println("1. Exportar ficheros de visualizacion");
                     System.out.println("2. Exportar ficheros de datos");
-                    int i = entradaTerminal();
+                    Scanner scEx = new Scanner(System.in);
+                    int i = scEx.nextInt();
                     switch (i) {
                         case 1:
                             try {
@@ -157,9 +157,9 @@ public class Menu {
 
                             //TODO: exportacion datos para futura informacion (usuarios y posts)
 
+                            //TODO: Falta exportació de usuarios amb el graph!
+
                             break;
-
-
                     }
 
                     //Graph
@@ -347,8 +347,6 @@ public class Menu {
 
                     //Inserción RTree
                     rTree.insertarElemento(post);
-
-                    //scIn.close();
                 }
                 break;
 
@@ -362,8 +360,8 @@ public class Menu {
                             "2. Post");
 
                     if (scBr.nextInt() == 1) {
-                        //TODO: Si user s'essborra, borrar els seus post, tb likes?
-                        System.out.println("Nombre del usuario a borrar: ");
+                        //TODO: Si user s'esborra, borrar els seus post, tb likes?
+                        System.out.println("Nombre de usuario a borrar: ");
                         String name = scBr.next();
 
                         graph.eliminarUsuario(name);
@@ -384,6 +382,7 @@ public class Menu {
                         //Eliminación en Trie
                         arbreTrieIds.eliminarParaula(String.valueOf(idPost).toCharArray());
 
+                        //Eliminación
                     }
 
                     scBr.close();
