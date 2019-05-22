@@ -29,7 +29,7 @@ public class HashMapNoOptimizado {
         }
     }
 
-    private int buscarPosicionHashtag(String hashtag) {
+    public int buscarPosicionHashtag(String hashtag) {
         for (int i = 0; i < arrayHashtags.length;i++) {
             if (arrayHashtags[i] != null) {
                 if (arrayHashtags[i].getHashtag().equals(hashtag)) {

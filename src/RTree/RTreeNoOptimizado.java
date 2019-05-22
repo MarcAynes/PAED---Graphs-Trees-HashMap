@@ -27,6 +27,7 @@ public class RTreeNoOptimizado {
         arrayPosts[cantidad] = p;
         cantidad++;
     }
+
     public Post[] buscarPotsDentroRadio (double latitud, double longitud, double radio) {
         Post[] resultado = new Post[cantidad];
         int contador = 0;
@@ -60,6 +61,7 @@ public class RTreeNoOptimizado {
         }
         return resultado;
     }
+
     public void eliminarPost (Post post) {
         for (int i = 0; i < arrayPosts.length;i++) {
             if (arrayPosts[i] != null) {
