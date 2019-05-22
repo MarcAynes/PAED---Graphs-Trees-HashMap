@@ -14,7 +14,7 @@ public class Main_2_LaVenganzaDelJamon {
         Post p4 = new Post (4,location_4);
         double [] location_5 = {89.99,77.90};
         Post p5 = new Post (5,location_5);
-        double [] location_6 = {-12.90,1.90};
+        double [] location_6 = {87.90,99.90};
         Post p6 = new Post (6,location_6);
         double [] location_7 = {86.90,15.90};
         Post p7 = new Post (7,location_7);
@@ -65,10 +65,10 @@ public class Main_2_LaVenganzaDelJamon {
 
         //rTree.visualizacionRTree();
 
-        rTree.eliminacionEnRtree(p10);
-        rTree.eliminacionEnRtree(p4);
+        //rTree.eliminacionEnRtree(p10);
+        //rTree.eliminacionEnRtree(p4);
         //rTree.eliminacionEnRtree(p5);
-        rTree.eliminacionEnRtree(p13);
+        //rTree.eliminacionEnRtree(p13);
         //rTree.eliminacionEnRtree(p11);
         //System.out.println("Jaja si soy llo el shocu");
 
