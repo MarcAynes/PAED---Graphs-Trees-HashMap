@@ -21,8 +21,11 @@ public class Graph {
     public void insertarUsuario (User user) {
         int indice = users.insertarElemento(user);
         int [] personasSeguidas;
-        personasSeguidas = users.buscarIndiceUsuariosSeguidos(user.getTo_follow());
-        vinculaciones.insertarVinculacion(indice,personasSeguidas);
+        if (user.getTo_follow() != null) {
+            personasSeguidas = users.buscarIndiceUsuariosSeguidos(user.getTo_follow());
+            vinculaciones.insertarVinculacion(indice, personasSeguidas);
+        }
+
     }
 
     public User buscarUsuario (String usernameABuscar) {

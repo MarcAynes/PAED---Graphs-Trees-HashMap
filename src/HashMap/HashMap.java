@@ -152,6 +152,8 @@ public class HashMap {
         for (String hashtag : p.getHashtags()) {
             System.out.print(hashtag + ", ");
         }
+
+        System.out.println("\n");
     }
 
 }

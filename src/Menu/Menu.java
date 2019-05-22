@@ -221,7 +221,7 @@ public class Menu {
                 }
                 break;
 
-            case 4: //TODO:  Revisar
+            case 4: //Done
                 int i = 0;
                 String[][] matriz;
 
@@ -230,9 +230,6 @@ public class Menu {
                         "2. Nuevo Post");
 
                 Scanner scIn = new Scanner(System.in);
-
-                //TODO: Hace falta controlar que cuando un post se inserte, que exista el usuario??
-
                 //Antes de inserir un usuario o post, si alguna estructura no está inicializada, la inicializamos
                 if (scIn.nextInt() == 1) {
                     System.out.println("Nombre de usuario:");
@@ -241,32 +238,32 @@ public class Menu {
                     long fecha = scIn.nextLong();
                     User user = new User(name, fecha);
 
-                    System.out.println("Usuario que segurá [Y/N]:");
-                    matriz = new String[users.length][];
+                    System.out.println("Usuario que seguirá [Y/N]:");
+                    if (scIn.next().equals("Y")) {
+                        if (users != null) {
+                            matriz = new String[users.length][];
+                        } else {
+                            matriz = new String[1][];
+                        }
 
-                    while (scIn.next().equals("Y")) {
-                        matriz[i][scIn.next().length()] = scIn.next();
-                        System.out.println("Usuario que segurá [Y/N]:");
+                        while (scIn.next().equals("Y")) {
+                            matriz[i][scIn.next().length()] = scIn.next();
+                            System.out.println("Usuario que seguirá [Y/N]:");
+                        }
+
+                        for (String[] follows : matriz) {
+                            user.setTo_follow(follows);
+                        }
                     }
 
-                    for (String[] follows : matriz) {
-                        user.setTo_follow(follows);
-                    }
+                    if (arbreTrieUsersNames == null) arbreTrieUsersNames = new ArbreTrie();
 
-                    if (arbreTrieUsersNames == null) {
-                        arbreTrieUsersNames = new ArbreTrie();
-                    } else if (graph == null) {
-                        graph = new Graph();
-                    }
+                    if (graph == null) graph = new Graph();
+
+                    //No hacemos comprovación de que si existen los usuario a los cuales sigue
 
                     //Inserción Trie of Usernames
-                    arbreTrieUsersNames.add(user.getUsername().toCharArray());
-                    /* TODO: Insercion de usuario que sigue???
-                    for (String[] s : matriz) {
-                        for (String sf : s) {
-                            arbreTrieUsersNames.add(sf.toCharArray());
-                        }
-                    }*/
+                    arbreTrieUsersNames.add(user.getUsername().toLowerCase().toCharArray());
 
                     //Inserción Grafo
                     graph.insertarUsuario(user);
@@ -338,6 +335,7 @@ public class Menu {
 
                         }
                         if (rTree == null) {
+                            //TODO: definir el millor cas pel RTree depenent dels limits de posts per area
                             rTree = new RTree(3, 5);
 
                         }
@@ -494,7 +492,6 @@ public class Menu {
                             break;
 
                         case 4:
-                            //TODO: Revisar
                             double latitud, longitud, radio = 0;
                             System.out.println("Latitud: ");
                             latitud = sc.nextDouble();
@@ -505,13 +502,23 @@ public class Menu {
 
                             Post[] postInRatio = rTree.busquedaEnRtree(latitud, longitud, radio);
 
+                            int post_totales = 0;
+
+                            for(int k = 0; k < postInRatio.length; k++) {
+                                if (postInRatio[k] != null) post_totales++;
+                            }
+
                             if (postInRatio.length > 0) {
-                                System.out.println("Se ha encontrado " + postInRatio.length + "posts dentro de un radio máximo [" + radio + "km]");
-                                int i_p = 0;
+                                System.out.println("Se ha encontrado " + post_totales + " posts dentro de un radio máximo [" + radio + "km]");
+                                int i_p = 1;
 
                                 for (Post p : postInRatio) {
-                                    System.out.println("\n[POST " + i_p + 1 + "]");
-                                    printPost(p);
+                                    if (p != null) {
+                                        System.out.println("\n[POST " + i_p + "]");
+                                        i_p++;
+                                        printPost(p);
+                                        System.out.println("\n");
+                                    }
                                 }
 
                             } else {
@@ -524,8 +531,6 @@ public class Menu {
                             System.out.println("Opción incorrecta");
                             break;
                     }
-
-                    sc.close();
 
                 } else {
                     System.out.println("Estruturas vacías");
