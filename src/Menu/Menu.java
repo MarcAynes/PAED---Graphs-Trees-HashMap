@@ -357,14 +357,17 @@ public class Menu {
                 if (!estructuresBuides) {
                     Scanner scBr = new Scanner(System.in);
 
-                    System.out.println("Borrar información\n Que tipo de información quieres inserir?");
+                    System.out.println("Borrar información\n Que tipo de información quieres Borrar?");
                     System.out.println("1. Usuario\n" +
                             "2. Post");
 
                     if (scBr.nextInt() == 1) {
                         //TODO: Si user s'essborra, borrar els seus post, tb likes?
-                        System.out.println("Nombre de usuario a borrar: ");
+                        System.out.println("Nombre del usuario a borrar: ");
                         String name = scBr.next();
+
+                        graph.eliminarUsuario(name);
+                        arbreTrieUsersNames.eliminarParaula(name.toLowerCase().toCharArray());
 
                     } else {
                         System.out.println("Id de el post a borrar: ");
@@ -381,7 +384,6 @@ public class Menu {
                         //Eliminación en Trie
                         arbreTrieIds.eliminarParaula(String.valueOf(idPost).toCharArray());
 
-                        //Eliminacióm
                     }
 
                     scBr.close();
