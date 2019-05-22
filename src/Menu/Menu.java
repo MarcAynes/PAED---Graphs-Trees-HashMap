@@ -135,6 +135,8 @@ public class Menu {
                     }
 
 
+
+
                 }else {
                     System.out.println("Estructuras vacías, prueba de inserir o importar préviamente algo");
                 }
@@ -165,6 +167,7 @@ public class Menu {
                             break;
 
                         case 4:
+                            //TODO: Revisar esta visualizacion
                             hashMap.hashMapVisualizacion();
                             break;
 
@@ -293,16 +296,43 @@ public class Menu {
                     //Inserción RTree
                     rTree.insertarElemento(post);
 
+                    scIn.close();
                 }
                 break;
 
             case 5:
+
                 if (!estructuresBuides) {
+                    Scanner scBr = new Scanner(System.in);
+
                     System.out.println("Borrar información\n Que tipo de información quieres inserir?");
                     System.out.println("1. Usuario\n" +
                             "2. Post");
 
-                    //TODO: Si user s'essborra, borrar els seus post
+                    if (scBr.nextInt() == 1) {
+                        //TODO: Si user s'essborra, borrar els seus post
+                        System.out.println("Nombre de usuario a borrar: ");
+                        String name = scBr.next();
+
+                    } else {
+                        System.out.println("Id de el post a borrar: ");
+                        int idPost = scBr.nextInt();
+                        Post postABorrar = new Post();
+                        postABorrar.setId(idPost);
+
+                        //Eliminación AVL
+                        arbreAVL.delete(new Node(postABorrar));
+
+                        //Eliminación RTree
+                        rTree.eliminacionEnRtree(postABorrar);
+
+                        //Eliminación en Trie
+                        arbreTrieIds.eliminarParaula(String.valueOf(idPost).toCharArray());
+
+                        //Eliminacióm
+                    }
+
+                    scBr.close();
                 } else {
                     System.out.println("Estructuras vacías, prueba de inserir o importar préviamente algo");
                 }
@@ -418,6 +448,8 @@ public class Menu {
                             System.out.println("Opción incorrecta");
                             break;
                     }
+
+                    sc.close();
 
                 } else {
                     System.out.println("Estruturas vacías");

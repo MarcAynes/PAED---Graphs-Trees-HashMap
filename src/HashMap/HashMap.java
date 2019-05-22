@@ -116,7 +116,8 @@ public class HashMap {
                 if (contador != 0) {
                     QuickSortPosts quickSortPosts = new QuickSortPosts();
                     quickSortPosts.quickSort(posts, new ComparatorTimestampsPost(), 0, contador - 1);
-                    System.out.println("\n\nPosición " + j + "--Hashtag:" + hashMap[j].getHashtag() + "\nPosts:");
+                    System.out.println("\n\nPosición " + j + "--Hashtag:" + hashMap[j].getHashtag() + "\nPosts: *******" +
+                            "********************************************************************************************");
                     int pepe = 0;
                     for (int k = 0; k < contador; k++) {
                         System.out.println((pepe+1) + ". " );
@@ -126,7 +127,8 @@ public class HashMap {
                     //TODO: que coño es esto
                     for (int g= 0; g < hashMap[j].getPostsBackup().getValores().length; g++) {
                         if (hashMap[j].getPostsBackup().getValores()[g] != null) {
-                            System.out.println((pepe + 1) + ". " + hashMap[j].getPostsBackup().getValores()[g].getId());
+                            System.out.println("\n" + (pepe + 1) + ". ");
+                            printPost(hashMap[j].getPostsBackup().getValores()[g]);
                             pepe++;
                         }
                     }
