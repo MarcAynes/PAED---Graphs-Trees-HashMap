@@ -114,14 +114,23 @@ public class HashMap {
                 if (contador != 0) {
                     QuickSortPosts quickSortPosts = new QuickSortPosts();
                     quickSortPosts.quickSort(posts, new ComparatorTimestampsPost(), 0, contador - 1);
-                    System.out.println("\n\nPosición " + j + "--Hashtag:" + hashMap[j].getHashtag() + "\nLos ultimos 5 posts:");
+                    System.out.println("\n\nPosición " + j + "--Hashtag:" + hashMap[j].getHashtag() + "\nPosts:");
+                    int pepe = 0;
                     for (int k = 0; k < contador; k++) {
-                        System.out.println((k + 1) + ". " + posts[k].getId());
+                        System.out.println((pepe+1) + ". " + posts[k].getId());
+                        pepe++;
+                    }
+                    for (int g= 0; g < hashMap[j].getPostsBackup().getValores().length; g++) {
+                        if (hashMap[j].getPostsBackup().getValores()[g] != null) {
+                            System.out.println((pepe + 1) + ". " + hashMap[j].getPostsBackup().getValores()[g].getId());
+                            pepe++;
+                        }
                     }
                 }
             }
         }
     }
+
 
 
 }

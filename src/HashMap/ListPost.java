@@ -131,4 +131,12 @@ public class ListPost {
     public void setPosts(Post[] posts) {
         this.posts = posts;
     }
+
+    public DynamicArrayPost getPostsBackup() {
+        return postsBackup;
+    }
+
+    public void setPostsBackup(DynamicArrayPost postsBackup) {
+        this.postsBackup = postsBackup;
+    }
 }
