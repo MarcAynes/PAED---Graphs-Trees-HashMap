@@ -6,4 +6,5 @@ El main que hay que ejecutar es el archivo Main dentro de la carpeta src, y fuer
 Cada estroctura contiene un main por si se quiere provar ella sola aún que no se garantiza que esten todas las funcionalidades o que
 el main sea claro.
 
-El trie permite la entrada de las letras A-Z, a-z, 0-1, los otros caracteres no se garantice que funcione o que no deje de funcionar el programa.
+El trie permite la entrada de las letras A-Z, a-z, 0-9, los otros caracteres no se garantice que funcione o que no deje de funcionar el programa.
+
