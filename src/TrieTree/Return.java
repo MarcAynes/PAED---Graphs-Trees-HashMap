@@ -1,8 +1,12 @@
 package TrieTree;
 
 public class Return {
-    public int nombre;
+    public int nombre = 0;
     public char[][] frases;
+
+    public Return(){
+        this.nombre = 0;
+    }
 
     public int getNombre() {
         return nombre;

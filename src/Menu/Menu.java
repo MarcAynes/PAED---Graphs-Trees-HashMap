@@ -420,7 +420,6 @@ public class Menu {
                     switch (sc.nextInt()) {
                         case 1: //TODO: Revisar
                             Return r = new Return();
-                            r.setNombre(nombreDeParaulesHaRetornar);
 
                             String word = null;
                             int opcioT;
@@ -438,19 +437,21 @@ public class Menu {
                                 //Si no ha encontrado ninguna palabra, el Trie ya avisa que no coincide ninguna con el valor buscado
                                 if (palabras != null) {
                                     for (char[] palabra : palabras) {
-                                        System.out.println(j + ". " + palabra);
+                                        String mostrar = new String(palabra);
+                                        System.out.println(j + ". " + mostrar);
                                         j++;
                                     }
 
-                                    System.out.println(r.getFrases().length + 1 + "Ninguna de las sugeridas");
+                                    System.out.println(r.getFrases().length  + ". Ninguna de las sugeridas");
                                     opcioT = sc.nextInt();
 
                                     if (r.getFrases().length + 1 != opcioT) {
-                                        System.out.println("Cargar la información de el usuario [" + palabras[opcioT - 1] + "] [Y/N]");
+                                        String mostrar = new String(palabras[opcioT]);
+                                        System.out.println("Cargar la información de el usuario [" + mostrar + "] [Y/N]");
                                         if (sc.next().equals("Y")) {
                                             getOut = true;
 
-                                            User user = graph.buscarUsuario(palabras[opcioT - 1].toString());
+                                            User user = graph.buscarUsuario(mostrar);
 
                                             printUser(user);
                                             //TODO: falta obtener el numero de posts del usuario buscado, se podria hacer
