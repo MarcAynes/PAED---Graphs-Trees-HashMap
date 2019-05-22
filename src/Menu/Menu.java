@@ -82,6 +82,7 @@ public class Menu {
 
                 for (Post p : posts) {
                     //Importación de ids al Trie
+                    p.setPublished_by(p.getPublished_by().toLowerCase());
                     arbreTrieIds.add(String.valueOf(p.getId()).toLowerCase().toCharArray());
                     //Importación post al HashMap
                     hashMap.agregarPost(p);
@@ -96,6 +97,7 @@ public class Menu {
                 for (User u : users) {
                     //Importación de los usernames al Trie
                     arbreTrieUsersNames.add(u.getUsername().toCharArray());
+                    u.setUsername(u.getUsername().toLowerCase());
                 }
 
                 //Importación de los usuarios al Grafo
@@ -284,6 +286,7 @@ public class Menu {
 
                     //Inserción Grafo
                     graph.insertarUsuario(user);
+                    estructuresBuides = false;
 
                 } else {
                     Post post = new Post();
@@ -376,7 +379,7 @@ public class Menu {
 
                         //Inserción RTree
                         rTree.insertarElemento(post);
-
+                        estructuresBuides = false;
                     } else {
                         System.out.println("Error, este usuario no existe dentro del sistema");
                     }
