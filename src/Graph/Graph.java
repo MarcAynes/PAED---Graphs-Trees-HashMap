@@ -93,4 +93,11 @@ public class Graph {
         }
     }
 
+    public DynamicArrayUser getUsers() {
+        return users;
+    }
+
+    public void setUsers(DynamicArrayUser users) {
+        this.users = users;
+    }
 }
