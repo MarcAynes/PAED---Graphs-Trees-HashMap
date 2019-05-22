@@ -32,9 +32,8 @@ public class MainPruebaPaLosJajas {
 
         Graph graph = new Graph();
         graph.insertarJSON(users);
-        graph.guardarEnJSON();
-
-        graph.visualizacionGraph();
+        graph.hacerJSONUsuarios();
+        //graph.visualizacionGraph();
 
 
     }
