@@ -103,7 +103,7 @@ public class Graph {
     public void hacerJSONUsuarios () {
         FileWriter fw = null;
         try {
-            fw = new FileWriter("files/usersNew.json");
+            fw = new FileWriter("files/users.json");
             fw.write("[");
             int i = 0;
             int contador = 0;
@@ -119,7 +119,7 @@ public class Graph {
                     User user_actual = users.buscarUserPorId(i);
                     fw.write("\"username\": \"" + user_actual.getUsername() +"\",");
                     fw.write("\"creation\":" + user_actual.getCreation() + ",");
-                    fw.write("\"toFollow\":[");
+                    fw.write("\"to_follow\":[");
                     Integer [] resultados = vinculaciones.devolverVinculacionesUsuario(i);
                     int totalamijos =0 ;
                     for (int w = 0; w < resultados.length;w++) {

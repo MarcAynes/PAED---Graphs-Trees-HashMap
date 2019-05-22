@@ -499,7 +499,7 @@ public class Nodo {
                             if (((Rectangulo) valores [i]).getHijo().tipo == 0) {
                                 for (int j = 0; j < ((Rectangulo) valores[i]).getHijo().valores.length; j++) {
                                     if (((Rectangulo) valores[i]).getHijo().valores[j] != null) {
-                                        Rectangulo rec1 = (Rectangulo) valores[j];
+                                        Rectangulo rec1 = (Rectangulo) ((Rectangulo) valores[i]).getHijo().valores[j];
                                         if (rec1.isEliminado()) {
                                             contador++;
                                         }
