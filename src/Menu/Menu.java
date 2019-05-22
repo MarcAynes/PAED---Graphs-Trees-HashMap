@@ -40,12 +40,14 @@ public class Menu {
         nombreDeParaulesHaRetornar = 5;
 
         System.out.println("Bienvenid@!");
-        Scanner scOp = new Scanner(System.in);
+        //Scanner scOp = new Scanner(System.in);
         do {
+            Scanner scOp = new Scanner(System.in);
             opcionesPosibles();
             System.out.println("Opción:");
             opcion = scOp.nextInt();
             funcionalidad(opcion);
+
         } while (opcion != 8);
     }
 
@@ -82,6 +84,7 @@ public class Menu {
 
                 for (Post p : posts) {
                     //Importación de ids al Trie
+                    p.setPublished_by(p.getPublished_by().toLowerCase());
                     arbreTrieIds.add(String.valueOf(p.getId()).toLowerCase().toCharArray());
                     //Importación post al HashMap
                     hashMap.agregarPost(p);
@@ -96,6 +99,7 @@ public class Menu {
                 for (User u : users) {
                     //Importación de los usernames al Trie
                     arbreTrieUsersNames.add(u.getUsername().toCharArray());
+                    u.setUsername(u.getUsername().toLowerCase());
                 }
 
                 //Importación de los usuarios al Grafo
@@ -284,6 +288,7 @@ public class Menu {
 
                     //Inserción Grafo
                     graph.insertarUsuario(user);
+                    estructuresBuides = false;
 
                 } else {
                     Post post = new Post();
@@ -376,7 +381,7 @@ public class Menu {
 
                         //Inserción RTree
                         rTree.insertarElemento(post);
-
+                        estructuresBuides = false;
                     } else {
                         System.out.println("Error, este usuario no existe dentro del sistema");
                     }
@@ -461,7 +466,7 @@ public class Menu {
                                     System.out.println(r.getFrases().length  + ". Ninguna de las sugeridas");
                                     opcioT = sc.nextInt();
 
-                                    if (r.getFrases().length + 1 != opcioT) {
+                                    if (r.getFrases().length > opcioT) {
                                         String mostrar = new String(palabras[opcioT]);
                                         System.out.println("Cargar la información de el usuario [" + mostrar + "] [Y/N]");
                                         if (sc.next().equals("Y")) {
@@ -475,7 +480,7 @@ public class Menu {
                                         }
 
                                     } else {
-                                        System.out.println("Cargar la información de el usuario [" + word + "] [Y/N]");
+                                        /*System.out.println("Cargar la información de el usuario [" + word + "] [Y/N]");
                                         if (sc.next().equals("Y")) {
                                             getOut = true;
 
@@ -484,9 +489,9 @@ public class Menu {
                                             printUser(user);
                                             //TODO: falta obtener el numero de posts del usuario buscado, se podria hacer
                                             // con una variable incremental recorriendo el AVL
-                                        } else {
+                                        } else {*/
                                             word += sc.next();
-                                        }
+                                        //}
                                     }
                                 } else {
                                     getOut = true;
@@ -564,7 +569,7 @@ public class Menu {
                 nombreDeParaulesHaRetornar = scLimit.nextInt();
                 System.out.println("Procesando petición...");
                 System.out.println("El límite de palabras se ha actualizado a [" + nombreDeParaulesHaRetornar + "]");
-                scLimit.close();
+                //scLimit.close();
                 break;
 
             case 8: //Done
