@@ -67,9 +67,9 @@ public class Main_2_LaVenganzaDelJamon {
 
         rTree.eliminacionEnRtree(p10);
         rTree.eliminacionEnRtree(p4);
-        rTree.eliminacionEnRtree(p5);
+        //rTree.eliminacionEnRtree(p5);
         rTree.eliminacionEnRtree(p13);
-        rTree.eliminacionEnRtree(p11);
+        //rTree.eliminacionEnRtree(p11);
         //System.out.println("Jaja si soy llo el shocu");
 
         rTree.visualizacionRTreeTerminal();

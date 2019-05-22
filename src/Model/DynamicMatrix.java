@@ -54,6 +54,23 @@ public class DynamicMatrix {
         }
     }
 
+    public Integer[] devolverVinculacionesUsuario (int idUser) {
+        int hola= 0 ;
+        int google = 0;
+        Integer [] resultado = new Integer[2000];
+        for (int u  =0; u < matriz[idUser].length; u++) {
+            for (int h = 0; h < 8; h++) {
+                if ((matriz[idUser][hola] & 1) == 1) {
+                    resultado[google] = h + (hola*8);
+                    google++;
+                }
+                matriz[idUser][hola] = (byte) (matriz[idUser][hola] >> 1);
+            }
+            hola++;
+        }
+        return resultado;
+    }
+
     public byte[][] getMatriz() {
         return matriz;
     }

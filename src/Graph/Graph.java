@@ -80,7 +80,6 @@ public class Graph {
     }
 
     // Va en orden 0 a 8 para CADA BYTE
-    //japapappaa
     public void guardarEnJSON () {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String s = gson.toJson(this);
@@ -99,5 +98,57 @@ public class Graph {
 
     public void setUsers(DynamicArrayUser users) {
         this.users = users;
+    }
+
+    public void hacerJSONUsuarios () {
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter("files/usersNew.json");
+            fw.write("[");
+            int i = 0;
+            int contador = 0;
+            while (i < users.getValores().length) {
+                if(users.getValores()[i] != null) {
+                    contador++;
+                }
+                i++;
+            }
+            i =0;
+            while (i < contador) {
+                    fw.write("{");
+                    User user_actual = users.buscarUserPorId(i);
+                    fw.write("\"username\": \"" + user_actual.getUsername() +"\",");
+                    fw.write("\"creation\":" + user_actual.getCreation() + ",");
+                    fw.write("\"toFollow\":[");
+                    Integer [] resultados = vinculaciones.devolverVinculacionesUsuario(i);
+                    int totalamijos =0 ;
+                    for (int w = 0; w < resultados.length;w++) {
+                        if (resultados[w] != null) {
+                            totalamijos++;
+                        }
+                    }
+                    for (int a = 0; a < totalamijos;a++) {
+                        User u = users.buscarUserPorId(resultados[a]);
+                        if (a == (totalamijos-1)) {
+                            fw.write("\""+ u.getUsername()+ "\"");
+                        }
+                        else {
+                            fw.write("\"" + u.getUsername()+ "\",");
+                        }
+                    }
+                if (i != (contador-1)) {
+                    fw.write("]},");
+                }
+                else {
+                    fw.write("]}");
+                }
+                i++;
+            }
+            fw.write("]");
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

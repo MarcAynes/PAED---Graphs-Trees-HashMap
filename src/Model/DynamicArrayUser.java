@@ -81,6 +81,9 @@ public class DynamicArrayUser {
         }
         return null;
     }
+    public User buscarUserPorId (int id) {
+        return valores[id].getUsuario();
+    }
 
 
     public PosicionUser[] getValores() {
