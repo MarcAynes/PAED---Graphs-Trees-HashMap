@@ -3,6 +3,11 @@ package Graph;
 import Model.DynamicArrayUser;
 import Model.DynamicMatrix;
 import Model.User;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Graph {
     private DynamicArrayUser users;
@@ -69,6 +74,20 @@ public class Graph {
         System.out.print("Username: " + u.getUsername()
                 + "\nFecha creación: " + u.getCreation()
                 + "\nUsuarios que sigue: ");
+    }
+
+    // Va en orden 0 a 8 para CADA BYTE
+    //japapappaa
+    public void guardarEnJSON () {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String s = gson.toJson(this);
+        try {
+            FileWriter fw = new FileWriter("files/graph.json");
+            fw.write(s);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
