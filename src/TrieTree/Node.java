@@ -208,6 +208,7 @@ public class Node implements trie {
 
         for (int i = 0; 36 > i; i++) {
             if (lletres[i] != null) {
+                lletres[i].mostrarPerTerminal(distancia);
             }
         }
     }
