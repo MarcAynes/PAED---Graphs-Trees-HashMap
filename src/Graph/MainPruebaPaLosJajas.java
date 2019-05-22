@@ -32,7 +32,7 @@ public class MainPruebaPaLosJajas {
 
         Graph graph = new Graph();
         graph.insertarJSON(users);
-        //graph.hacerJSONUsuarios();
+        graph.hacerJSONUsuarios();
         graph.visualizacionGraph();
 
 
