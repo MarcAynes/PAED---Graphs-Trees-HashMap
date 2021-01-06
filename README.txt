@@ -1,3 +1,16 @@
+The current project it's a university dutie. It's not clear without the project statment, but the code is interesting to read.
+
+The current project have implemented
+
+Graph
+binary tree (AVL)
+R-Tree
+trie tree
+Hashmap
+
+All the information printed it's not clear, and it's difficult to understand, without the project statement
+How to run it:
+
 =======================================================
 English
 
